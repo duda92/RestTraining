@@ -16,6 +16,12 @@ namespace RestTraining.Api
         {
             var container = new UnityContainer();
             container.RegisterType<IClientRepository, ClientRepository>();
+            container.RegisterType<IBoundedReservationsHotelRepository, BoundedReservationsHotelRepository>();
+            container.RegisterType<IFreeReservationsHotelRepository, FreeReservationsHotelRepository>();
+            container.RegisterType<IHotelRepository, HotelRepository>();
+            container.RegisterType<IHotelNumbersRepository, HotelNumbersRepository>();
+            container.RegisterType<IBoundedPeriodRepository, BoundedPeriodRepository>();
+            
             return container;
         }
     }

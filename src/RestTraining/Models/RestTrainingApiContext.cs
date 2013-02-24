@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using System.Linq;
 using RestTraining.Domain;
 
 namespace RestTraining.Api.Models
@@ -18,7 +19,46 @@ namespace RestTraining.Api.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<HotelNumber>().HasMany(x => x.WindowViews).WithOptional().WillCascadeOnDelete();
+            //modelBuilder.Entity<HotelNumber>().HasMany(x => x.IncludeItems).WithOptional().WillCascadeOnDelete();
             base.OnModelCreating(modelBuilder);
         }
+
+        public DbSet<Hotel> Hotels { get; set; }
+
+        public DbSet<BoundedReservationsHotel> BoundedReservationsHotels { get; set; }
+
+        public DbSet<FreeReservationsHotel> FreeReservationsHotels { get; set; }
+
+        public DbSet<HotelNumber> HotelNumbers { get; set; }
+
+        public DbSet<WindowView> WindowViews { get; set; }
+
+        public DbSet<IncludeItem> IncludeItems { get; set; }
+
+        public DbSet<BoundedPeriod> BoundedPeriods { get; set; }
+
+        public DbSet<Department> Departments { get; set; }
+
+        public void PreInsertOrUpdateHotel(Hotel hotel)
+        {
+            foreach (var hotelNumber in hotel.HotelNumbers)
+            {
+                PreInsertOrUpdateHotelNumber(hotelNumber);
+            }
+        }
+
+        public void PreInsertOrUpdateHotelNumber(HotelNumber hotelNumber)
+        {
+            for (var i = 0; i < hotelNumber.WindowViews.Count; i++)
+            {
+                var type = hotelNumber.WindowViews[i].Type;
+                var existedWindowView = WindowViews.SingleOrDefault(x => x.Type == type);
+                hotelNumber.WindowViews[i] = existedWindowView;
+            }
+        }
+
+
     }
+
 }

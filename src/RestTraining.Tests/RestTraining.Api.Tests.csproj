@@ -11,9 +11,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RestTraining.Api.Tests</RootNamespace>
     <AssemblyName>RestTraining.Api.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -105,9 +108,14 @@
   <ItemGroup>
     <Compile Include="Controllers\ClientsControllerFunctionalTests.cs" />
     <Compile Include="Controllers\ClientsControllerTests.cs" />
+    <Compile Include="Controllers\HotelsControllerFunctionalTests.cs" />
+    <Compile Include="Controllers\BoundedReservationsHotelsControllerFunctionalTests.cs" />
+    <Compile Include="Controllers\FreeReservationsHotelsControllerFunctionalTests.cs" />
+    <Compile Include="Controllers\HotelNumbersControllerFunctionalTests.cs" />
+    <Compile Include="Controllers\BoundedPeriodControllerFunctionalTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\ValuesControllerTest.cs" />
-    <Compile Include="Utils\RandomStringUtils.cs" />
+    <Compile Include="TestHelpers.cs" />
+    <Compile Include="Utils\RandomUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

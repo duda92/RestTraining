@@ -11,15 +11,27 @@ namespace RestTraining.Api
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "Test",
+                routeTemplate: "api/Hotels/{hotelId}/HotelNumbers/{id}",
+                defaults: new { controller = "HotelNumbers", id = RouteParameter.Optional }
             );
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            routes.MapHttpRoute(
+                name: "Periods",
+                routeTemplate: "api/BoundedReservations/{hotelId}/Periods/{id}",
+                defaults: new { controller = "BoundedPeriods", id = RouteParameter.Optional }
+            );
+            
+
+            routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional, hotelId = RouteParameter.Optional }
+            ); 
+            
+            routes.MapRoute( "Default5", "{controller}/{action}/{id}",
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "RestTraining.Api.Controllers" }
             );
         }
     }

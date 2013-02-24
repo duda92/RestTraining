@@ -1,9 +1,11 @@
-﻿namespace RestTraining.Domain
+﻿using System;
+
+namespace RestTraining.Domain
 {
     public enum HotelNumberType
     {
-        Single,
-        Double,
-        Twin
+        Single = 1,
+        Double = 2,
+        Twin = 3
     }
 }

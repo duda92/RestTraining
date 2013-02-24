@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTraining.Api", "RestTraining\RestTraining.Api.csproj", "{B48A2B47-906E-4B93-9CAA-AEE9B9F43A02}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTraining.Api.Tests", "RestTraining.Tests\RestTraining.Api.Tests.csproj", "{70AE65B8-D21F-4497-8874-ECC3A0ADA49A}"
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTraining.Web", "RestTraining.Web\RestTraining.Web.csproj", "{4897AC9F-2668-4938-84F0-F07E8FC07BC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTraining.Web.Tests", "RestTraining.Web.Tests\RestTraining.Web.Tests.csproj", "{41D8E65B-8466-44D5-8885-82803F2FB80D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{46C6BB73-0C3A-4EB2-A4A1-DC7CA974F7F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{41D8E65B-8466-44D5-8885-82803F2FB80D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41D8E65B-8466-44D5-8885-82803F2FB80D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41D8E65B-8466-44D5-8885-82803F2FB80D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46C6BB73-0C3A-4EB2-A4A1-DC7CA974F7F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46C6BB73-0C3A-4EB2-A4A1-DC7CA974F7F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46C6BB73-0C3A-4EB2-A4A1-DC7CA974F7F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46C6BB73-0C3A-4EB2-A4A1-DC7CA974F7F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
