@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -14,16 +10,35 @@ namespace RestTraining.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+            routes.MapRoute(
+                name: "Create HotelNumber",
+                url: "Hotels/{hotelId}/HotelNumbers/Create",
+                defaults: new { controller = "HotelNumbers", action = "Create" }
+            );
+
+            routes.MapRoute(
+                name: "Edit HotelNumbers",
+                url: "Hotels/{hotelId}/HotelNumbers/Edit/{id}",
+                defaults: new { controller = "HotelNumbers", action = "Edit" }
+            );
+
+            routes.MapRoute(
+                name: "Delete HotelNumbers",
+                url: "Hotels/{hotelId}/HotelNumbers/Delete/{id}",
+                defaults: new { controller = "HotelNumbers", action = "Delete" }
+            );
+
+            routes.MapRoute(
+                name: "HotelNumbers",
+                url: "Hotels/{hotelId}/HotelNumbers/{idfgdfgdfgd}",
+                defaults: new { controller = "HotelNumbers", action = "Index", idfgdfgdfgd = RouteParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "RestTraining.Web.Controllers" }
             );
         }
     }

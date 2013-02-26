@@ -10,14 +10,14 @@ namespace RestTraining.Web.Controllers
 {
 
     [Authorize]
-    public class AccountController : Controller
+    public partial class AccountController : Controller
     {
 
         //
         // GET: /Account/Login
 
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public virtual ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -28,7 +28,7 @@ namespace RestTraining.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public virtual ActionResult Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace RestTraining.Web.Controllers
         //
         // GET: /Account/LogOff
 
-        public ActionResult LogOff()
+        public virtual ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
 
@@ -68,7 +68,7 @@ namespace RestTraining.Web.Controllers
         // GET: /Account/Register
 
         [AllowAnonymous]
-        public ActionResult Register()
+        public virtual ActionResult Register()
         {
             return View();
         }
@@ -78,7 +78,7 @@ namespace RestTraining.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public virtual ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +104,7 @@ namespace RestTraining.Web.Controllers
         //
         // GET: /Account/ChangePassword
 
-        public ActionResult ChangePassword()
+        public virtual ActionResult ChangePassword()
         {
             return View();
         }
@@ -113,7 +113,7 @@ namespace RestTraining.Web.Controllers
         // POST: /Account/ChangePassword
 
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model)
+        public virtual ActionResult ChangePassword(ChangePasswordModel model)
         {
             if (ModelState.IsValid)
             {
@@ -148,7 +148,7 @@ namespace RestTraining.Web.Controllers
         //
         // GET: /Account/ChangePasswordSuccess
 
-        public ActionResult ChangePasswordSuccess()
+        public virtual ActionResult ChangePasswordSuccess()
         {
             return View();
         }

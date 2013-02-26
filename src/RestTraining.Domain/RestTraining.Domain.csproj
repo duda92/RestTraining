@@ -34,7 +34,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,7 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Booking.cs" />
+    <Compile Include="BoundedPeriod.cs" />
+    <Compile Include="BoundedReservationsHotel.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="FreeReservationsHotel.cs" />
+    <Compile Include="Hotel.cs" />
+    <Compile Include="HotelNumber.cs" />
+    <Compile Include="HotelNumberType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowViewType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

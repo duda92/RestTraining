@@ -11,6 +11,13 @@ namespace RestTraining.Api
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapHttpRoute(
+                name: "Booking",
+                routeTemplate: "api/Booking/FreeReservations/{hotelId}/{id}",
+                defaults: new { controller = "FreeReservationsBooking", id = RouteParameter.Optional }
+            );
+
+            
+            routes.MapHttpRoute(
                 name: "Test",
                 routeTemplate: "api/Hotels/{hotelId}/HotelNumbers/{id}",
                 defaults: new { controller = "HotelNumbers", id = RouteParameter.Optional }
@@ -22,7 +29,6 @@ namespace RestTraining.Api
                 defaults: new { controller = "BoundedPeriods", id = RouteParameter.Optional }
             );
             
-
             routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

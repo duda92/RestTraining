@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using RestTraining.Domain;
-using RestTraining.Api.Models;
+using RestTraining.Api.DTO;
+using RestTraining.Api.Domain.Entities;
+using RestTraining.Api.Domain.Repositories;
 
 namespace RestTraining.Api.Controllers
 {   
@@ -17,24 +19,22 @@ namespace RestTraining.Api.Controllers
 			_clientRepository = clientRepository;
         }
 
-        // GET api/Clients
-        public List<Client> Get()
+        public List<ClientDTO> Get()
         {
-            return _clientRepository.All;
+            var clients = _clientRepository.All.ToList();
+            return clients.Select(x => x.ToDTO()).ToList();
         }
 
-        // GET api/Clients/5
-        public Client Get(int id)
+        public ClientDTO Get(int id)
         {
             var client = _clientRepository.Find(id);
             if (client == null)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            } 
-            return _clientRepository.Find(id);
+            }
+            return client.ToDTO();
         }
 
-        // DELETE api/values/5
         public void Delete(int id)
         {
             var client = _clientRepository.Find(id);
@@ -46,32 +46,31 @@ namespace RestTraining.Api.Controllers
             _clientRepository.Save();
         }
         
-        // POST api/values
-        //public HttpResponseMessage Post([ModelBinder(typeof(CustomPersonModelBinderProvider))]Client client)
-        public HttpResponseMessage Post(Client client)
+        public HttpResponseMessage Post(ClientDTO clientDTO)
         {
             if (!ModelState.IsValid)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
             }
+            var client = clientDTO.ToEntity();
             _clientRepository.InsertOrUpdate(client);
             _clientRepository.Save();
-            var response = Request.CreateResponse(HttpStatusCode.Created, client);
+            var response = Request.CreateResponse(HttpStatusCode.Created, client.ToDTO());
             string uri = Url.Route(null, new { id = client.Id });
             response.Headers.Location = new Uri(Request.RequestUri, uri);
             return response;
         }
 
-        // PUT api/Clients/5
-        public HttpResponseMessage Put(Client client)
+        public HttpResponseMessage Put(ClientDTO clientDTO)
         {
             if (!ModelState.IsValid)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
             }
+            var client = clientDTO.ToEntity();
             _clientRepository.InsertOrUpdate(client);
             _clientRepository.Save();
-            var response = Request.CreateResponse(HttpStatusCode.OK, client);
+            var response = Request.CreateResponse(HttpStatusCode.OK, client.ToDTO());
             string uri = Url.Route(null, new { id = client.Id });
             response.Headers.Location = new Uri(Request.RequestUri, uri);
             return response;

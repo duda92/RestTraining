@@ -1,5 +1,4 @@
 ﻿using System;
-using RestTraining.Domain;
 
 namespace RestTraining.Api.Tests.Utils
 {

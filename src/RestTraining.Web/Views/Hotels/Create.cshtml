@@ -1,0 +1,43 @@
+﻿@using RestTraining.Api.DTO
+@model HotelDTO
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Hotel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Reservation type")
+        </div>
+        <div class="editor-field">
+            @{
+                var types = from HotelDTO.TypeDescriminator d in Enum.GetValues(typeof(HotelDTO.TypeDescriminator))
+                                 select new {ID = (int) d, Name = d.ToString()};
+                var list = new SelectList(types, "ID", "Name");
+                @Html.DropDownListFor(model => model.Type, list);
+            }
+            @Html.ValidationMessageFor(model => model.Type)
+            
+        </div>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}

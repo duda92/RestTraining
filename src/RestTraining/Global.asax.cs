@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using RestTraining.Api.Models;
+using RestTraining.Api.Domain;
+using RestTraining.Api.Domain.Entities;
+using RestTraining.Api.Domain.Repositories;
+using RestTraining.Api.Domain.Services;
+using RestTraining.Api.Infrastructure;
 using RestTraining.Domain;
-using RestTraining.Web;
 
 namespace RestTraining.Api
 {
@@ -17,7 +18,6 @@ namespace RestTraining.Api
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Database.SetInitializer(new DbInitializer());
@@ -37,9 +37,9 @@ namespace RestTraining.Api
 
         private void InitializingByTestValues(RestTrainingApiContext context)
         {
-            context.WindowViews.Add(new WindowView() { Type = WindowViewType.Pool});
-            context.WindowViews.Add(new WindowView() { Type = WindowViewType.Sea });
-            context.WindowViews.Add(new WindowView() { Type = WindowViewType.Trash });
+            context.WindowViews.Add(new WindowView { Type = WindowViewType.Pool});
+            context.WindowViews.Add(new WindowView { Type = WindowViewType.Sea });
+            context.WindowViews.Add(new WindowView { Type = WindowViewType.Trash });
             context.SaveChanges();
 
             IClientRepository repository = new ClientRepository();
@@ -55,10 +55,10 @@ namespace RestTraining.Api
                         new HotelNumber
                             {
                                 HotelNumberType = HotelNumberType.Double,
-                                IncludeItems = new List<IncludeItem>
+                                IncludeItems = new List<IncludedItem>
                                     {
-                                        new IncludeItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner },
-                                        new IncludeItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner }
+                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner },
+                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner }
                                     },
                                     WindowViews = new List<WindowView>
                                         {
@@ -78,10 +78,10 @@ namespace RestTraining.Api
                         new HotelNumber
                             {
                                 HotelNumberType = HotelNumberType.Double,
-                                IncludeItems = new List<IncludeItem>
+                                IncludeItems = new List<IncludedItem>
                                     {
-                                        new IncludeItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner },
-                                        new IncludeItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner }
+                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner },
+                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner }
                                     },
                                     WindowViews = new List<WindowView>
                                         {
@@ -91,15 +91,14 @@ namespace RestTraining.Api
                             }
                     }
             };
-            IBoundedReservationsHotelRepository boundedReservationsHotelRepository = new BoundedReservationsHotelRepository();
+            IBoundedReservationsHotelRepository boundedReservationsHotelRepository = new BoundedReservationsHotelRepository(new HotelNumbersUpdateService());
             boundedReservationsHotelRepository.InsertOrUpdate(boundedReservationsHotel);
             boundedReservationsHotelRepository.Save();
 
-            IFreeReservationsHotelRepository freeReservationsHotelRepository = new FreeReservationsHotelRepository();
+            IFreeReservationsHotelRepository freeReservationsHotelRepository = new FreeReservationsHotelRepository(new HotelNumbersUpdateService());
             freeReservationsHotelRepository.InsertOrUpdate(freeReservationsHotel);
             freeReservationsHotelRepository.Save();
 
-            context.Departments.Add(new Department() { Property = "test", Names = new List<DepartmentName>(){ DepartmentName.Russian, DepartmentName.English } });
             context.SaveChanges();
         }
 

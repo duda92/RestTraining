@@ -1,6 +1,7 @@
 using System.Web.Http;
 using Microsoft.Practices.Unity;
-using RestTraining.Api.Models;
+using RestTraining.Api.Domain.Repositories;
+using RestTraining.Api.Domain.Services;
 
 namespace RestTraining.Api
 {
@@ -21,7 +22,10 @@ namespace RestTraining.Api
             container.RegisterType<IHotelRepository, HotelRepository>();
             container.RegisterType<IHotelNumbersRepository, HotelNumbersRepository>();
             container.RegisterType<IBoundedPeriodRepository, BoundedPeriodRepository>();
-            
+            container.RegisterType<IHotelNumbersUpdateService, HotelNumbersUpdateService>();
+            container.RegisterType<IBookingDatesService, BookingDatesService>();
+            container.RegisterType<IFreeBookingRepository, FreeBookingRepository>();
+
             return container;
         }
     }

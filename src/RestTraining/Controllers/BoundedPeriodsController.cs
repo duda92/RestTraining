@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using RestTraining.Api.Models;
+using RestTraining.Api.DTO;
+using RestTraining.Api.Domain.Entities;
+using RestTraining.Api.Domain.Repositories;
 
 namespace RestTraining.Api.Controllers
 {
@@ -19,18 +21,19 @@ namespace RestTraining.Api.Controllers
             _boundedReservationsHotelRepository = boundedReservationsHotelRepository;
         }
 
-        public List<BoundedPeriod> Get(int hotelId)
+        public List<BoundedPeriodDTO> Get(int hotelId)
         {
-            return _boundedPeriodRepository.All.Where(x => x.BoundedReservationsHotelId == hotelId).ToList();
+            var boundedPeriods = _boundedPeriodRepository.All.Where(x => x.BoundedReservationsHotelId == hotelId).ToList();
+            return boundedPeriods.Select(x => x.ToDTO()).ToList();
         }
 
-        public BoundedPeriod Get(int hotelId, int id)
+        public BoundedPeriodDTO Get(int hotelId, int id)
         {
             return
-                _boundedPeriodRepository.All.SingleOrDefault(x => x.BoundedReservationsHotelId == hotelId && x.Id == id);
+                _boundedPeriodRepository.All.SingleOrDefault(x => x.BoundedReservationsHotelId == hotelId && x.Id == id).ToDTO();
         }
 
-        public HttpResponseMessage Post(int hotelId, [FromBody]BoundedPeriod boundedPeriod)
+        public HttpResponseMessage Post(int hotelId, [FromBody]BoundedPeriodDTO boundedPeriodDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -40,7 +43,8 @@ namespace RestTraining.Api.Controllers
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
-            boundedPeriod.BoundedReservationsHotelId = hotelId;
+            boundedPeriodDTO.BoundedReservationsHotelId = hotelId;
+            var boundedPeriod = boundedPeriodDTO.ToEntity();
             try
             {
                 _boundedPeriodRepository.InsertOrUpdate(boundedPeriod);
@@ -50,22 +54,23 @@ namespace RestTraining.Api.Controllers
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict));
             }
-            var response = Request.CreateResponse(HttpStatusCode.Created, boundedPeriod);
+            var response = Request.CreateResponse(HttpStatusCode.Created, boundedPeriod.ToDTO());
             string uri = Url.Route(null, new { id = boundedPeriod.Id });
             response.Headers.Location = new Uri(Request.RequestUri, uri);
             return response;
         }
 
-        public HttpResponseMessage Put([FromBody]BoundedPeriod boundedPeriod)
+        public HttpResponseMessage Put([FromBody]BoundedPeriodDTO boundedPeriodDTO)
         {
             if (!ModelState.IsValid)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
             }
-            if (_boundedPeriodRepository.Find(boundedPeriod.Id) == null)
+            if (_boundedPeriodRepository.Find(boundedPeriodDTO.Id) == null)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
+            var boundedPeriod = boundedPeriodDTO.ToEntity();
             try
             {
                 _boundedPeriodRepository.InsertOrUpdate(boundedPeriod);
@@ -75,7 +80,7 @@ namespace RestTraining.Api.Controllers
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict));
             }
-            var response = Request.CreateResponse(HttpStatusCode.OK, boundedPeriod);
+            var response = Request.CreateResponse(HttpStatusCode.OK, boundedPeriod.ToDTO());
             string uri = Url.Route(null, new { id = boundedPeriod.Id });
             response.Headers.Location = new Uri(Request.RequestUri, uri);
             return response;
@@ -83,14 +88,14 @@ namespace RestTraining.Api.Controllers
 
         public HttpResponseMessage Delete(int id)
         {
-            var hotel = _boundedPeriodRepository.Find(id);
-            if (hotel == null)
+            var boundedPeriod = _boundedPeriodRepository.Find(id);
+            if (boundedPeriod == null)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
             _boundedPeriodRepository.Delete(id);
             _boundedPeriodRepository.Save();
-            var response = Request.CreateResponse(HttpStatusCode.OK, hotel);
+            var response = Request.CreateResponse(HttpStatusCode.OK, boundedPeriod.ToDTO());
             return response;
         }
 

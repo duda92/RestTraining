@@ -4,8 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using RestTraining.Api.Models;
-using RestTraining.Domain;
+using RestTraining.Api.DTO;
+using RestTraining.Api.Domain.Entities;
+using RestTraining.Api.Domain.Repositories;
 
 namespace RestTraining.Api.Controllers
 {
@@ -18,44 +19,47 @@ namespace RestTraining.Api.Controllers
             _boundedReservationsHotelRepository = boundedReservationsHotelRepository;
         }
 
-        public List<BoundedReservationsHotel> Get()
+        public List<BoundedReservationsHotelDTO> Get()
         {
-            return _boundedReservationsHotelRepository.All.ToList();
+            var hotels = _boundedReservationsHotelRepository.All.ToList();
+            return hotels.Select(x => x.ToDTO()).ToList();
         }
 
-        public BoundedReservationsHotel Get(int id)
+        public BoundedReservationsHotelDTO Get(int id)
         {
             var hotel = _boundedReservationsHotelRepository.Find(id);
             if (hotel == null)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
-            return hotel;
+            return hotel.ToDTO();
         }
 
-        public HttpResponseMessage Post([FromBody]BoundedReservationsHotel hotel)
+        public HttpResponseMessage Post([FromBody]BoundedReservationsHotelDTO hotelDTO)
         {
             if (!ModelState.IsValid)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
-            } 
+            }
+            var hotel = hotelDTO.ToEntity();
             _boundedReservationsHotelRepository.InsertOrUpdate(hotel);
             _boundedReservationsHotelRepository.Save();
-            var response = Request.CreateResponse(HttpStatusCode.Created, hotel);
+            var response = Request.CreateResponse(HttpStatusCode.Created, hotel.ToDTO());
             string uri = Url.Route(null, new { id = hotel.Id });
             response.Headers.Location = new Uri(Request.RequestUri, uri);
             return response;
         }
 
-        public HttpResponseMessage Put([FromBody]BoundedReservationsHotel hotel)
+        public HttpResponseMessage Put([FromBody]BoundedReservationsHotelDTO hotelDTO)
         {
             if (!ModelState.IsValid)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
-            } 
+            }
+            var hotel = hotelDTO.ToEntity();
             _boundedReservationsHotelRepository.InsertOrUpdate(hotel);
             _boundedReservationsHotelRepository.Save();
-            var response = Request.CreateResponse(HttpStatusCode.OK, hotel);
+            var response = Request.CreateResponse(HttpStatusCode.OK, hotel.ToDTO());
             string uri = Url.Route(null, new { id = hotel.Id });
             response.Headers.Location = new Uri(Request.RequestUri, uri);
             return response;
@@ -70,7 +74,7 @@ namespace RestTraining.Api.Controllers
             }
             _boundedReservationsHotelRepository.Delete(id);
             _boundedReservationsHotelRepository.Save();
-            var response = Request.CreateResponse(HttpStatusCode.OK, hotel);
+            var response = Request.CreateResponse(HttpStatusCode.OK, hotel.ToDTO());
             return response;
         }
 

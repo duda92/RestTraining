@@ -1,0 +1,24 @@
+﻿@model List<RestTraining.Api.DTO.HotelDTO>
+
+@{
+    ViewBag.Title = "All hotels";
+}
+
+<h2>All hotels</h2>
+
+<div class="actions">
+    @Html.ActionLink("Add", MVC.Hotels.Create())
+</div>
+<ul>
+    @foreach (var hotel in @Model)
+    {
+        <li>
+            <div class="hotel">
+                @hotel.Title
+                @Html.ActionLink("Delete", MVC.Hotels.Delete(hotel.Id))
+                @Html.ActionLink("Edit", MVC.Hotels.Edit(hotel.Id))
+            </div>
+        </li>
+    }
+</ul>
+

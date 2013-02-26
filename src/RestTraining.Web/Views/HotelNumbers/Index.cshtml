@@ -1,0 +1,35 @@
+﻿@model List<RestTraining.Api.DTO.HotelNumberDTO>
+
+@Html.ActionLink("Add", MVC.HotelNumbers.Create((int)ViewBag.hotelId))
+
+<ul>
+    @for (int index = 0; index < Model.Count; index++)
+    {
+        var hotelNumber = Model[index];
+        <li>
+            <div class="hotel-number-description">
+                #@index
+                @Html.ActionLink("Edit", MVC.HotelNumbers.Edit((int)ViewBag.hotelId, hotelNumber.Id ))
+                @Html.ActionLink("Delete", MVC.HotelNumbers.Delete((int)ViewBag.hotelId, hotelNumber.Id ))
+                <h3>Number includes:</h3>
+                <ul>
+                    @foreach (var include in hotelNumber.IncludeItems)
+                    {
+                        <li>
+                            @include.IncludeItemType.ToString()
+                        </li>    
+                    }
+                </ul>
+                <h3>Window views:</h3>
+                <ul>
+                    @foreach (var windowView in hotelNumber.WindowViews)
+                    {
+                        <li>
+                            @windowView.ToString()
+                        </li>    
+                    }
+                </ul>
+            </div>
+        </li>
+    }
+</ul>

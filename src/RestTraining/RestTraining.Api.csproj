@@ -56,6 +56,9 @@
     <Reference Include="Microsoft.Practices.Unity.Configuration">
       <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -146,35 +149,62 @@
     <Compile Include="Controllers\BoundedPeriodsController.cs" />
     <Compile Include="Controllers\BoundedReservationsHotelsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\FreeReservationsBookingController.cs" />
     <Compile Include="Controllers\FreeReservationsHotelsController.cs" />
     <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelNumbersController.cs" />
-    <Compile Include="JsonMediaTypeFormatter.cs" />
-    <Compile Include="Infrastructure\Class1.cs" />
-    <Compile Include="Models\BoundedPeriod.cs" />
-    <Compile Include="Models\BoundedPeriodRepository.cs" />
-    <Compile Include="Models\BoundedReservationsHotelRepository.cs" />
-    <Compile Include="Models\Client.cs" />
+    <Compile Include="Domain\Entities\BoundedBooking.cs" />
+    <Compile Include="Domain\Entities\FreeBooking.cs" />
+    <Compile Include="Domain\Entities\IncludedItem.cs" />
+    <Compile Include="Domain\Entities\WindowView.cs" />
+    <Compile Include="Domain\Repositories\BoundedBookingRepository.cs" />
+    <Compile Include="Domain\Repositories\BoundedPeriodRepository.cs" />
+    <Compile Include="Domain\Repositories\BoundedReservationsHotelRepository.cs" />
+    <Compile Include="Domain\Repositories\ClientRepository.cs" />
+    <Compile Include="Domain\Repositories\FreeBookingRepository.cs" />
+    <Compile Include="Domain\Repositories\FreeReservationsHotelRepository.cs" />
+    <Compile Include="Domain\Repositories\HotelNumbersRepository.cs" />
+    <Compile Include="Domain\Repositories\HotelRepository.cs" />
+    <Compile Include="Domain\Repositories\IBoundedBookingRepository.cs" />
+    <Compile Include="Domain\Repositories\IBoundedPeriodRepository.cs" />
+    <Compile Include="Domain\Repositories\IBoundedReservationsHotelRepository.cs" />
+    <Compile Include="Domain\Repositories\IClientRepository.cs" />
+    <Compile Include="Domain\Repositories\IFreeBookingRepository.cs" />
+    <Compile Include="Domain\Repositories\IFreeReservationsHotelRepository.cs" />
+    <Compile Include="Domain\Repositories\IHotelNumbersRepository.cs" />
+    <Compile Include="Domain\Repositories\IHotelRepository.cs" />
+    <Compile Include="Domain\Services\HotelNumbersUpdateService.cs" />
+    <Compile Include="Domain\Services\IBookingDatesService.cs" />
+    <Compile Include="Domain\Services\IHotelNumbersUpdateService.cs" />
+    <Compile Include="DTO\BoundedBookingDTO.cs" />
+    <Compile Include="DTO\BoundedPeriodDTO.cs" />
+    <Compile Include="DTO\BoundedReservationsHotelDTO.cs" />
+    <Compile Include="DTO\ClientDTO.cs" />
+    <Compile Include="DTO\DTOMapperExtensions.cs" />
+    <Compile Include="DTO\FreeBookingDTO.cs" />
+    <Compile Include="DTO\FreeReservationsHotelDTO.cs" />
+    <Compile Include="DTO\HotelDTO.cs" />
+    <Compile Include="DTO\HotelNumberDTO.cs" />
+    <Compile Include="DTO\IncludedItemDTO.cs" />
+    <Compile Include="Infrastructure\JsonMediaTypeFormatter.cs" />
+    <Compile Include="Infrastructure\InvalidBookingException.cs" />
+    <Compile Include="Domain\Entities\Booking.cs" />
+    <Compile Include="Domain\Services\BookingDatesService.cs" />
+    <Compile Include="Domain\Entities\BoundedPeriod.cs" />
+    <Compile Include="Domain\Entities\BoundedReservationsHotel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ClientRepository.cs" />
-    <Compile Include="Models\FreeReservationsHotel.cs" />
-    <Compile Include="Models\FreeReservationsHotelRepository.cs" />
-    <Compile Include="Models\Hotel.cs" />
-    <Compile Include="Models\HotelNumber.cs" />
-    <Compile Include="Models\HotelNumbersRepository.cs" />
-    <Compile Include="Models\HotelNumberType.cs" />
-    <Compile Include="Models\HotelNumberWindowsView.cs" />
-    <Compile Include="Models\HotelRepository.cs" />
-    <Compile Include="Models\Image.cs" />
-    <Compile Include="Models\IncludeItemType.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\BoundedReservationsHotel.cs" />
-    <Compile Include="Models\RestTrainingApiContext.cs" />
-    <Compile Include="Models\Test.cs" />
-    <Compile Include="Models\WindowViewType.cs" />
+    <Compile Include="Domain\Entities\Client.cs" />
+    <Compile Include="Domain\Entities\FreeReservationsHotel.cs" />
+    <Compile Include="Domain\Entities\Hotel.cs" />
+    <Compile Include="Domain\Entities\HotelNumber.cs" />
+    <Compile Include="Domain\Entities\HotelNumberType.cs" />
+    <Compile Include="Domain\Entities\IncludeItemType.cs" />
+    <Compile Include="Domain\RestTrainingApiContext.cs" />
+    <Compile Include="Domain\Entities\WindowViewType.cs" />
+    <Compile Include="JsonRequestExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -267,12 +297,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RestTraining.Web\RestTraining.Web.csproj">
-      <Project>{4897AC9F-2668-4938-84F0-F07E8FC07BC3}</Project>
-      <Name>RestTraining.Web</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
