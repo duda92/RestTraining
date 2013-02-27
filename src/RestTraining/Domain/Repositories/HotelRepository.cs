@@ -11,7 +11,7 @@ namespace RestTraining.Api.Domain.Repositories
     public class HotelRepository : IHotelRepository
     {
         readonly RestTrainingApiContext _context = new RestTrainingApiContext();
-        private IHotelNumbersUpdateService _hotelNumbersUpdateService;
+        private readonly IHotelNumbersUpdateService _hotelNumbersUpdateService;
 
         public HotelRepository(IHotelNumbersUpdateService hotelNumbersUpdateService)
         {

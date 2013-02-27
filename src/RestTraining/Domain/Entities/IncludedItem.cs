@@ -7,5 +7,7 @@
         public IncludeItemType IncludeItemType { get; set; }
 
         public int Count { get; set; }
+
+        public int HotelNumberId { get; set; }
     }
 }
