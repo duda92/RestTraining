@@ -1,0 +1,10 @@
+﻿@model RestTraining.Api.DTO.IncludedItemDTO
+@{
+    Layout = null;
+}
+<div class="include-item">
+    @Html.EditorFor(x => x.IncludeItemType, "IncludeItemType")
+    @Html.EditorFor(x => x.Count)
+    <a href="#" onclick="removeItem(this); return false;"> remove</a>
+</div>
+

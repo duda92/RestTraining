@@ -1,0 +1,19 @@
+﻿@using RestTraining.Domain
+@model HotelNumberType
+
+@{
+    Layout = null;
+}
+
+<div class="editor-label">
+            @Html.Label("Hotel number type")
+        </div>
+        <div class="editor-field">
+            @{
+                var types = from HotelNumberType d in Enum.GetValues(typeof(HotelNumberType))
+                                 select new {Id = (int) d, Name = d.ToString()};
+                var list = new SelectList(types, "Id", "Name");
+                @Html.DropDownListFor(model => model, list)
+            }
+            @Html.ValidationMessageFor(model => model)
+        </div>

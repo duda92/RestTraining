@@ -1,5 +1,6 @@
-﻿@using RestTraining.Domain
-@model RestTraining.Api.DTO.HotelNumberDTO
+﻿@using RestTraining.Api.DTO
+@using RestTraining.Api.Domain.Entities
+@model HotelNumberDTO
 
 <h2>Edit hotel number</h2>
 
@@ -10,36 +11,17 @@
     
     <fieldset>
         <legend>Hotel number</legend>
-      
-        <div class="editor-label">
-            @Html.Label("Hotel number type")
-        </div>
-        <div class="editor-field">
-            @{
-                var types = from HotelNumberType d in Enum.GetValues(typeof(HotelNumberType))
-                                 select new {Id = (int) d, Name = d.ToString()};
-                var list = new SelectList(types, "Id", "Name");
-                @Html.DropDownListFor(model => model.HotelNumberType, list);
-            }
-            @Html.ValidationMessageFor(model => model.HotelNumberType)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.WindowViews)
-        </div>
-    <div class="editor-field">
-        @{
-            var windowViewTypes = (from WindowViewType d in Enum.GetValues(typeof(WindowViewType))
-                        select new { Id = (int) d, Name = d.ToString()}).ToList();
-            var windowViewTypesList = new SelectList(windowViewTypes, "Id", "Name");
-            
-            @Html.ListBoxFor(model => model.WindowViews, windowViewTypesList, new { Multiple = "multiple" });
-        }
-        @Html.ValidationMessageFor(model => model.WindowViews)
-        </div>
-
+            @Html.EditorFor(x => x.IncludeItems, "IncludeItemList")
+            @Html.EditorFor(x => x.HotelNumberType, "HotelNumberType")
+            @Html.EditorFor(x => x.WindowViews, "WindowViewTypeList")
         <p>
             <input type="submit" value="Save" />
         </p>
     </fieldset>
 }
+<div class="include-item-source" style="display: none">
+        @{
+            var hidden = new IncludedItemDTO { Count = 1,  IncludeItemType = IncludeItemType.AirConditioner };
+        }
+        @Html.EditorFor(x => hidden, "IncludeItem", "IncludeItem")
+</div>

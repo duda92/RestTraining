@@ -1,0 +1,33 @@
+﻿@using RestTraining.Api.DTO
+@model List<IncludedItemDTO>
+
+@{
+    Layout = null;
+}
+
+<h3>Include items</h3>
+<div class="include-items">
+    @foreach (var item in Model)
+    {
+        <div class="include-item">
+            @Html.EditorFor(x => item, "IncludeItem")
+        </div>
+    }
+</div>
+
+<a href="#" onclick=" createItem(); return false;">Add</a>
+
+<script>
+    function removeItem(element) {
+        element.parentNode.parentNode.removeChild(element.parentNode);
+    }
+</script>
+
+<script type="text/javascript">
+    function createItem() 
+    {
+        var emptyForm = $(".include-item-source").first().clone();
+        emptyForm.css("display", "block");
+        $(".include-items").append(emptyForm);
+    }
+</script>
