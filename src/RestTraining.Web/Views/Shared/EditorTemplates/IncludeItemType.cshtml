@@ -6,15 +6,6 @@
     Layout = null;
 }
 
-@*@{
-    
-        var types = from IncludeItemType d in Enum.GetValues(typeof(IncludeItemType))
-                    select new { Id = (int) d, Name = d.ToString()};
-        var list = new SelectList(types, "Id", "Name");
-        @Html.DropDownListFor(model => model, list, new { id = "type" })
-        //@Html.DropDownListFor(model => model, new SelectList(Enum.GetValues(typeof(IncludeItemType))), "Please select a type")
-}*@
-
 @Html.EnumDropDownListFor(model => model, Model)
     
 @Html.ValidationMessageFor(model => model)

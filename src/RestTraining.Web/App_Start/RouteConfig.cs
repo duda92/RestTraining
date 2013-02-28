@@ -11,6 +11,30 @@ namespace RestTraining.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "BoundedPeriods List",
+                url: "BoundedPeriods/{hotelId}/",
+                defaults: new { controller = "BoundedPeriods", action = "Index" }
+            );
+            
+            routes.MapRoute(
+                name: "Create BoundedPeriod",
+                url: "BoundedPeriods/{hotelId}/Create",
+                defaults: new { controller = "BoundedPeriods", action = "Create" }
+            );
+
+            routes.MapRoute(
+                name: "Edit BoundedPeriod",
+                url: "BoundedPeriods/{hotelId}/Edit/{id}",
+                defaults: new { controller = "BoundedPeriods", action = "Edit" }
+            );
+
+            routes.MapRoute(
+                name: "Delete BoundedPeriod",
+                url: "BoundedPeriods/{hotelId}/Delete/{id}",
+                defaults: new { controller = "BoundedPeriods", action = "Edit" }
+            );
+
+            routes.MapRoute(
                 name: "Create HotelNumber",
                 url: "Hotels/{hotelId}/HotelNumbers/Create",
                 defaults: new { controller = "HotelNumbers", action = "Create" }

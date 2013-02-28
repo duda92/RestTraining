@@ -146,14 +146,10 @@ namespace RestTraining.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Create = "Create";
-                public readonly string Details = "Details";
-                public readonly string Edit = "Edit";
+                public readonly string EditOrCreate = "EditOrCreate";
                 public readonly string Index = "Index";
             }
-            public readonly string Create = "~/Views/HotelNumbers/Create.cshtml";
-            public readonly string Details = "~/Views/HotelNumbers/Details.cshtml";
-            public readonly string Edit = "~/Views/HotelNumbers/Edit.cshtml";
+            public readonly string EditOrCreate = "~/Views/HotelNumbers/EditOrCreate.cshtml";
             public readonly string Index = "~/Views/HotelNumbers/Index.cshtml";
         }
     }

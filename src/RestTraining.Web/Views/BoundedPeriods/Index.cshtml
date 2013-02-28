@@ -1,0 +1,17 @@
+﻿@using RestTraining.Web
+@model List<RestTraining.Api.DTO.BoundedPeriodDTO>
+
+@{
+    var _viewDateProvider = new ViewDataProviderForView(this);
+}
+
+@Html.ActionLink("Add", MVC.BoundedPeriods.Create(_viewDateProvider.HotelId))
+
+@for (int index = 0; index < Model.Count; index++)
+{
+    var period = Model[index];
+    <h3>@(index + 1)</h3>
+    <h3>
+        from @period.BeginDate to @period.EndDate
+    </h3>
+}

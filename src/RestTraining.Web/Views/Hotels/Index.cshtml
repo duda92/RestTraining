@@ -1,4 +1,5 @@
-﻿@model List<RestTraining.Api.DTO.HotelDTO>
+﻿@using RestTraining.Api.DTO
+@model List<HotelDTO>
 
 @{
     ViewBag.Title = "All hotels";
@@ -17,6 +18,10 @@
                 @hotel.Title
                 @Html.ActionLink("Delete", MVC.Hotels.Delete(hotel.Id))
                 @Html.ActionLink("Edit", MVC.Hotels.Edit(hotel.Id))
+                @if (hotel.Type == HotelDTO.TypeDescriminator.Bounded)
+                {
+                    @Html.ActionLink("View Bounded Periods", MVC.BoundedPeriods.Index(hotel.Id))
+                }
             </div>
         </li>
     }

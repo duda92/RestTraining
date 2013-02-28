@@ -9,9 +9,8 @@ using RestTraining.Domain;
 
 namespace RestTraining.Web.Controllers
 {
-    public partial class HotelNumbersController : Controller
+    public partial class HotelNumbersController : ControllerBase
     {
-        public const string BaseUrl = "http://localhost.:9075";
         public const string Resource = "/api/Hotels/{0}/HotelNumbers/";
 
         public virtual ActionResult Index(int hotelId)
@@ -24,14 +23,14 @@ namespace RestTraining.Web.Controllers
         [HttpGet]
         public virtual ActionResult Create(int hotelId)
         {
-            return View(new HotelNumberDTO());
+            return View(MVC.HotelNumbers.Views.EditOrCreate, new HotelNumberDTO());
         }
         
         [HttpPost]
         public virtual ActionResult Create(int hotelId, HotelNumberDTO hotelNumber)
         {
             if (!ModelState.IsValid)
-                return View(hotelNumber);
+                return View(MVC.HotelNumbers.Views.EditOrCreate, hotelNumber);
             JsonRequestExecutor.ExecutePost(hotelNumber, BaseUrl, string.Format(Resource, hotelId));
             return RedirectToAction(MVC.HotelNumbers.Index(hotelId));
         }
@@ -40,14 +39,14 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Edit(int hotelId, int id)
         {
             var hotelNumber = JsonRequestExecutor.ExecuteGet<HotelNumberDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, id));
-            return View(hotelNumber);
+            return View(MVC.HotelNumbers.Views.EditOrCreate, hotelNumber);
         }
 
         [HttpPost]
         public virtual ActionResult Edit(int hotelId, HotelNumberDTO hotelNumber)
         {
             if (!ModelState.IsValid)
-                return View(hotelNumber);
+                return View(MVC.HotelNumbers.Views.EditOrCreate, hotelNumber);
             JsonRequestExecutor.ExecutePut(hotelNumber, BaseUrl, string.Format(Resource, hotelId));
             return RedirectToAction(MVC.HotelNumbers.Index(hotelId));
         }
@@ -116,7 +115,7 @@ namespace RestTraining.Web.Controllers
             try
             {
                 var hotelNumberTypeParam = bindingContext.ValueProvider.GetValue("HotelNumberType").AttemptedValue;
-                var hotelNumberType = (HotelNumberType)Int32.Parse(hotelNumberTypeParam);
+                var hotelNumberType = (HotelNumberType)Enum.Parse(typeof(HotelNumberType), hotelNumberTypeParam);
                 hotelNumberDTO.HotelNumberType = hotelNumberType;
             }
             catch (Exception e)

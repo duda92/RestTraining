@@ -46,6 +46,10 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RestSharp, Version=104.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RestTraining\bin\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -138,7 +142,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BoundedPeriodsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ControllerBase.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BoundedPeriodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelNumbersController.cs" />
     <Compile Include="Controllers\HotelsController.cs" />
@@ -170,6 +180,7 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="ViewUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -278,16 +289,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Hotels\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Hotels\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Hotels\Edit.cshtml" />
+    <Content Include="Views\Hotels\EditOrCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="T4MVC.tt.hooks.t4" />
@@ -296,13 +301,7 @@
     <Content Include="Views\HotelNumbers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\HotelNumbers\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\HotelNumbers\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\HotelNumbers\Create.cshtml" />
+    <Content Include="Views\HotelNumbers\EditOrCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Hotels\Delete.cshtml" />
@@ -321,6 +320,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\IncludeItemList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\BoundedPeriods\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\BoundedPeriods\EditOrCreate.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

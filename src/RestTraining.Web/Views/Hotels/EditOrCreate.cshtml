@@ -1,4 +1,6 @@
 ﻿@using RestTraining.Api.DTO
+@using RestTraining.Web
+@using RestTraining.Web.Helper
 @model HotelDTO
 
 @using (Html.BeginForm()) {
@@ -6,6 +8,8 @@
 
     <fieldset>
         <legend>Hotel</legend>
+        
+        @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)
@@ -27,17 +31,16 @@
             @Html.Label("Reservation type")
         </div>
         <div class="editor-field">
-            @{
-                var types = from HotelDTO.TypeDescriminator d in Enum.GetValues(typeof(HotelDTO.TypeDescriminator))
-                                 select new {ID = (int) d, Name = d.ToString()};
-                var list = new SelectList(types, "ID", "Name");
-                @Html.DropDownListFor(model => model.Type, list);
-            }
+            @Html.EnumDropDownListFor(model => model.Type, Model.Type)
             @Html.ValidationMessageFor(model => model.Type)
-            
         </div>
         <p>
             <input type="submit" value="Save" />
         </p>
+        
+        @if (ViewData[ViewUtils.ControllerActionTypeKey] == ViewUtils.Edit)
+        {
+            @Html.ActionLink("Edit Hotel Numbers", MVC.HotelNumbers.Index(@Model.Id))
+        }
     </fieldset>
 }

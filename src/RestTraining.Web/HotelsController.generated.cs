@@ -46,12 +46,6 @@ namespace RestTraining.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Details()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Edit()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
@@ -79,7 +73,6 @@ namespace RestTraining.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string Details = "Details";
             public readonly string Create = "Create";
             public readonly string Edit = "Edit";
             public readonly string Delete = "Delete";
@@ -89,21 +82,12 @@ namespace RestTraining.Web.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string Details = "Details";
             public const string Create = "Create";
             public const string Edit = "Edit";
             public const string Delete = "Delete";
         }
 
 
-        static readonly ActionParamsClass_Details s_params_Details = new ActionParamsClass_Details();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Details DetailsParams { get { return s_params_Details; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Details
-        {
-            public readonly string id = "id";
-        }
         static readonly ActionParamsClass_Create s_params_Create = new ActionParamsClass_Create();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Create CreateParams { get { return s_params_Create; } }
@@ -140,16 +124,12 @@ namespace RestTraining.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Create = "Create";
                 public readonly string Delete = "Delete";
-                public readonly string Details = "Details";
-                public readonly string Edit = "Edit";
+                public readonly string EditOrCreate = "EditOrCreate";
                 public readonly string Index = "Index";
             }
-            public readonly string Create = "~/Views/Hotels/Create.cshtml";
             public readonly string Delete = "~/Views/Hotels/Delete.cshtml";
-            public readonly string Details = "~/Views/Hotels/Details.cshtml";
-            public readonly string Edit = "~/Views/Hotels/Edit.cshtml";
+            public readonly string EditOrCreate = "~/Views/Hotels/EditOrCreate.cshtml";
             public readonly string Index = "~/Views/Hotels/Index.cshtml";
         }
     }
@@ -165,16 +145,6 @@ namespace RestTraining.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
-            return callInfo;
-        }
-
-        partial void DetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
-
-        public override System.Web.Mvc.ActionResult Details(int id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            DetailsOverride(callInfo, id);
             return callInfo;
         }
 
