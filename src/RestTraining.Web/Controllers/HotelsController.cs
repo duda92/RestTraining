@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
 using RestTraining.Api;
 using RestTraining.Api.DTO;
@@ -11,68 +13,156 @@ namespace RestTraining.Web.Controllers
 
         public virtual ActionResult Index()
         {
-            var responseObj = JsonRequestExecutor.ExecuteGet<List<HotelDTO>>(BaseUrl, Resource);
-            return View(responseObj);
+            HttpStatusCode responseCode;
+            var responseObj = JsonRequestExecutor.ExecuteGet<List<HotelDTO>>(BaseUrl, Resource, out responseCode);
+            if (responseCode == HttpStatusCode.OK)
+            {
+                return View(responseObj);
+            }
+            if (responseCode == HttpStatusCode.BadGateway)
+            {
+                _viewDataProvider.ApiServiceNotReponse();
+                return View(MVC.Hotels.Views.Index);
+            }
+            throw new Exception(string.Format("Unexpected api service response {0}", responseCode));
         }
 
         [HttpGet]
         public virtual ActionResult Create()
         {
-            ViewData[ViewUtils.ControllerActionTypeKey] = ControllerActionType.Create;
+            _viewDataProvider.ControllerActionType = ControllerActionType.Create;
             return View(MVC.Hotels.Views.EditOrCreate, new HotelDTO());
         }
 
         [HttpPost]
         public virtual ActionResult Create(HotelDTO hotel)
         {
-            if (ModelState.IsValid)
+            _viewDataProvider.ControllerActionType = ControllerActionType.Create;
+            if (!ModelState.IsValid)
             {
-                JsonRequestExecutor.ExecutePost(hotel, BaseUrl, Resource);
+                return View(MVC.Hotels.Views.EditOrCreate, hotel); 
+            }
+            HttpStatusCode responseCode;
+            JsonRequestExecutor.ExecutePost(hotel, BaseUrl, Resource, out responseCode);
+            if (responseCode == HttpStatusCode.OK || responseCode == HttpStatusCode.Created )
+            {
                 return RedirectToAction(MVC.Hotels.Index());
             }
-            _viewDataProvider.ControllerActionType = ControllerActionType.Create;
-            return View(MVC.Hotels.Views.EditOrCreate, hotel);
+            if (responseCode == HttpStatusCode.BadGateway)
+            {
+                _viewDataProvider.ApiServiceNotReponse();
+                return View(MVC.Hotels.Views.EditOrCreate, hotel);
+            } 
+            if (responseCode == HttpStatusCode.BadRequest)
+            {
+                throw new Exception("Api service response BadRequest");
+            }
+            throw new Exception(string.Format("Unexpected api service response {0}", responseCode));
         }
 
         [HttpGet]
         public virtual ActionResult Edit(int id)
         {
-            var hotelDTO = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", id));
             _viewDataProvider.ControllerActionType = ControllerActionType.Edit;
-            return View(MVC.Hotels.Views.EditOrCreate, hotelDTO);
+            
+            HttpStatusCode responseCode;
+            var hotelDTO = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", id), out responseCode);
+
+            if (responseCode == HttpStatusCode.OK)
+            {
+                return View(MVC.Hotels.Views.EditOrCreate, hotelDTO);
+            }
+            if (responseCode == HttpStatusCode.BadGateway)
+            {
+                _viewDataProvider.ApiServiceNotReponse();
+                return View(MVC.Hotels.Views.EditOrCreate);
+            }
+            if (responseCode == HttpStatusCode.BadRequest)
+            {
+                throw new Exception("Api service response BadRequest");
+            }
+            throw new Exception(string.Format("Unexpected api service response {0}", responseCode));
         }
 
         [HttpPost]
         public virtual ActionResult Edit(HotelDTO hotel)
         {
-            if (ModelState.IsValid)
+            _viewDataProvider.ControllerActionType = ControllerActionType.Edit;
+            
+            if (!ModelState.IsValid)
             {
-                JsonRequestExecutor.ExecutePut(hotel, BaseUrl, Resource);
+                _viewDataProvider.ControllerActionType = ControllerActionType.Edit;
+                return View(MVC.Hotels.Views.EditOrCreate); 
+            }
+
+            HttpStatusCode responseCode;
+            JsonRequestExecutor.ExecutePut(hotel, BaseUrl, Resource, out responseCode);
+            
+            if (responseCode == HttpStatusCode.OK)
+            {
                 return RedirectToAction(MVC.Hotels.Index());
             }
-            _viewDataProvider.ControllerActionType = ControllerActionType.Edit;
-            return View(MVC.Hotels.Views.EditOrCreate);
+            if (responseCode == HttpStatusCode.BadGateway)
+            {
+                _viewDataProvider.ApiServiceNotReponse();
+                return View(MVC.Hotels.Views.EditOrCreate);
+            }
+            if (responseCode == HttpStatusCode.BadRequest)
+            {
+                throw new Exception("Api service response BadRequest");
+            }
+            throw new Exception(string.Format("Unexpected api service response {0}", responseCode));
+            
         }
 
         [HttpGet]
         public virtual ActionResult Delete(int id)
         {
-            var hotelDTO = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", id));
-            return View(hotelDTO);
+            HttpStatusCode responseCode;
+            var hotelDTO = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", id), out responseCode);
+
+            if (responseCode == HttpStatusCode.OK)
+            {
+                return View(MVC.Hotels.Views.EditOrCreate, hotelDTO);
+            }
+            if (responseCode == HttpStatusCode.BadGateway)
+            {
+                _viewDataProvider.ApiServiceNotReponse();
+                return View(MVC.Hotels.Views.EditOrCreate);
+            }
+            if (responseCode == HttpStatusCode.BadRequest)
+            {
+                throw new Exception("Api service response BadRequest");
+            }
+            throw new Exception(string.Format("Unexpected api service response {0}", responseCode));
+            
         }
 
         [HttpPost]
         public virtual ActionResult Delete(HotelDTO hotel)
         {
-            try
+            HttpStatusCode responseCode;
+            JsonRequestExecutor.ExecuteDelete<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", hotel.Id), out responseCode);
+
+            if (responseCode == HttpStatusCode.OK)
             {
-                JsonRequestExecutor.ExecuteDelete<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", hotel.Id));
                 return RedirectToAction(MVC.Hotels.Index());
             }
-            catch
+            if (responseCode == HttpStatusCode.NotFound)
             {
-                return View(hotel);
+                _viewDataProvider.ResourceNotFound();
+                return RedirectToAction(MVC.Hotels.Index());
             }
+            if (responseCode == HttpStatusCode.BadGateway)
+            {
+                _viewDataProvider.ApiServiceNotReponse();
+                return View(MVC.Hotels.Views.Delete);
+            }
+            if (responseCode == HttpStatusCode.BadRequest)
+            {
+                throw new Exception("Api service response BadRequest");
+            }
+            throw new Exception(string.Format("Unexpected api service response {0}", responseCode));
         }
     }
 }

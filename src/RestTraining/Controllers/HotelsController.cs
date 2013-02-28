@@ -3,11 +3,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using RestTraining.Api.DTO;
-using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Domain.Repositories;
 using System.Collections.Generic;
 using System.Web.Http;
-using RestTraining.Domain;
 
 namespace RestTraining.Api.Controllers
 {
@@ -20,14 +18,12 @@ namespace RestTraining.Api.Controllers
             _hotelRepository = hotelRepository;
         }
         
-        // GET api/Hotels
         public List<HotelDTO> Get()
         {
             var allHotels = _hotelRepository.All.ToList();
             return allHotels.Select(x => x.ToDTO()).ToList();
         }
 
-        // GET api/Hotels
         public HotelDTO Get(int id)
         {
             var hotel = _hotelRepository.Find(id);
@@ -37,7 +33,6 @@ namespace RestTraining.Api.Controllers
 
         }
 
-        // POST api/Hotels
         public HttpResponseMessage Post(HotelDTO hotelDTO)
         {
             if (!ModelState.IsValid)
@@ -53,7 +48,6 @@ namespace RestTraining.Api.Controllers
             return response;
         }
 
-        // PUT api/Hotels
         public HttpResponseMessage Put(HotelDTO hotelDTO)
         {
             if (!ModelState.IsValid)
@@ -63,7 +57,7 @@ namespace RestTraining.Api.Controllers
             var hotel = hotelDTO.ToEntity();
             _hotelRepository.InsertOrUpdate(hotel);
             _hotelRepository.Save();
-            var response = Request.CreateResponse(HttpStatusCode.Created, hotel.ToDTO());
+            var response = Request.CreateResponse(HttpStatusCode.OK, hotel.ToDTO());
             string uri = Url.Route(null, new { id = hotelDTO.Id });
             response.Headers.Location = new Uri(Request.RequestUri, uri);
             return response;

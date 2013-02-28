@@ -92,7 +92,7 @@ namespace RestTraining.Web.Controllers
             }
             if (responseCode == HttpStatusCode.BadRequest)
             {
-                throw new Exception("BadRequest api service response");
+                throw new Exception("Api service response BadRequest");
             }
             
             throw new Exception("Unexpected api service response");
