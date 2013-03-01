@@ -15,7 +15,6 @@ namespace RestTraining.Web.Controllers
 
         public virtual ActionResult Index(int hotelId)
         {
-            ViewBag.hotelId = hotelId;
             var hotelNumbers = JsonRequestExecutor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(Resource, hotelId));
             return View(hotelNumbers);
         }

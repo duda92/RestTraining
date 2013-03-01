@@ -13,5 +13,6 @@ namespace RestTraining.Api.Domain.Repositories
         void InsertOrUpdate(FreeBooking freeBooking);
         void Delete(int id);
         void Save();
+        bool Exist(int id);
     }
 }

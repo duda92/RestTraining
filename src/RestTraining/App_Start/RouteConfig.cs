@@ -16,7 +16,6 @@ namespace RestTraining.Api
                 defaults: new { controller = "FreeReservationsBooking", id = RouteParameter.Optional }
             );
 
-            
             routes.MapHttpRoute(
                 name: "Test",
                 routeTemplate: "api/Hotels/{hotelId}/HotelNumbers/{id}",

@@ -121,8 +121,13 @@
     <Compile Include="Functional\FreeReservationsHotelsControllerFunctionalTests.cs" />
     <Compile Include="Functional\HotelNumbersControllerFunctionalTests.cs" />
     <Compile Include="Functional\BoundedPeriodControllerFunctionalTests.cs" />
+    <Compile Include="Functional\FreeBookingControllerTests.cs" />
+    <Compile Include="Helpers\AssemblyInit.cs" />
+    <Compile Include="Helpers\ExceptionAssert.cs" />
+    <Compile Include="Helpers\PersistenceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\HotelNumbersRepositoryTests.cs" />
+    <Compile Include="Repositories\FreeBookingRepositoryTests.cs" />
     <Compile Include="Services\BookingDatesServiceTests.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="UnitTest1.cs" />

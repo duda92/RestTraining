@@ -110,7 +110,7 @@ namespace RestTraining.Api.DTO
         {
             return new ClientDTO
                 {
-                    Id = client.Id,
+                    //Id = client.Id,
                     Name = client.Name,
                     PhoneNumber = client.PhoneNumber
                 };
@@ -119,21 +119,21 @@ namespace RestTraining.Api.DTO
         {
             return new Client
                 {
-                    Id = clientDTO.Id,
+                    Id = 0, //clientDTO.Id,
                     Name = clientDTO.Name,
                     PhoneNumber = clientDTO.PhoneNumber
                 };
         }
 
         public static FreeBookingDTO ToDTO(this FreeBooking freeBooking)
-        {
+        { 
             return new FreeBookingDTO
                 {
                     BeginDate = freeBooking.BeginDate,
                     EndDate = freeBooking.EndDate,
-                    Client = freeBooking.Client,
+                    Client = freeBooking.Client.ToDTO(),
                     HotelId = freeBooking.HotelId,
-                    HotelNumberId = freeBooking.HotelNumber.Id,
+                    HotelNumberId = freeBooking.HotelNumberId,
                     Id = freeBooking.Id
                 };
         }
@@ -143,7 +143,8 @@ namespace RestTraining.Api.DTO
             {
                 BeginDate = freeBookingDTO.BeginDate,
                 EndDate = freeBookingDTO.EndDate,
-                ClientId = freeBookingDTO.Id,
+                Client = freeBookingDTO.Client.ToEntity(),
+                //ClientId = freeBookingDTO.Client.Id,
                 HotelId = freeBookingDTO.HotelId,
                 HotelNumberId = freeBookingDTO.HotelNumberId,
                 Id = freeBookingDTO.Id

@@ -3,6 +3,10 @@
 @using RestTraining.Web.Helper
 @model HotelDTO
 
+@{
+    var viewDateProvider = new ViewDataProviderForView(this);
+}
+
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
@@ -38,7 +42,7 @@
             <input type="submit" value="Save" />
         </p>
         
-        @if (ViewData[ViewUtils.ControllerActionTypeKey] == ViewUtils.Edit)
+        @if (viewDateProvider.ControllerActionType == ControllerActionType.Edit)
         {
             @Html.ActionLink("Edit Hotel Numbers", MVC.HotelNumbers.Index(@Model.Id))
         }

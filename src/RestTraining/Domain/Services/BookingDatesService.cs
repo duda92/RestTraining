@@ -30,12 +30,13 @@ namespace RestTraining.Api.Domain.Services
                 throw new ArgumentException("Hotel passed does not exist");
             var hotelNumber =
                 context.HotelNumbers.SingleOrDefault(
-                    x => x.HotelId == freeBooking.HotelId && x.Id == freeBooking.HotelNumber.Id);
+                    x => x.HotelId == freeBooking.HotelId && 
+                        x.Id == freeBooking.HotelNumberId);
             if (hotelNumber == null)
                 throw new ArgumentException("HotelNumber passed does not exist");
 
             var allBookingsForNumber =
-                context.FreeBookings.Where(x => x.HotelId == freeBooking.HotelId && x.Id == freeBooking.HotelNumber.Id);
+                context.FreeBookings.Where(x => x.HotelId == freeBooking.HotelId && x.HotelNumberId == freeBooking.HotelNumberId && x.Id != freeBooking.Id ).ToList();
             return !DoesDatesIntersect(freeBooking.BeginDate, freeBooking.EndDate,
                                       allBookingsForNumber.Select(
                                           x => new Pair<DateTime, DateTime>(x.BeginDate, x.EndDate)).ToList());

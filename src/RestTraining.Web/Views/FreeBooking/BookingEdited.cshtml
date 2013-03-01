@@ -1,0 +1,30 @@
+﻿@model RestTraining.Api.DTO.FreeBookingDTO
+@using RestTraining.Web
+
+@{
+    var viewDataProvider = new ViewDataProviderForView(this);
+}
+
+    <h3>Booked Successfuly</h3>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.BeginDate)
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => model.BeginDate)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.EndDate)
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => model.EndDate)
+    </div>
+
+<h2>Hotel number</h2>
+    @Html.DisplayFor(x => x.Client, "Client")
+
+@Html.ActionLink("Delete this booking", MVC.FreeBooking.Delete(viewDataProvider.HotelId, Model.Id))
+@Html.ActionLink("Edit this booking", MVC.FreeBooking.Edit(viewDataProvider.HotelId, Model.Id))
+
+

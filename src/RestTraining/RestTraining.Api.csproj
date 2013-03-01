@@ -192,7 +192,7 @@
     <Compile Include="DTO\HotelNumberDTO.cs" />
     <Compile Include="DTO\IncludedItemDTO.cs" />
     <Compile Include="Infrastructure\JsonMediaTypeFormatter.cs" />
-    <Compile Include="Infrastructure\InvalidBookingException.cs" />
+    <Compile Include="Infrastructure\InvalidDatesBookingException.cs" />
     <Compile Include="Domain\Entities\Booking.cs" />
     <Compile Include="Domain\Services\BookingDatesService.cs" />
     <Compile Include="Domain\Entities\BoundedPeriod.cs" />

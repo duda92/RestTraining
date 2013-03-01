@@ -1,0 +1,58 @@
+﻿@using RestTraining.Web
+@model RestTraining.Web.Models.FreeBookingViewModel
+
+@{
+    var viewDataProvider = new ViewDataProviderForView(this);
+}
+<div class="editor-label">
+    @Html.LabelFor(model => model.FreeBooking.BeginDate)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.FreeBooking.BeginDate)
+    @Html.ValidationMessageFor(model => model.FreeBooking.BeginDate)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.FreeBooking.EndDate)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.FreeBooking.BeginDate)
+    @Html.ValidationMessageFor(model => model.FreeBooking.EndDate)
+</div>
+
+<h2>Hotel numbers</h2>
+<ul>
+    @for (int index = 0; index < Model.HotelNumbers.Count; index++)
+    {
+        var hotelNumber = Model.HotelNumbers[index];
+        <li>
+            <div class="hotel-number-description">
+                #@index
+                @Html.RadioButtonFor(x => x.FreeBooking.HotelNumberId, hotelNumber.Id )
+                <h3>Number includes:</h3>
+                <ul>
+                    @foreach (var include in hotelNumber.IncludeItems)
+                    {
+                        <li>
+                            @include.IncludeItemType.ToString()
+                        </li>    
+                    }
+                </ul>
+                <h3>Window views:</h3>
+                <ul>
+                    @foreach (var windowView in hotelNumber.WindowViews)
+                    {
+                        <li>
+                            @windowView.ToString()
+                        </li>    
+                    }
+                </ul>
+            </div>
+        </li>
+    }
+</ul>
+
+@Html.EditorFor(x => x.FreeBooking.Client, "Client")
+
+
+

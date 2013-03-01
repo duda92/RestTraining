@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using RestTraining.Api.DTO;
-using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Domain.Repositories;
+using RestTraining.Api.Infrastructure;
 
 namespace RestTraining.Api.Controllers
 {
@@ -23,13 +23,13 @@ namespace RestTraining.Api.Controllers
 
         public List<FreeBookingDTO> Get(int hotelId)
         {
-            var bookings = _freeBookingRepository.All.Where(x => x.HotelId == hotelId).ToList();
+            var bookings = _freeBookingRepository.AllIncluding(x => x.Client).Where(x => x.HotelId == hotelId).ToList();
             return bookings.Select(x => x.ToDTO()).ToList();
         }
 
         public FreeBookingDTO Get(int hotelId, int id)
         {
-            var freeBooking = _freeBookingRepository.All.SingleOrDefault(x => x.HotelId == hotelId && x.Id == id);
+            var freeBooking = _freeBookingRepository.AllIncluding(x => x.Client).SingleOrDefault(x => x.HotelId == hotelId && x.Id == id);
             if (freeBooking == null)
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             return freeBooking.ToDTO();
@@ -37,7 +37,7 @@ namespace RestTraining.Api.Controllers
 
         public HttpResponseMessage Post(int hotelId, [FromBody]FreeBookingDTO freeBookingDTO)
         {
-            if (!ModelState.IsValid)
+            if (freeBookingDTO.BeginDate == default(DateTime) || freeBookingDTO.EndDate == default(DateTime) || freeBookingDTO.BeginDate > freeBookingDTO.EndDate || !ModelState.IsValid)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
             }
@@ -47,8 +47,20 @@ namespace RestTraining.Api.Controllers
             }
             freeBookingDTO.HotelId = hotelId;
             var freeBooking = freeBookingDTO.ToEntity();
-            _freeBookingRepository.InsertOrUpdate(freeBooking);
-            _freeBookingRepository.Save();
+
+            try
+            {
+                _freeBookingRepository.InsertOrUpdate(freeBooking);
+                _freeBookingRepository.Save();
+            }
+            catch (InvalidDatesBookingException)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict));
+            }
+            catch (ParameterNotFoundException)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             var response = Request.CreateResponse(HttpStatusCode.Created, freeBooking.ToDTO());
             string uri = Url.Route(null, new { id = freeBookingDTO.Id });
             response.Headers.Location = new Uri(Request.RequestUri, uri);
@@ -61,7 +73,7 @@ namespace RestTraining.Api.Controllers
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
             }
-            if (_freeBookingRepository.Find(freeBookingDTO.Id) == null)
+            if (!_freeBookingRepository.Exist(freeBookingDTO.Id))
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
@@ -75,9 +87,13 @@ namespace RestTraining.Api.Controllers
                 _freeBookingRepository.InsertOrUpdate(freeBooking);
                 _freeBookingRepository.Save();
             }
-            catch (ArgumentException)
+            catch (InvalidDatesBookingException)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict));
+            }
+            catch (ParameterNotFoundException)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
             var response = Request.CreateResponse(HttpStatusCode.OK, freeBooking.ToDTO());
             string uri = Url.Route(null, new { id = freeBooking.Id });
@@ -87,14 +103,14 @@ namespace RestTraining.Api.Controllers
 
         public HttpResponseMessage Delete(int id)
         {
-            var hotel = _freeBookingRepository.Find(id);
-            if (hotel == null)
+            var freeBooking = _freeBookingRepository.AllIncluding(x => x.Client).FirstOrDefault(x => x.Id == id);
+            if (freeBooking == null)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
             _freeBookingRepository.Delete(id);
             _freeBookingRepository.Save();
-            var response = Request.CreateResponse(HttpStatusCode.OK, hotel.ToDTO());
+            var response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
         }
 

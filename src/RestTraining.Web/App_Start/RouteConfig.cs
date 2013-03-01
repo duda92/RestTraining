@@ -11,6 +11,12 @@ namespace RestTraining.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Booking List",
+                url: "FreeBooking/{hotelId}/{action}",
+                defaults: new { controller = "FreeBooking" }
+            );
+            
+            routes.MapRoute(
                 name: "BoundedPeriods List",
                 url: "BoundedPeriods/{hotelId}/",
                 defaults: new { controller = "BoundedPeriods", action = "Index" }

@@ -2,10 +2,10 @@
 @model List<RestTraining.Api.DTO.BoundedPeriodDTO>
 
 @{
-    var _viewDateProvider = new ViewDataProviderForView(this);
+    var viewDateProvider = new ViewDataProviderForView(this);
 }
 
-@Html.ActionLink("Add", MVC.BoundedPeriods.Create(_viewDateProvider.HotelId))
+@Html.ActionLink("Add", MVC.BoundedPeriods.Create(viewDateProvider.HotelId))
 
 @for (int index = 0; index < Model.Count; index++)
 {

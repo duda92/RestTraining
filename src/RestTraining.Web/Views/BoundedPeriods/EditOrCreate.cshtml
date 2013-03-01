@@ -2,7 +2,7 @@
 @model RestTraining.Api.DTO.BoundedPeriodDTO
 
 @{
-    var pageContext = new ViewDataProviderForView(this);
+    var viewDataProvider = new ViewDataProviderForView(this);
 }
 
 @using (Html.BeginForm()) {
@@ -36,5 +36,5 @@
     }
     
     <div>
-        @Html.ActionLink("Back to List", MVC.BoundedPeriods.Index(pageContext.HotelId))
+        @Html.ActionLink("Back to List", MVC.BoundedPeriods.Index(viewDataProvider.HotelId))
     </div>

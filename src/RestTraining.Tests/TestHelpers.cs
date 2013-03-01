@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using RestTraining.Api.DTO;
 using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Tests.Utils;
@@ -119,40 +120,40 @@ namespace RestTraining.Api.Tests
             }
         }
 
-        public static class ClientsApiHelper
-        {
-            public const string Resource = "/api/Clients/";
+        //public static class ClientsApiHelper
+        //{
+        //    public const string Resource = "/api/Clients/";
 
-            public static int TestPost(ClientDTO clientObj)
-            {
-                var responseObj = JsonRequestExecutor.ExecutePost<ClientDTO>(clientObj, BaseUrl, Resource);
-                return responseObj.Id;
-            }
+        //    public static int TestPost(ClientDTO clientObj)
+        //    {
+        //        var responseObj = JsonRequestExecutor.ExecutePost<ClientDTO>(clientObj, BaseUrl, Resource);
+        //        return responseObj.Id;
+        //    }
 
-            public static List<ClientDTO> TestGet()
-            {
-                var responseObj = JsonRequestExecutor.ExecuteGet<List<ClientDTO>>(BaseUrl, Resource);
-                return responseObj;
-            }
+        //    public static List<ClientDTO> TestGet()
+        //    {
+        //        var responseObj = JsonRequestExecutor.ExecuteGet<List<ClientDTO>>(BaseUrl, Resource);
+        //        return responseObj;
+        //    }
 
-            public static ClientDTO TestGet(int id)
-            {
-                var responseObj = JsonRequestExecutor.ExecuteGet<ClientDTO>(BaseUrl, (Resource + id.ToString()));
-                return responseObj;
-            }
+        //    public static ClientDTO TestGet(int id)
+        //    {
+        //        var responseObj = JsonRequestExecutor.ExecuteGet<ClientDTO>(BaseUrl, (Resource + id.ToString()));
+        //        return responseObj;
+        //    }
 
-            public static int TestPut(ClientDTO clientObj)
-            {
-                var responseObj = JsonRequestExecutor.ExecutePut<ClientDTO>(clientObj, BaseUrl, Resource);
-                return responseObj.Id;
-            }
+        //    public static int TestPut(ClientDTO clientObj)
+        //    {
+        //        var responseObj = JsonRequestExecutor.ExecutePut<ClientDTO>(clientObj, BaseUrl, Resource);
+        //        return responseObj.Id;
+        //    }
 
-            public static ClientDTO CreateRandomClientDTO()
-            {
-                var client =  new Client { Name = RandomUtils.RandomString(10), PhoneNumber = RandomUtils.RandomString(10) };
-                return client.ToDTO();
-            }
-        }
+        //    public static ClientDTO CreateRandomClientDTO()
+        //    {
+        //        var client =  new Client { Name = RandomUtils.RandomString(10), PhoneNumber = RandomUtils.RandomString(10) };
+        //        return client.ToDTO();
+        //    }
+        //}
 
         public static class HotelsApiHelper
         {
@@ -258,6 +259,52 @@ namespace RestTraining.Api.Tests
                     EndDate = beginDate.AddDays(7)
                 };
                 return boundedPeriod.ToDTO();
+            }
+        }
+
+        public static class FreeBookingApiHelper
+        {
+            public const string Resource = "api/Booking/FreeReservations/{0}/";
+
+            public static int TestPost(int hotelId, FreeBookingDTO booking, out HttpStatusCode code)
+            {
+                var responseObj = JsonRequestExecutor.ExecutePost(booking, BaseUrl, string.Format(Resource, hotelId), out code);
+                return responseObj == null ? 0 : responseObj.Id;
+            }
+
+            public static List<FreeBookingDTO> TestGet(int hotelId, out HttpStatusCode code)
+            {
+                var responseObj = JsonRequestExecutor.ExecuteGet<List<FreeBookingDTO>>(BaseUrl, string.Format(Resource, hotelId), out code);
+                return responseObj;
+            }
+
+            public static FreeBookingDTO TestGet(int hotelId, int id, out HttpStatusCode code)
+            {
+                var responseObj = JsonRequestExecutor.ExecuteGet<FreeBookingDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, id), out code);
+                return responseObj;
+            }
+
+            public static int TestPut(FreeBookingDTO boundedPeriod, out HttpStatusCode code)
+            {
+                var responseObj = JsonRequestExecutor.ExecutePut(boundedPeriod, BaseUrl, string.Format(Resource, boundedPeriod.HotelId), out code);
+                return responseObj.Id;
+            }
+
+            public static FreeBookingDTO CreateFreeBookingDTO(HotelNumberDTO hotelNumber, DateTime beginDate, DateTime endDate)
+            {
+                var freeBookingDTO = new FreeBookingDTO
+                {
+                    BeginDate = beginDate,
+                    EndDate = endDate,
+                    Client = new ClientDTO
+                                 {
+                                     Name = RandomUtils.RandomString(10),
+                                     PhoneNumber = RandomUtils.RandomString(10)
+                                 },
+                    HotelId = hotelNumber.HotelId,
+                    HotelNumberId = hotelNumber.Id
+                };
+                return freeBookingDTO;
             }
         }
     }

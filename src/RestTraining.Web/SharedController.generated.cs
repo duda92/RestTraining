@@ -47,6 +47,7 @@ namespace T4MVC
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public partial class _EditorTemplatesClass
             {
+                public readonly string Client = "Client";
                 public readonly string HotelNumberType = "HotelNumberType";
                 public readonly string IncludeItem = "IncludeItem";
                 public readonly string IncludeItemList = "IncludeItemList";

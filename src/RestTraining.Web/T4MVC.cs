@@ -25,7 +25,9 @@ using T4MVC;
 public static class MVC
 {
     public static RestTraining.Web.Controllers.AccountController Account = new RestTraining.Web.Controllers.T4MVC_AccountController();
+    public static RestTraining.Web.Controllers.BoundedBookingController BoundedBooking = new RestTraining.Web.Controllers.T4MVC_BoundedBookingController();
     public static RestTraining.Web.Controllers.BoundedPeriodsController BoundedPeriods = new RestTraining.Web.Controllers.T4MVC_BoundedPeriodsController();
+    public static RestTraining.Web.Controllers.FreeBookingController FreeBooking = new RestTraining.Web.Controllers.T4MVC_FreeBookingController();
     public static RestTraining.Web.Controllers.HomeController Home = new RestTraining.Web.Controllers.T4MVC_HomeController();
     public static RestTraining.Web.Controllers.HotelNumbersController HotelNumbers = new RestTraining.Web.Controllers.T4MVC_HotelNumbersController();
     public static RestTraining.Web.Controllers.HotelsController Hotels = new RestTraining.Web.Controllers.T4MVC_HotelsController();

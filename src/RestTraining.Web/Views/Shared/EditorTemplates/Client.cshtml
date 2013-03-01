@@ -1,0 +1,17 @@
+﻿@model RestTraining.Api.DTO.ClientDTO
+
+<div class="editor-label">
+    @Html.LabelFor(x => x.Name)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(x => x.Name)
+    @Html.ValidationMessageFor(model => model.Name)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(x => x.PhoneNumber)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(x => x.PhoneNumber)
+    @Html.ValidationMessageFor(model => model.PhoneNumber)
+</div>

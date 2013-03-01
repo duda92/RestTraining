@@ -6,13 +6,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Domain.Repositories;
 using RestTraining.Api.Domain.Services;
+using RestTraining.Api.Tests.Helpers;
 using RestTraining.Domain;
 
 namespace RestTraining.Api.Tests.Repositories
 {
-    /// <summary>
-    /// Summary description for UnitTest1
-    /// </summary>
     [TestClass]
     public class HotelNumbersRepositoryTests
     {
@@ -24,19 +22,10 @@ namespace RestTraining.Api.Tests.Repositories
         [TestInitialize()]
         public void SetUp()
         {
-            Database.SetInitializer(new DbInitializer());
-            Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0");
             _hotelNumbersUpdateService = new HotelNumbersUpdateService();
             _hotelNumberRepository = new HotelNumbersRepository(_hotelNumbersUpdateService);
 
-            var hotelRepository = new HotelRepository(_hotelNumbersUpdateService);
-            var hotel = new FreeReservationsHotel
-                            {
-                                Address = "test",
-                                Title = "test"
-                            };
-            hotelRepository.InsertOrUpdate(hotel);
-            hotelRepository.Save();
+            var hotel = PersistenceHelper.InsertFreeReservationsHotel();
             _testHotelId = hotel.Id;
         }
 

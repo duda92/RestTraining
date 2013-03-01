@@ -44,9 +44,15 @@ namespace RestTraining.Api.Domain.Repositories
 
         public void InsertOrUpdate(FreeBooking freeBooking)
         {
+            var hotel = _context.FreeReservationsHotels.SingleOrDefault(x => x.Id == freeBooking.HotelId);
+            var hotelNumber = _context.HotelNumbers.SingleOrDefault(x => x.Id == freeBooking.HotelNumberId && x.HotelId == freeBooking.HotelId);
+            if (hotel == null || hotelNumber == null)
+            {
+                throw new ParameterNotFoundException();
+            }
             if (!_bookingDatesService.IsFreeBookingValid(_context, freeBooking))
             {
-                throw new InvalidBookingException();
+                throw new InvalidDatesBookingException();
             }
             if (freeBooking.Id == default(int))
             {
@@ -54,19 +60,33 @@ namespace RestTraining.Api.Domain.Repositories
             }
             else
             {
+                var previousBooking = _context.FreeBookings.Include(x => x.Client).FirstOrDefault(x => x.Id == freeBooking.Id);
+                freeBooking.Client.Id = previousBooking.Client.Id;
+                freeBooking.ClientId = previousBooking.Client.Id;
+                _context.Entry(previousBooking).State = EntityState.Detached;
+                _context.Entry(previousBooking.Client).State = EntityState.Detached;
                 _context.Entry(freeBooking).State = EntityState.Modified;
             }
         }
 
         public void Delete(int id)
         {
-            var boundedPeriod = _context.BoundedPeriods.Find(id);
-            _context.BoundedPeriods.Remove(boundedPeriod);
+            var freeBooking = _context.FreeBookings.Find(id);
+            _context.FreeBookings.Remove(freeBooking);
         }
 
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public bool Exist(int id)
+        {
+            var freeBooking = _context.FreeBookings.Find(id);
+            var exists = freeBooking != null;
+            if (exists)
+                _context.Entry(freeBooking).State = EntityState.Detached;
+            return exists;
         }
 
         public void Dispose()

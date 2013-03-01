@@ -22,6 +22,15 @@
                 {
                     @Html.ActionLink("View Bounded Periods", MVC.BoundedPeriods.Index(hotel.Id))
                 }
+                @if (hotel.Type == HotelDTO.TypeDescriminator.Free)
+                {
+                    @Html.ActionLink("Book", MVC.FreeBooking.Create(hotel.Id))
+                }
+                @if (hotel.Type == HotelDTO.TypeDescriminator.Bounded)
+                {
+                    @Html.ActionLink("Book", MVC.BoundedBooking.Index(hotel.Id))
+                }
+                
             </div>
         </li>
     }

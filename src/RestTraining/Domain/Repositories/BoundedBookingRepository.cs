@@ -42,7 +42,7 @@ namespace RestTraining.Api.Domain.Repositories
         {
             if (!_bookingDatesService.IsBoundedBookingValid(_context, boundedBooking))
             {
-                throw new InvalidBookingException();
+                throw new InvalidDatesBookingException();
             }
             if (boundedBooking.Id == default(int))
             {

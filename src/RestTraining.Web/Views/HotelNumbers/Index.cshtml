@@ -1,6 +1,11 @@
-﻿@model List<RestTraining.Api.DTO.HotelNumberDTO>
+﻿@using RestTraining.Web
+@model List<RestTraining.Api.DTO.HotelNumberDTO>
 
-@Html.ActionLink("Add", MVC.HotelNumbers.Create((int)ViewBag.hotelId))
+@{
+    var viewDateProvider = new ViewDataProviderForView(this);
+}
+
+@Html.ActionLink("Add", MVC.HotelNumbers.Create(viewDateProvider.HotelId))
 
 <ul>
     @for (int index = 0; index < Model.Count; index++)
@@ -9,8 +14,8 @@
         <li>
             <div class="hotel-number-description">
                 #@index
-                @Html.ActionLink("Edit", MVC.HotelNumbers.Edit((int)ViewBag.hotelId, hotelNumber.Id ))
-                @Html.ActionLink("Delete", MVC.HotelNumbers.Delete((int)ViewBag.hotelId, hotelNumber.Id ))
+                @Html.ActionLink("Edit", MVC.HotelNumbers.Edit(viewDateProvider.HotelId, hotelNumber.Id ))
+                @Html.ActionLink("Delete", MVC.HotelNumbers.Delete(viewDateProvider.HotelId, hotelNumber.Id ))
                 <h3>Number includes:</h3>
                 <ul>
                     @foreach (var include in hotelNumber.IncludeItems)
