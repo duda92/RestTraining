@@ -155,23 +155,25 @@ namespace RestTraining.Api.DTO
         {
             return new BoundedBookingDTO
             {
-                BoundedPeriod = boundedBooking.BoundedPeriod,
-                Client = boundedBooking.Client,
+                Client = boundedBooking.Client.ToDTO(),
                 HotelId = boundedBooking.HotelId,
                 HotelNumberId = boundedBooking.HotelNumberId,
-                Id = boundedBooking.Id
+                Id = boundedBooking.Id,
+                BoundedPeriodId = boundedBooking.BoundedPeriod.Id
             };
+
         }
         public static BoundedBooking ToEntity(this BoundedBookingDTO boundedBookingDTO)
         {
-            return new BoundedBooking
+            var boundedBooking = new BoundedBooking
             {
-                BoundedPeriod = boundedBookingDTO.BoundedPeriod,
-                Client = boundedBookingDTO.Client,
+                Client = boundedBookingDTO.Client.ToEntity(),
                 HotelId = boundedBookingDTO.HotelId,
                 HotelNumberId = boundedBookingDTO.HotelNumberId,
                 Id = boundedBookingDTO.Id
             };
+            boundedBooking.BoundedPeriod.Id = boundedBookingDTO.BoundedPeriodId;
+            return boundedBooking;
         }
 
         public static BoundedPeriod ToEntity(this BoundedPeriodDTO boundedPeriodDTO)

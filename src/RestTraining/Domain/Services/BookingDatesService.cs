@@ -52,12 +52,12 @@ namespace RestTraining.Api.Domain.Services
                 throw new ArgumentException("Hotel passed does not exist");
             var hotelNumber =
                 context.HotelNumbers.SingleOrDefault(
-                    x => x.HotelId == boundedBooking.HotelId && x.Id == boundedBooking.HotelNumber.Id);
+                    x => x.HotelId == boundedBooking.HotelId && x.Id == boundedBooking.HotelNumberId);
             if (hotelNumber == null)
                 throw new ArgumentException("HotelNumber passed does not exist");
 
-            return context.BoundedBookings.Where(x => x.HotelId == boundedBooking.HotelId &&
-                                                      x.Id == boundedBooking.HotelNumber.Id)
+            return !context.BoundedBookings.Where(x => x.HotelId == boundedBooking.HotelId &&
+                                                      x.Id == boundedBooking.HotelNumberId)
                           .Any(x => x.BoundedPeriod.Id == boundedBooking.BoundedPeriod.Id);
 
         }

@@ -21,6 +21,7 @@ namespace RestTraining.Api.Domain
         {
             modelBuilder.Entity<Hotel>().HasMany(j => j.HotelNumbers).WithRequired().HasForeignKey(x => x.HotelId);
             modelBuilder.Entity<HotelNumber>().HasMany(j => j.IncludeItems).WithRequired();
+            //modelBuilder.Entity<BoundedBooking>().Has(j => j.BoundedPeriodId).;
             base.OnModelCreating(modelBuilder);
         }
 

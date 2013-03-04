@@ -1,0 +1,17 @@
+﻿@using RestTraining.Web
+
+@{
+    var viewDataProvider = new ViewDataProviderForView(this);
+}
+
+@{
+    if (viewDataProvider.IsResourceNotFound)
+    {
+        <h3>Booking that you are trying to delete not  found</h3>
+    }
+    else
+    {
+        <h3>Booking successfuly deleted!</h3>
+    }
+}
+@Html.ActionLink("Back to Hotels list", MVC.Hotels.Index())

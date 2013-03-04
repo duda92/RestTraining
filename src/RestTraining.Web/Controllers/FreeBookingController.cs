@@ -45,7 +45,7 @@ namespace RestTraining.Web.Controllers
 
             if (responseCode == HttpStatusCode.Conflict)
             {
-                _viewDataProvider.FreeBookingDatesConflict();
+                _viewDataProvider.BookingDatesConflict();
                 return View(MVC.FreeBooking.Views.EditOrCreate, new FreeBookingViewModel { FreeBooking = freeBooking, HotelNumbers = hotelNumbers });
             }
             if (responseCode == HttpStatusCode.NotFound)
@@ -96,7 +96,7 @@ namespace RestTraining.Web.Controllers
 
             if (responseCode == HttpStatusCode.Conflict)
             {
-                _viewDataProvider.FreeBookingDatesConflict();
+                _viewDataProvider.BookingDatesConflict();
                 return View(MVC.FreeBooking.Views.EditOrCreate, new FreeBookingViewModel { FreeBooking = freeBooking, HotelNumbers = hotelNumbers });
             }
             if (responseCode == HttpStatusCode.NotFound)

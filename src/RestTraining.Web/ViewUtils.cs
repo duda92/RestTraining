@@ -124,7 +124,7 @@ namespace RestTraining.Web
             _controller.ViewData[ViewUtils.ResourceNotFoundKey] = true;
         }
 
-        public void FreeBookingDatesConflict()
+        public void BookingDatesConflict()
         {
             _controller.ViewData[ViewUtils.FreeBookingDatesConflictKey] = true;
         }

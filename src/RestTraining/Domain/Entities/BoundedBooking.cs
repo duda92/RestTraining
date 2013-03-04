@@ -2,6 +2,13 @@
 {
     public class BoundedBooking : Booking
     {
+        public BoundedBooking()
+        {
+            BoundedPeriod = new BoundedPeriod();
+        }
+
         public BoundedPeriod BoundedPeriod { get; set; }
+
+        //public int BoundedPeriodId { get; set; }
     }
 }

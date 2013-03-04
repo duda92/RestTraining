@@ -1,0 +1,23 @@
+﻿@using RestTraining.Web
+@model RestTraining.Api.DTO.BoundedBookingDTO
+
+@{
+    var viewDataProvider = new ViewDataProviderForView(this);
+}
+
+    <h3>Booked Successfuly</h3>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.BoundedPeriodId)
+    </div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.BoundedPeriodId)
+</div>
+
+<h2>Hotel number</h2>
+    @Html.DisplayFor(x => x.Client, "Client")
+
+@Html.ActionLink("Delete this booking", MVC.BoundedBooking.Delete(viewDataProvider.HotelId, Model.Id))
+@Html.ActionLink("Edit this booking", MVC.BoundedBooking.Edit(viewDataProvider.HotelId, Model.Id))
+
+

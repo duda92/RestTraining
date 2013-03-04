@@ -40,10 +40,19 @@ namespace RestTraining.Api.Domain.Repositories
 
         public void InsertOrUpdate(BoundedBooking boundedBooking)
         {
+            if (boundedBooking.Id == default(int))
+            {
+                PreInsertCheck(boundedBooking);
+            }
+            else
+            {
+                PreUpdateCheck(boundedBooking);
+            } 
             if (!_bookingDatesService.IsBoundedBookingValid(_context, boundedBooking))
             {
                 throw new InvalidDatesBookingException();
             }
+            boundedBooking.BoundedPeriod = _context.BoundedPeriods.First(x => x.Id == boundedBooking.BoundedPeriod.Id);
             if (boundedBooking.Id == default(int))
             {
                 _context.BoundedBookings.Add(boundedBooking);
@@ -56,13 +65,32 @@ namespace RestTraining.Api.Domain.Repositories
 
         public void Delete(int id)
         {
-            var boundedBooking = _context.BoundedBookings.Find(id);
+            var boundedBooking = _context.BoundedBookings.Include(x => x.Client).FirstOrDefault(x => x.Id == id);
+            if (boundedBooking == null)
+            {
+                throw new ParameterNotFoundException();
+            } 
             _context.BoundedBookings.Remove(boundedBooking);
         }
 
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        private void PreInsertCheck(BoundedBooking boundedBooking)
+        {
+            var boundedHotel = _context.BoundedReservationsHotels.Find(boundedBooking.HotelId);
+            if (boundedHotel == null)
+                throw new ParameterNotFoundException();
+        }
+
+        private void PreUpdateCheck(BoundedBooking boundedBooking)
+        {
+            var boundedHotel = _context.BoundedReservationsHotels.Find(boundedBooking.HotelId);
+            var boundedPeriod = _context.BoundedPeriods.Find(boundedBooking.Id);
+            if (boundedHotel == null || boundedPeriod == null)
+                throw new ParameterNotFoundException();
         }
 
         public void Dispose()

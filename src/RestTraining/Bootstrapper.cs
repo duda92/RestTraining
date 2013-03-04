@@ -25,6 +25,7 @@ namespace RestTraining.Api
             container.RegisterType<IHotelNumbersUpdateService, HotelNumbersUpdateService>();
             container.RegisterType<IBookingDatesService, BookingDatesService>();
             container.RegisterType<IFreeBookingRepository, FreeBookingRepository>();
+            container.RegisterType<IBoundedBookingRepository, BoundedBookingRepository>();
 
             return container;
         }

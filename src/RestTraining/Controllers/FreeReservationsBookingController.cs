@@ -47,7 +47,6 @@ namespace RestTraining.Api.Controllers
             }
             freeBookingDTO.HotelId = hotelId;
             var freeBooking = freeBookingDTO.ToEntity();
-
             try
             {
                 _freeBookingRepository.InsertOrUpdate(freeBooking);

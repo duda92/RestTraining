@@ -1,6 +1,4 @@
-﻿using RestTraining.Api.Domain.Entities;
-
-namespace RestTraining.Api.DTO
+﻿namespace RestTraining.Api.DTO
 {
     public class BoundedBookingDTO
     {
@@ -10,8 +8,10 @@ namespace RestTraining.Api.DTO
 
         public int HotelNumberId { get; set; }
 
-        public Client Client { get; set; }
+        public ClientDTO Client { get; set; }
 
-        public BoundedPeriod BoundedPeriod { get; set; }
+        //public BoundedPeriod BoundedPeriod { get; set; }
+
+        public int BoundedPeriodId { get; set; }
     }
 }

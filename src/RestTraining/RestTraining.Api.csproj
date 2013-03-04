@@ -151,6 +151,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\BoundedPeriodsController.cs" />
+    <Compile Include="Controllers\BoundedReservationsBookingController.cs" />
     <Compile Include="Controllers\BoundedReservationsHotelsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\FreeReservationsBookingController.cs" />

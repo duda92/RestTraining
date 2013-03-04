@@ -1,0 +1,66 @@
+﻿@using RestTraining.Web
+@model RestTraining.Web.Models.BoundedBookingViewModel
+
+@{
+    var viewDataProvider = new ViewDataProviderForView(this);
+}
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.BoundedBooking.HotelId)
+    @Html.HiddenFor(x => x.BoundedBooking.Id)
+    
+    foreach (var boundedPeriod in Model.BoundedPeriods)
+    {
+        <div class="editor-label">
+            @Html.LabelFor(model => boundedPeriod.BeginDate)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => boundedPeriod.BeginDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => boundedPeriod.EndDate)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => boundedPeriod.EndDate)
+        </div>
+        @Html.RadioButtonFor(x => x.BoundedBooking.BoundedPeriodId, boundedPeriod.Id)
+    }
+    <h2>Hotel numbers</h2>
+    <ul>
+        @for (int index = 0; index < Model.HotelNumbers.Count; index++)
+        {
+            var hotelNumber = Model.HotelNumbers[index];
+            <li>
+                <div class="hotel-number-description">
+                    #@index
+                    @Html.RadioButtonFor(x => x.BoundedBooking.HotelNumberId, hotelNumber.Id)
+                    <h3>Number includes:</h3>
+                    <ul>
+                        @foreach (var include in hotelNumber.IncludeItems)
+                        {
+                            <li>
+                                @include.IncludeItemType.ToString()
+                            </li>
+                        }
+                    </ul>
+                    <h3>Window views:</h3>
+                    <ul>
+                        @foreach (var windowView in hotelNumber.WindowViews)
+                        {
+                            <li>
+                                @windowView.ToString()
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </li>
+        }
+    </ul>
+
+    @Html.EditorFor(x => x.BoundedBooking.Client, "Client")
+
+    <input type="submit" value="Book" />
+}
+

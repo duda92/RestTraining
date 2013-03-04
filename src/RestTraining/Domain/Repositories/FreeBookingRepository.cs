@@ -61,11 +61,9 @@ namespace RestTraining.Api.Domain.Repositories
             else
             {
                 var previousBooking = _context.FreeBookings.Include(x => x.Client).FirstOrDefault(x => x.Id == freeBooking.Id);
-                freeBooking.Client.Id = previousBooking.Client.Id;
-                freeBooking.ClientId = previousBooking.Client.Id;
-                _context.Entry(previousBooking).State = EntityState.Detached;
-                _context.Entry(previousBooking.Client).State = EntityState.Detached;
-                _context.Entry(freeBooking).State = EntityState.Modified;
+                previousBooking.Client.Name = freeBooking.Client.Name;
+                previousBooking.Client.PhoneNumber = freeBooking.Client.PhoneNumber;
+                _context.Entry(previousBooking).State = EntityState.Modified;
             }
         }
 
