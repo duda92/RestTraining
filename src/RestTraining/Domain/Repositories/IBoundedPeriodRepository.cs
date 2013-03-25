@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using RestTraining.Api.DTO;
 using RestTraining.Api.Domain.Entities;
 
 namespace RestTraining.Api.Domain.Repositories
@@ -13,5 +15,7 @@ namespace RestTraining.Api.Domain.Repositories
         void InsertOrUpdate(BoundedPeriod boundedreservationshotel);
         void Delete(int id);
         void Save();
+        List<BoundedPeriod> GetAllForHotel(int hotelId);
+        BoundedPeriod GetByHotelIdAndId(int hotelId, int id);
     }
 }

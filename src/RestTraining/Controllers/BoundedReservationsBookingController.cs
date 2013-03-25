@@ -12,7 +12,6 @@ namespace RestTraining.Api.Controllers
 {
     public class BoundedReservationsBookingController : ApiController
     {
-
         private readonly IBoundedBookingRepository _boundedBookingRepository;
         private readonly IBoundedReservationsHotelRepository _boundedReservationsHotelRepository;
 

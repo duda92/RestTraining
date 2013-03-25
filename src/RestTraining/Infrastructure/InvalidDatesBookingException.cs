@@ -13,4 +13,8 @@ namespace RestTraining.Api.Infrastructure
     {
         public string parameterName { get; set; }
     }
+
+    public class BoundedPeriodDatesException : ArgumentException
+    {
+    }
 }

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using RestTraining.Api.DTO;
 using RestTraining.Api.Domain.Repositories;
+using RestTraining.Api.Infrastructure;
 
 namespace RestTraining.Api.Controllers
 {
@@ -22,14 +23,22 @@ namespace RestTraining.Api.Controllers
 
         public List<BoundedPeriodDTO> Get(int hotelId)
         {
-            var boundedPeriods = _boundedPeriodRepository.All.Where(x => x.BoundedReservationsHotelId == hotelId).ToList();
-            return boundedPeriods.Select(x => x.ToDTO()).ToList();
+            if (hotelId == 0)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
+            try
+            {
+                var boundedPeriods = _boundedPeriodRepository.GetAllForHotel(hotelId);
+                return boundedPeriods.Select(x => x.ToDTO()).ToList();
+            }
+            catch (ParameterNotFoundException)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
         }
 
         public BoundedPeriodDTO Get(int hotelId, int id)
         {
-            return
-                _boundedPeriodRepository.All.SingleOrDefault(x => x.BoundedReservationsHotelId == hotelId && x.Id == id).ToDTO();
+            return _boundedPeriodRepository.GetByHotelIdAndId(hotelId, id).ToDTO();
         }
 
         public HttpResponseMessage Post(int hotelId, [FromBody]BoundedPeriodDTO boundedPeriodDTO)
@@ -38,10 +47,6 @@ namespace RestTraining.Api.Controllers
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
             } 
-            if (_boundedReservationsHotelRepository.Find(hotelId) == null)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
             boundedPeriodDTO.BoundedReservationsHotelId = hotelId;
             var boundedPeriod = boundedPeriodDTO.ToEntity();
             try
@@ -49,7 +54,11 @@ namespace RestTraining.Api.Controllers
                 _boundedPeriodRepository.InsertOrUpdate(boundedPeriod);
                 _boundedPeriodRepository.Save();
             }
-            catch (ArgumentException)
+            catch (ParameterNotFoundException)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
+            catch (BoundedPeriodDatesException)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict));
             }
@@ -65,17 +74,17 @@ namespace RestTraining.Api.Controllers
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
             }
-            if (_boundedPeriodRepository.Find(boundedPeriodDTO.Id) == null)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
             var boundedPeriod = boundedPeriodDTO.ToEntity();
             try
             {
                 _boundedPeriodRepository.InsertOrUpdate(boundedPeriod);
                 _boundedPeriodRepository.Save();
             }
-            catch (ArgumentException)
+            catch (ParameterNotFoundException)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
+            catch (BoundedPeriodDatesException)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict));
             }
@@ -87,15 +96,17 @@ namespace RestTraining.Api.Controllers
 
         public HttpResponseMessage Delete(int id)
         {
-            var boundedPeriod = _boundedPeriodRepository.Find(id);
-            if (boundedPeriod == null)
+            try
+            {
+                _boundedPeriodRepository.Delete(id);
+                _boundedPeriodRepository.Save();
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                return response;
+            }
+            catch (ParameterNotFoundException)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
-            _boundedPeriodRepository.Delete(id);
-            _boundedPeriodRepository.Save();
-            var response = Request.CreateResponse(HttpStatusCode.OK, boundedPeriod.ToDTO());
-            return response;
         }
 
         protected override void Dispose(bool disposing)
