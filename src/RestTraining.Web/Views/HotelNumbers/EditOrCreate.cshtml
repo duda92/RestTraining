@@ -11,9 +11,9 @@
     
     <fieldset>
         <legend>Hotel number</legend>
-            @Html.EditorFor(x => x.IncludeItems, "IncludeItemList")
-            @Html.EditorFor(x => x.HotelNumberType, "HotelNumberType")
-            @Html.EditorFor(x => x.WindowViews, "WindowViewTypeList")
+            @Html.EditorFor(x => x.IncludeItems, MVC.Shared.Views.EditorTemplates.IncludeItemList)
+            @Html.EditorFor(x => x.HotelNumberType, MVC.Shared.Views.EditorTemplates.HotelNumberType)
+            @Html.EditorFor(x => x.WindowViews, MVC.Shared.Views.EditorTemplates.WindowViewTypeList)
         <p>
             <input type="submit" value="Save" />
         </p>
@@ -23,5 +23,5 @@
         @{
             var hidden = new IncludedItemDTO { Count = 1,  IncludeItemType = IncludeItemType.AirConditioner };
         }
-        @Html.EditorFor(x => hidden, "IncludeItem", "IncludeItem")
+        @Html.EditorFor(x => hidden, MVC.Shared.Views.EditorTemplates.IncludeItem, "IncludeItem")
 </div>

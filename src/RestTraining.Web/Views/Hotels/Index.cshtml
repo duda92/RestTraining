@@ -14,24 +14,7 @@
     @foreach (var hotel in @Model)
     {
         <li>
-            <div class="hotel">
-                @hotel.Title
-                @Html.ActionLink("Delete", MVC.Hotels.Delete(hotel.Id))
-                @Html.ActionLink("Edit", MVC.Hotels.Edit(hotel.Id))
-                @if (hotel.Type == HotelDTO.TypeDescriminator.Bounded)
-                {
-                    @Html.ActionLink("View Bounded Periods", MVC.BoundedPeriods.Index(hotel.Id))
-                }
-                @if (hotel.Type == HotelDTO.TypeDescriminator.Free)
-                {
-                    @Html.ActionLink("Book", MVC.FreeBooking.Create(hotel.Id))
-                }
-                @if (hotel.Type == HotelDTO.TypeDescriminator.Bounded)
-                {
-                    @Html.ActionLink("Book", MVC.BoundedBooking.Create(hotel.Id))
-                }
-                
-            </div>
+            @Html.DisplayFor(x => hotel, MVC.Shared.Views.DisplayTemplates.HotelDTO)
         </li>
     }
 </ul>

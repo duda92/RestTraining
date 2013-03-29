@@ -133,12 +133,10 @@ namespace RestTraining.Web.Controllers
                 public readonly string BookingDeleted = "BookingDeleted";
                 public readonly string BookingEdited = "BookingEdited";
                 public readonly string EditOrCreate = "EditOrCreate";
-                public readonly string Index = "Index";
             }
             public readonly string BookingDeleted = "~/Views/BoundedBooking/BookingDeleted.cshtml";
             public readonly string BookingEdited = "~/Views/BoundedBooking/BookingEdited.cshtml";
             public readonly string EditOrCreate = "~/Views/BoundedBooking/EditOrCreate.cshtml";
-            public readonly string Index = "~/Views/BoundedBooking/Index.cshtml";
         }
     }
 

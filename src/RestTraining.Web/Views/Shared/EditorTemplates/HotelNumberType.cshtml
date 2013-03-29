@@ -10,15 +10,9 @@
             @Html.Label("Hotel number type")
         </div>
         <div class="editor-field">
-            @*@{
-                var types = from HotelNumberType d in Enum.GetValues(typeof(HotelNumberType))
-                                 select new {Id = (int) d, Name = d.ToString()};
-                var list = new SelectList(types, "Id", "Name", Model);
-                @Html.DropDownListFor(model => model, list)
-            }
-            *@
             
             @Html.EnumDropDownListFor(model => model, Model)
 
             @Html.ValidationMessageFor(model => model)
+
         </div>

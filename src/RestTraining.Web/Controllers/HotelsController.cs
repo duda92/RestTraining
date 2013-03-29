@@ -119,11 +119,11 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Delete(int id)
         {
             HttpStatusCode responseCode;
-            var hotelDTO = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", id), out responseCode);
+            var hotelDTO = JsonRequestExecutor.ExecuteDelete<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", id), out responseCode);
 
             if (responseCode == HttpStatusCode.OK)
             {
-                return View(MVC.Hotels.Views.EditOrCreate, hotelDTO);
+                return View(MVC.Hotels.Views.Delete, hotelDTO);
             }
             if (responseCode == HttpStatusCode.BadGateway)
             {
@@ -134,8 +134,7 @@ namespace RestTraining.Web.Controllers
             {
                 throw new Exception("Api service response BadRequest");
             }
-            throw new Exception(string.Format("Unexpected api service response {0}", responseCode));
-            
+            throw new Exception(string.Format("Unexpected api service response {0}", responseCode));           
         }
 
         [HttpPost]
