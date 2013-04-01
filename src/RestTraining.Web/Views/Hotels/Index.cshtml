@@ -6,16 +6,21 @@
 }
 
 <h2>All hotels</h2>
+<div class="row">
+    <div class="span4">
+         @Html.ActionLink("Add", MVC.Hotels.Create(), new { @class="btn btn-large btn-block btn-primary"})
+    </div>
 
-<div class="actions">
-    @Html.ActionLink("Add", MVC.Hotels.Create())
+    <div class="span12">
+        <ul class="thumbnails">
+            @foreach (var hotel in @Model)
+            {
+                <li class="span4">
+                     <div class="thumbnail pagination-centered">
+                         @Html.DisplayFor(x => hotel, MVC.Shared.Views.DisplayTemplates.HotelDTO)
+                     </div>
+                </li>
+            }
+        </ul>
+    </div>
 </div>
-<ul>
-    @foreach (var hotel in @Model)
-    {
-        <li>
-            @Html.DisplayFor(x => hotel, MVC.Shared.Views.DisplayTemplates.HotelDTO)
-        </li>
-    }
-</ul>
-

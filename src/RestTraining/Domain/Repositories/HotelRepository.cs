@@ -26,7 +26,8 @@ namespace RestTraining.Api.Domain.Repositories
         public IQueryable<Hotel> AllIncluding(params Expression<Func<Hotel, object>>[] includeProperties)
         {
             IQueryable<Hotel> query = _context.Hotels;
-            foreach (var includeProperty in includeProperties) {
+            foreach (var includeProperty in includeProperties)
+            {
                 query = query.Include(includeProperty);
             }
             return query;
@@ -40,16 +41,17 @@ namespace RestTraining.Api.Domain.Repositories
         public void InsertOrUpdate(Hotel hotel)
         {
             _hotelNumbersUpdateService.PreInsertOrUpdateHotel(_context, hotel);
-            if (hotel.Id == default(int)) 
+            if (hotel.Id == default(int))
             {
                 _context.Hotels.Add(hotel);
             }
             else
             {
+                _context.SetHotelType(hotel);
                 _context.Entry(hotel).State = EntityState.Modified;
             }
         }
-
+  
         public void Delete(int id)
         {
             var hotel = _context.Hotels.Find(id);
@@ -65,5 +67,7 @@ namespace RestTraining.Api.Domain.Repositories
         {
             _context.Dispose();
         }
+
     }
+        
 }

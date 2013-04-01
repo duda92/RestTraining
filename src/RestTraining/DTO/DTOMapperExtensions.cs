@@ -35,7 +35,7 @@ namespace RestTraining.Api.DTO
                 return new FreeReservationsHotel
                 {
                     Address = hotelDTO.Address,
-                    HotelNumbers = hotelDTO.HotelNumbers,
+                    HotelNumbers = hotelDTO.HotelNumbers.Select(x => x.ToEntity()).ToList(),
                     Id = hotelDTO.Id,
                     Title = hotelDTO.Title,
                 };
@@ -44,7 +44,7 @@ namespace RestTraining.Api.DTO
                 return new BoundedReservationsHotel
                 {
                     Address = hotelDTO.Address,
-                    HotelNumbers = hotelDTO.HotelNumbers,
+                    HotelNumbers = hotelDTO.HotelNumbers.Select(x => x.ToEntity()).ToList(),
                     Id = hotelDTO.Id,
                     Title = hotelDTO.Title,
                 };
@@ -57,7 +57,7 @@ namespace RestTraining.Api.DTO
             return new HotelDTO
             {
                 Address = hotel.Address,
-                HotelNumbers = hotel.HotelNumbers,
+                HotelNumbers = hotel.HotelNumbers.Select(x => x.ToDTO()).ToList(),
                 Id = hotel.Id,
                 Title = hotel.Title,
                 Type = hotel is FreeReservationsHotel ? HotelDTO.TypeDescriminator.Free : HotelDTO.TypeDescriminator.Bounded
@@ -85,6 +85,18 @@ namespace RestTraining.Api.DTO
             };
         }
 
+        public static HotelDTO ToBaseDTO(this FreeReservationsHotel hotel)
+        {
+            return new HotelDTO
+            {
+                Address = hotel.Address,
+                HotelNumbers = hotel.HotelNumbers.Select(x => x.ToDTO()).ToList(),
+                Id = hotel.Id,
+                Title = hotel.Title,
+                Type = HotelDTO.TypeDescriminator.Free
+            };
+        }
+
         public static BoundedReservationsHotel ToEntity(this BoundedReservationsHotelDTO hotelDTO)
         {
             return new BoundedReservationsHotel
@@ -103,6 +115,17 @@ namespace RestTraining.Api.DTO
                 HotelNumbers = hotel.HotelNumbers.Select(x => x.ToDTO()).ToList(),
                 Id = hotel.Id,
                 Title = hotel.Title
+            };
+        }
+        public static HotelDTO ToBaseDTO(this BoundedReservationsHotel hotel)
+        {
+            return new HotelDTO
+            {
+                Address = hotel.Address,
+                HotelNumbers = hotel.HotelNumbers.Select(x => x.ToDTO()).ToList(),
+                Id = hotel.Id,
+                Title = hotel.Title,
+                Type = HotelDTO.TypeDescriminator.Bounded
             };
         }
 

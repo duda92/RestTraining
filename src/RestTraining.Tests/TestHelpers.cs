@@ -159,10 +159,38 @@ namespace RestTraining.Api.Tests
         {
             public const string Resource = "/api/Hotels/";
 
+            public static int Put(HotelDTO hotel)
+            {
+                var responseObj = JsonRequestExecutor.ExecutePut<HotelDTO>(hotel, BaseUrl, string.Format(Resource, hotel.Id));
+                return responseObj.Id;
+            }
+
+            public static int Post(HotelDTO hotel)
+            {
+                var responseObj = JsonRequestExecutor.ExecutePost<HotelDTO>(hotel, BaseUrl, string.Format(Resource, hotel.Id));
+                return responseObj.Id;
+            }
+
             public static List<HotelDTO> TestGet()
             {
                 var responseObj = JsonRequestExecutor.ExecuteGet<List<HotelDTO>>(BaseUrl, Resource);
                 return responseObj;
+            }
+
+            public static HotelDTO TestGet(int id)
+            {
+                var responseObj = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", id));
+                return responseObj;
+            }
+
+            public static HotelDTO CreateRandomBoundedReservationsHotelDTO()
+            {
+                return BoundedReservationsHotelApiHelper.CreateRandomBoundedReservationsHotelDTO().ToEntity().ToBaseDTO();
+            }
+
+            public static HotelDTO CreateRandomFreeReservationsHotelDTO()
+            {
+                return FreeReservationsHotelApiHelper.CreateRandomFreeReservationsHotelDTO().ToEntity().ToBaseDTO();
             }
         }
 
@@ -217,6 +245,16 @@ namespace RestTraining.Api.Tests
                                 }
                     };
                 return hotelNumber.ToDTO();
+            }
+
+            internal static object CreateRandomBoundedReservationsHotelDTO()
+            {
+                throw new NotImplementedException();
+            }
+
+            internal static object CreateRandomFreeReservationsHotelDTO()
+            {
+                throw new NotImplementedException();
             }
         }
 

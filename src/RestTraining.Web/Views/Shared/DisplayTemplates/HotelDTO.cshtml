@@ -1,0 +1,40 @@
+﻿@using RestTraining.Api.DTO;
+@model RestTraining.Api.DTO.HotelDTO
+
+@{
+    Layout = null;
+}
+
+<div class="hotel">
+    <div>
+        <h3>
+            @Model.Title
+        </h3>
+        <div class="button-group text-right">
+            <a href="@Url.Action(MVC.Hotels.Edit(Model.Id))" class="btn btn-small"><i class="icon-pencil"></i>Edit</a>
+            <a href="@Url.Action(MVC.Hotels.Delete(Model.Id))" class="btn btn-small"><i class="icon-trash"></i>Delete</a>
+
+            @*@Html.ActionLink("Edit", MVC.Hotels.Edit(Model.Id), new { @class = "btn btn-primary btn-small" })
+            @Html.ActionLink("Delete", MVC.Hotels.Delete(Model.Id), new { @class = "btn btn-primary btn-small" })*@
+        </div>
+    </div>
+    <div>
+        <img src="~/Content/images/glyphicons-halflings.png" class="img-polaroid"/>
+    </div>
+    <div>
+        <div class="button-group">
+            @if (Model.Type == HotelDTO.TypeDescriminator.Bounded)
+            {
+                @Html.ActionLink("View Bounded Periods", MVC.BoundedPeriods.Index(Model.Id), new { @class = "btn btn-primary btn-small" })
+            }
+            @if (Model.Type == HotelDTO.TypeDescriminator.Free)
+            {
+                @Html.ActionLink("Book now", MVC.FreeBooking.Create(Model.Id), new { @class = "btn btn-primary btn-small" })
+            }
+            @if (Model.Type == HotelDTO.TypeDescriminator.Bounded)
+            {
+                @Html.ActionLink("Book Now", MVC.BoundedBooking.Create(Model.Id), new { @class = "btn btn-primary btn-small" })
+            }
+        </div>
+    </div>
+</div>

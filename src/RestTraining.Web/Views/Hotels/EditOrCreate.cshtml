@@ -38,13 +38,12 @@
             @Html.EnumDropDownListFor(model => model.Type, Model.Type)
             @Html.ValidationMessageFor(model => model.Type)
         </div>
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-        
-        @if (viewDateProvider.ControllerActionType == ControllerActionType.Edit)
-        {
-            @Html.ActionLink("Edit Hotel Numbers", MVC.HotelNumbers.Index(@Model.Id))
-        }
+        <div class="button-group">
+            <input type="submit" value="Save" class="btn btn-primary btn-small" />
+            @if (viewDateProvider.ControllerActionType == ControllerActionType.Edit)
+            {
+                @Html.ActionLink("Edit Hotel Numbers", MVC.HotelNumbers.Index(@Model.Id), new { @class = "btn btn-primary btn-small" })
+            }
+        </div>
     </fieldset>
 }

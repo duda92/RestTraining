@@ -4,7 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using RestTraining.Api;
 using RestTraining.Api.DTO;
-
+using System.Linq;
 namespace RestTraining.Web.Controllers
 {
     public partial class BoundedPeriodsController : ControllerBase
@@ -14,6 +14,9 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Index(int hotelId)
         {
             var responseObj = JsonRequestExecutor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(Resource, hotelId));
+
+            responseObj.OrderBy(x => x.BeginDate).ToList();
+
             return View(responseObj);
         }
 

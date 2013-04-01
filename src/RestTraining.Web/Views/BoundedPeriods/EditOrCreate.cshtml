@@ -10,31 +10,30 @@
     
         <fieldset>
             <legend>BoundedPeriod</legend>
-    
+
             @Html.HiddenFor(model => model.Id)
     
-            <div class="editor-label">
-                @Html.LabelFor(model => model.BeginDate)
+            <div class="control-group">
+                @Html.LabelFor(model => model.BeginDate, new { @class = "control-label"})
+                <div class="controls">
+                    @Html.EditorFor(model => model.BeginDate)
+                    @Html.ValidationMessageFor(model => model.BeginDate)
+                </div>
             </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.BeginDate)
-                @Html.ValidationMessageFor(model => model.BeginDate)
+            <div class="control-group">
+                @Html.LabelFor(model => model.EndDate, new { @class = "control-label"})
+                <div class="controls">
+                    @Html.EditorFor(model => model.EndDate)
+                    @Html.ValidationMessageFor(model => model.EndDate)
+                </div>
             </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.EndDate)
+            
+            <div class="button-grop">
+                <input type="submit" value="Save" class = "btn btn-primary btn-small" />
+                @Html.ActionLink("Back to List", MVC.BoundedPeriods.Index(viewDataProvider.HotelId), new { @class = "btn btn-primary btn-small"})
             </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.EndDate)
-                @Html.ValidationMessageFor(model => model.EndDate)
-            </div>
-    
-            <p>
-                <input type="submit" value="Save" />
-            </p>
         </fieldset>
     }
     
-    <div>
-        @Html.ActionLink("Back to List", MVC.BoundedPeriods.Index(viewDataProvider.HotelId))
-    </div>
+        
+   

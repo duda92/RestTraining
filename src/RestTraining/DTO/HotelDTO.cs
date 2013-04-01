@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using RestTraining.Api.Domain.Entities;
 
 namespace RestTraining.Api.DTO
 {
@@ -19,11 +18,11 @@ namespace RestTraining.Api.DTO
 
         public string Address { get; set; }
 
-        public List<HotelNumber> HotelNumbers { get; set; }
+        public List<HotelNumberDTO> HotelNumbers { get; set; }
 
         public HotelDTO()
         {
-            HotelNumbers = new List<HotelNumber>();
+            HotelNumbers = new List<HotelNumberDTO>();
         }
     }
 }

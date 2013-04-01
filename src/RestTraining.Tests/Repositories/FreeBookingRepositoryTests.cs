@@ -24,6 +24,7 @@ namespace RestTraining.Api.Tests.Repositories
         [TestInitialize()]
         public void SetUp()
         {
+            
             _mockBookingDatesService = MockRepository.GenerateMock<IBookingDatesService>();
             _freeBookingRepository = new FreeBookingRepository(_mockBookingDatesService);
 

@@ -133,15 +133,11 @@ namespace RestTraining.Api.Tests.Functional
             var putBooking = TestHelpers.FreeBookingApiHelper.TestGet(hotelId, putBookingId, out code);
 
             Assert.AreEqual(HttpStatusCode.OK, code);
-            Assert.AreEqual(postedBooking, putBookingId);
-            Assert.AreEqual(postedBooking.BeginDate, putBooking.BeginDate);
-            Assert.AreEqual(postedBooking.EndDate, putBooking.EndDate);
-            Assert.AreEqual(postedBooking.Client.Name, putBooking.Client.Name);
-            Assert.AreEqual(postedBooking.Client.PhoneNumber, putBooking.Client.PhoneNumber);
-            Assert.AreEqual(updatedClientName, putBooking.Client.Name);
-            Assert.AreEqual(updatedPhoneNumber, putBooking.Client.PhoneNumber);
+            Assert.AreEqual(postedBooking.Id, putBookingId);
             Assert.AreEqual(beginDate, putBooking.BeginDate);
             Assert.AreEqual(endDate, putBooking.EndDate);
+            Assert.AreEqual(updatedClientName, putBooking.Client.Name);
+            Assert.AreEqual(updatedPhoneNumber, putBooking.Client.PhoneNumber);
 
         }
 

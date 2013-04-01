@@ -5,13 +5,21 @@
     var viewDateProvider = new ViewDataProviderForView(this);
 }
 
-@Html.ActionLink("Add", MVC.BoundedPeriods.Create(viewDateProvider.HotelId))
+@Html.ActionLink("Add", MVC.BoundedPeriods.Create(viewDateProvider.HotelId), new { @class = "btn btn-primary btn-large" })
 
+<ol>
 @for (int index = 0; index < Model.Count; index++)
 {
     var period = Model[index];
-    <h3>@(index + 1)</h3>
-    <h3>
-        from @period.BeginDate to @period.EndDate
-    </h3>
+    <li>
+        <p>
+            <h4>
+                <small>from </small>
+                <span>@period.BeginDate.ToString("MM-dd-yyyy")</span>
+                <small>to </small>
+                <span>@period.EndDate.ToString("MM-dd-yyyy")</span>
+            </h4>
+        </p>
+    </li>
 }
+    </ol>
