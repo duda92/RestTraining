@@ -5,7 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Domain.Services;
-using RestTraining.Domain;
 
 namespace RestTraining.Api.Domain.Repositories
 { 
@@ -49,8 +48,11 @@ namespace RestTraining.Api.Domain.Repositories
             if (freereservationshotel.Id == default(int))
             {
                 _context.FreeReservationsHotels.Add(freereservationshotel);
-            } else 
+            } 
+            else 
             {
+                if (freereservationshotel.HotelNumbers.Count != 0)
+                    freereservationshotel.HotelNumbers.Clear(); // put hotel does not affect hotel numbers, only on create
                 _context.Entry(freereservationshotel).State = EntityState.Modified;
             }
         }

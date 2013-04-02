@@ -49,8 +49,11 @@ namespace RestTraining.Api.Domain.Repositories
             if (boundedreservationshotel.Id == default(int))
             {
                 _context.BoundedReservationsHotels.Add(boundedreservationshotel);
-            } else
+            } 
+            else
             {
+                if (boundedreservationshotel.HotelNumbers.Count != 0)
+                    boundedreservationshotel.HotelNumbers.Clear(); // put hotel does not affect hotel numbers, only on create
                 _context.Entry(boundedreservationshotel).State = EntityState.Modified;
             }
         }

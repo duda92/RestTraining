@@ -130,7 +130,6 @@
     <Compile Include="Repositories\FreeBookingRepositoryTests.cs" />
     <Compile Include="Services\BookingDatesServiceTests.cs" />
     <Compile Include="TestHelpers.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Utils\RandomUtils.cs" />
   </ItemGroup>
   <ItemGroup>

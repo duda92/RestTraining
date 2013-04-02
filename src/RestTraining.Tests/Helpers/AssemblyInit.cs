@@ -12,9 +12,22 @@ namespace RestTraining.Api.Tests.Helpers
         public static void Init(TestContext testContext)
         {
             Database.DefaultConnectionFactory = new SqlConnectionFactory("System.Data.SqlClient");
-            //Database.DefaultConnectionFactory.CreateConnection("RestTrainingApiContext");
-            
-            Database.SetInitializer(new DbInitializer());
+            Database.SetInitializer(new TestDbInitializer());
+        }
+    }
+
+    public class TestDbInitializer : DropCreateDatabaseIfModelChanges<RestTrainingApiContext>
+    {
+        protected override void Seed(RestTrainingApiContext context)
+        {
+            context.Database.ExecuteSqlCommand(@"Create PROCEDURE ChangeHotelType 
+                                                  @Id int, 
+                                                  @Discriminator nvarchar(128) 
+                                                  AS BEGIN 
+                                                       update Hotels  
+                                                       set Discriminator = @Discriminator  
+                                                       where Id = @Id 
+                                                  END");
         }
     }
 
