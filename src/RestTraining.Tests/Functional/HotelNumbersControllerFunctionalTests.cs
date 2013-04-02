@@ -10,7 +10,7 @@ namespace RestTraining.Api.Tests.Functional
     public class HotelNumbersControllerTests
     {
         [TestMethod]
-        public void Get()
+        public void Post_Get_PostHotelAndHotelNumbersGetHotelNumbers_ExpectPostedHotelNumbers()
         {
             var hotelObj = TestHelpers.FreeReservationsHotelApiHelper.CreateRandomFreeReservationsHotelDTO();
             var hotelId = TestHelpers.FreeReservationsHotelApiHelper.TestPost(hotelObj);
@@ -29,10 +29,10 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void Put()
+        public void Post_Get_Put_PostHotelNumberGetHotelNumberPutHotelNumber_ExpectHotelNumberMatchesUpdatedProperies()
         {
             var hotelObj = TestHelpers.FreeReservationsHotelApiHelper.CreateRandomFreeReservationsHotelDTO();
-            var hotelId = TestHelpers.FreeReservationsHotelApiHelper.TestPost(hotelObj);
+            var hotelId =  TestHelpers.FreeReservationsHotelApiHelper.TestPost(hotelObj);
             var hotelNumbers = TestHelpers.HotelNumbersApiHelper.TestGet(hotelId);
 
             for (int i = 0; i < 2; i++)
@@ -77,7 +77,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void Delete()
+        public void Post_Get_Delete_PostHotelNumberGetHotelNumberDeleteHotelNumber_ExpectHotelNumberDeleted()
         {
             var hotelObj = TestHelpers.FreeReservationsHotelApiHelper.CreateRandomFreeReservationsHotelDTO();
             var hotelId = TestHelpers.FreeReservationsHotelApiHelper.TestPost(hotelObj);

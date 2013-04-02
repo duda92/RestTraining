@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Tests.Utils;
-using RestTraining.Domain;
 
 namespace RestTraining.Api.Tests.Functional
 {
@@ -11,42 +8,33 @@ namespace RestTraining.Api.Tests.Functional
     public class FreeReservationsHotelsControllerTests
     {
         [TestMethod]
-        public void Get()
+        public void Post_Get_PostHotel_ExpectGetPostedHotel()
         {
-            var hotelObj = TestHelpers.FreeReservationsHotelApiHelper.CreateRandomFreeReservationsHotelDTO();
-            TestHelpers.FreeReservationsHotelApiHelper.TestPost(hotelObj);
+            var hotel = TestHelpers.FreeReservationsHotelApiHelper.CreateRandomFreeReservationsHotelDTO();
+            TestHelpers.FreeReservationsHotelApiHelper.TestPost(hotel);
             var all = TestHelpers.FreeReservationsHotelApiHelper.TestGet();
-            Assert.IsTrue(all.Any(x => x.Title == hotelObj.Title && x.Address == hotelObj.Address));
+            Assert.IsTrue(all.Any(x => x.Title == hotel.Title && x.Address == hotel.Address));
         }
 
         [TestMethod]
-        public void Get_Id()
+        public void GetAll_GetById_PostHotelGetAllGetForEachById_ExpectGetAllMatchesForeachGetById()
         {
             var hotelObj = TestHelpers.FreeReservationsHotelApiHelper.CreateRandomFreeReservationsHotelDTO();
             TestHelpers.FreeReservationsHotelApiHelper.TestPost(hotelObj);
 
-            var all = TestHelpers.FreeReservationsHotelApiHelper.TestGet();
-            foreach (var client1 in all)
+            var getHotels = TestHelpers.FreeReservationsHotelApiHelper.TestGet();
+            foreach (var hotel in getHotels)
             {
-                var result = TestHelpers.FreeReservationsHotelApiHelper.TestGet(client1.Id);
+                var result = TestHelpers.FreeReservationsHotelApiHelper.TestGet(hotel.Id);
                 Assert.IsNotNull(result.Address);
-                Assert.AreEqual(client1.Address, result.Address);
-                Assert.AreEqual(client1.Id, result.Id);
-                Assert.AreEqual(client1.Title, result.Title);
+                Assert.AreEqual(hotel.Address, result.Address);
+                Assert.AreEqual(hotel.Id, result.Id);
+                Assert.AreEqual(hotel.Title, result.Title);
             }
         }
 
         [TestMethod]
-        public void Post()
-        {
-            var hotelObj = TestHelpers.FreeReservationsHotelApiHelper.CreateRandomFreeReservationsHotelDTO();
-            TestHelpers.FreeReservationsHotelApiHelper.TestPost(hotelObj);
-            var all = TestHelpers.FreeReservationsHotelApiHelper.TestGet();
-            Assert.IsTrue(all.Any(x => x.Title == hotelObj.Title && x.Address == hotelObj.Address));
-        }
-
-        [TestMethod]
-        public void Put()
+        public void Put_Post_GetById_PostHotelGetHotelChangeHotelPutHotelGetHotel_ExpectHotelAfterPutMatchesUpdatedProperties()
         {
             TestHelpers.FreeReservationsHotelApiHelper.TestPost(TestHelpers.FreeReservationsHotelApiHelper.CreateRandomFreeReservationsHotelDTO());
             var all = TestHelpers.FreeReservationsHotelApiHelper.TestGet();

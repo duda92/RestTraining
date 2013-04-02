@@ -20,14 +20,10 @@ namespace RestTraining.Api.Tests.Helpers
     {
         protected override void Seed(RestTrainingApiContext context)
         {
-            context.Database.ExecuteSqlCommand(@"Create PROCEDURE ChangeHotelType 
-                                                  @Id int, 
-                                                  @Discriminator nvarchar(128) 
-                                                  AS BEGIN 
-                                                       update Hotels  
-                                                       set Discriminator = @Discriminator  
-                                                       where Id = @Id 
-                                                  END");
+            foreach (var sqlCommand in RestTrainingApiContext.OnSeedSqlCommands)
+            {
+                context.Database.ExecuteSqlCommand(sqlCommand);
+            }
         }
     }
 

@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Tests.Utils;
 
 namespace RestTraining.Api.Tests.Functional
@@ -13,7 +11,7 @@ namespace RestTraining.Api.Tests.Functional
         private const string BaseUrl = TestHelpers.BaseUrl;
 
         [TestMethod]
-        public void Get()
+        public void Post_Get_PostHotel_ExpectGetPostedHotel()
         {
             var hotelObj = TestHelpers.BoundedReservationsHotelApiHelper.CreateRandomBoundedReservationsHotelDTO();
             TestHelpers.BoundedReservationsHotelApiHelper.TestPost(hotelObj);
@@ -22,33 +20,24 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void Get_Id()
+        public void GetAll_GetById_PostHotelGetAllGetForEachById_ExpectGetAllMatchesForeachGetById()
         {
-            var hotelObj = TestHelpers.BoundedReservationsHotelApiHelper.CreateRandomBoundedReservationsHotelDTO();
-            TestHelpers.BoundedReservationsHotelApiHelper.TestPost(hotelObj);
+            var postHotel = TestHelpers.BoundedReservationsHotelApiHelper.CreateRandomBoundedReservationsHotelDTO();
+            TestHelpers.BoundedReservationsHotelApiHelper.TestPost(postHotel);
 
-            var all = TestHelpers.BoundedReservationsHotelApiHelper.TestGet();
-            foreach (var client1 in all)
+            var getHotels = TestHelpers.BoundedReservationsHotelApiHelper.TestGet();
+            foreach (var hotels in getHotels)
             {
-                var result = TestHelpers.BoundedReservationsHotelApiHelper.TestGet(client1.Id);
+                var result = TestHelpers.BoundedReservationsHotelApiHelper.TestGet(hotels.Id);
                 Assert.IsNotNull(result.Address);
-                Assert.AreEqual(client1.Address, result.Address);
-                Assert.AreEqual(client1.Id, result.Id);
-                Assert.AreEqual(client1.Title, result.Title);
+                Assert.AreEqual(hotels.Address, result.Address);
+                Assert.AreEqual(hotels.Id, result.Id);
+                Assert.AreEqual(hotels.Title, result.Title);
             }
         }
 
         [TestMethod]
-        public void Post()
-        {
-            var hotelObj = TestHelpers.BoundedReservationsHotelApiHelper.CreateRandomBoundedReservationsHotelDTO();
-            TestHelpers.BoundedReservationsHotelApiHelper.TestPost(hotelObj);
-            var all = TestHelpers.BoundedReservationsHotelApiHelper.TestGet();
-            Assert.IsTrue(all.Any(x => x.Title == hotelObj.Title && x.Address == hotelObj.Address));
-        }
-
-        [TestMethod]
-        public void Put()
+        public void Put_Post_GetById_PostHotelGetHotelChangeHotelPutHotelGetHotel_ExpectHotelAfterPutMatchesUpdatedProperties()
         {
             TestHelpers.BoundedReservationsHotelApiHelper.TestPost(TestHelpers.BoundedReservationsHotelApiHelper.CreateRandomBoundedReservationsHotelDTO());
             var all = TestHelpers.BoundedReservationsHotelApiHelper.TestGet();

@@ -8,12 +8,13 @@ namespace RestTraining.Api.Tests.Functional
     public class BoundedPeriodControllerTests
     {
         [TestMethod]
-        public void Get_Post()
+        public void Post_Get_PostNotIntersepterBoundedPeriods_ExpectGetPostedBoundedPeriods()
         {
             var hotelObj = TestHelpers.BoundedReservationsHotelApiHelper.CreateRandomBoundedReservationsHotelDTO();
             var hotelId = TestHelpers.BoundedReservationsHotelApiHelper.TestPost(hotelObj);
 
             var lastEndDate = DateTime.Today;
+
             for (int i = 0; i < 5; i++)
             {
                 var boundedPeriod = TestHelpers.BoundedPeriodsApiHelper.CreateRandomBoundedPeriodDTO(lastEndDate.AddDays(1));
@@ -31,7 +32,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void Post_Intersepted()
+        public void Post_Get_PostInterseptedBoundedPeriods_ExpectFirstPostedAndInterseptedNot()
         {
             var hotelObj = TestHelpers.BoundedReservationsHotelApiHelper.CreateRandomBoundedReservationsHotelDTO();
             var hotelId = TestHelpers.BoundedReservationsHotelApiHelper.TestPost(hotelObj);

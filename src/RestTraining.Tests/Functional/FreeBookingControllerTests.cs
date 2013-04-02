@@ -30,7 +30,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void PostBookings_ReturnCreatedResponse()
+        public void Post_ExpectCreatedResponse()
         {
             var booking1 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today.AddDays(2), DateTime.Today.AddDays(7));
             HttpStatusCode code;
@@ -39,7 +39,7 @@ namespace RestTraining.Api.Tests.Functional
         }
         
         [TestMethod]
-        public void PostIntersectedBookings_ReturnConflictResponseCode1()
+        public void Post_PostIntersectedBookings_ExpectConflictResponseCode1()
         {
             var booking1 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today, DateTime.Today.AddDays(7));
             var booking2 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today, DateTime.Today.AddDays(99));
@@ -47,7 +47,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void PostIntersectedBookings_ReturnConflictResponseCode2()
+        public void Post_PostIntersectedBookings_ExpectConflictResponseCode2()
         {
             var booking1 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today, DateTime.Today.AddDays(7));
             var booking2 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today.AddDays(7), DateTime.Today.AddDays(99));
@@ -55,7 +55,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void PostIntersectedBookings_ReturnConflictResponseCode3()
+        public void Post_PostIntersectedBookings_ExpectConflictResponseCode3()
         {
             var booking1 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today.AddDays(2), DateTime.Today.AddDays(7));
             var booking2 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today, DateTime.Today.AddDays(2));
@@ -63,7 +63,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void PostIntersectedBookings_ReturnConflictResponseCode4()
+        public void Post_PostIntersectedBookings_ExpectConflictResponseCode4()
         {
             var booking1 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today, DateTime.Today.AddDays(100));
             var booking2 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today.AddDays(5), DateTime.Today.AddDays(7));
@@ -71,7 +71,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void PostIntersectedBookings_ReturnConflictResponseCode5()
+        public void Post_PostIntersectedBookings_ExpectConflictResponseCode5()
         {
             var booking1 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today, DateTime.Today.AddDays(100));
             var booking2 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today.AddDays(-5), DateTime.Today.AddDays(104));
@@ -79,7 +79,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void PostIntersectedBookings_ReturnConflictResponseCode6()
+        public void Post_PostIntersectedBookings_ExpectConflictResponseCode6()
         {
             var booking1 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today, DateTime.Today.AddDays(100));
             var booking2 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today.AddDays(-5), DateTime.Today.AddDays(4));
@@ -87,7 +87,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void PostIntersectedBookings_ReturnConflictResponseCode7()
+        public void Post_PostIntersectedBookings_ExpectConflictResponseCode7()
         {
             var booking1 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today, DateTime.Today.AddDays(100));
             var booking2 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today.AddDays(98), DateTime.Today.AddDays(102));
@@ -95,14 +95,14 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void GivenEndDateLessThenBeginDate_Post_ReturnBadRequestCode()
+        public void GivenEndDateLessThenBeginDate_Post_ExpectBadRequestCode()
         {
             var booking1 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today.AddDays(100), DateTime.Today.AddDays(99));
             AssertBadRequestCode(booking1);
         }
 
         [TestMethod]
-        public void GivenInvalidDate_Post_ReturnBadRequestCode()
+        public void GivenInvalidDate_Post_ExpectBadRequestCode()
         {
             var booking1 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today.AddDays(100), default(DateTime));
             AssertBadRequestCode(booking1);
@@ -110,7 +110,7 @@ namespace RestTraining.Api.Tests.Functional
 
         
         [TestMethod]
-        public void GivenEditedDate_Put_ReturnOkCode_UpdateProperties()
+        public void Put_PostBookingGetBookingUpdateBookingPutBooking_ExpectOkCodeAndUpdateBookingProperties()
         {
             var booking1 = TestHelpers.FreeBookingApiHelper.CreateFreeBookingDTO(hotelNumber1, DateTime.Today, DateTime.Today.AddDays(100));
 

@@ -12,6 +12,18 @@ namespace RestTraining.Api.Domain
     {
         public DbSet<Client> Clients { get; set; }
 
+        public static List<string> OnSeedSqlCommands = new List<string> 
+        { 
+            @"Create PROCEDURE ChangeHotelType 
+                                                  @Id int, 
+                                                  @Discriminator nvarchar(128) 
+                                                  AS BEGIN 
+                                                       update Hotels  
+                                                       set Discriminator = @Discriminator  
+                                                       where Id = @Id 
+                                                  END"
+        };
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Hotel>().HasMany(j => j.HotelNumbers).WithRequired().HasForeignKey(x => x.HotelId);
@@ -55,15 +67,10 @@ namespace RestTraining.Api.Domain
         protected override void Seed(RestTrainingApiContext context)
         {
             InitializingByTestValues(context);
-
-            context.Database.ExecuteSqlCommand(@"Create PROCEDURE ChangeHotelType 
-                                                  @Id int, 
-                                                  @Discriminator nvarchar(128) 
-                                                  AS BEGIN 
-                                                       update Hotels  
-                                                       set Discriminator = @Discriminator  
-                                                       where Id = @Id 
-                                                  END");
+            foreach (var sqlCommand in RestTrainingApiContext.OnSeedSqlCommands)
+            {
+                context.Database.ExecuteSqlCommand(sqlCommand);
+            }
         }
 
         private void InitializingByTestValues(RestTrainingApiContext context)

@@ -8,7 +8,7 @@ namespace RestTraining.Api.Tests.Functional
     public class HotelsControllerTests
     {
         [TestMethod]
-        public void Post_Get_ReturnsPostedHotels()
+        public void Post_Get_PostHotelsGetHotels_ExpectGetPostedHotels()
         {
             var hotel1 = TestHelpers.HotelsApiHelper.CreateRandomBoundedReservationsHotelDTO();
             var hotel2 = TestHelpers.HotelsApiHelper.CreateRandomFreeReservationsHotelDTO();
@@ -20,7 +20,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void Put_Get_ExpectSetAllTheFieldsUpdates()
+        public void Put_Get_PostHotelsGetHotelsPutHotels_ExpectHotelsUpdated()
         {
             var hotel1 = TestHelpers.HotelsApiHelper.CreateRandomBoundedReservationsHotelDTO();
             var hotel2 = TestHelpers.HotelsApiHelper.CreateRandomFreeReservationsHotelDTO();
@@ -58,7 +58,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void Put_ReturnsHotelNumbersWithoutChanges()
+        public void Put_PostHotelsGetHotelsChangeHotelType_ExpectHotelNumbersWithoutChanges()
         {
             var hotel = TestHelpers.BoundedReservationsHotelApiHelper.CreateRandomBoundedReservationsHotelDTO();
             var hotelId = TestHelpers.BoundedReservationsHotelApiHelper.TestPost(hotel);
@@ -82,7 +82,7 @@ namespace RestTraining.Api.Tests.Functional
         }
 
         [TestMethod]
-        public void PostAndPut_ReturnsIdNotChanged()
+        public void Post_Put_PostHotelsGetHotelsChangeHotelType_ExpectHotelIdNotChanged()
         {
             var hotel = TestHelpers.BoundedReservationsHotelApiHelper.CreateRandomBoundedReservationsHotelDTO();
             var hotelId = TestHelpers.BoundedReservationsHotelApiHelper.TestPost(hotel);
@@ -98,19 +98,6 @@ namespace RestTraining.Api.Tests.Functional
             
             var updatedHotel = TestHelpers.HotelsApiHelper.TestGet(updatedHotelId);
             Assert.AreEqual(hotelId, updatedHotel.Id);
-        }
-
-        [TestMethod]
-        public void Post_IdNotNull()
-        {
-            var hotel1 = TestHelpers.BoundedReservationsHotelApiHelper.CreateRandomBoundedReservationsHotelDTO();
-            var hotel1Id = TestHelpers.BoundedReservationsHotelApiHelper.TestPost(hotel1);
-           
-            var hotel2 = TestHelpers.FreeReservationsHotelApiHelper.CreateRandomFreeReservationsHotelDTO();
-            var hotel2Id = TestHelpers.FreeReservationsHotelApiHelper.TestPost(hotel2);
-
-            Assert.AreNotEqual(0, hotel1Id);
-            Assert.AreNotEqual(0, hotel2Id);
         }
     }
 }
