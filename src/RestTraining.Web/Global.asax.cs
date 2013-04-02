@@ -2,7 +2,7 @@
 using System.Web.Optimization;
 using System.Web.Routing;
 using RestTraining.Api.DTO;
-using RestTraining.Web.Controllers;
+using RestTraining.Web.Binders;
 
 namespace RestTraining.Web
 {
@@ -17,6 +17,7 @@ namespace RestTraining.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             BootstrapSupport.BootstrapBundleConfig.RegisterBundles(BundleTable.Bundles);
             ModelBinders.Binders.Add(typeof(HotelNumberDTO), new HotelNumberDTOBinder());
+            ModelBinders.Binders.Add(typeof(HotelDTO), new HotelDTOBinder());
         }
     }
 }

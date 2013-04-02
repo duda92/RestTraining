@@ -182,6 +182,7 @@
     <Compile Include="Domain\Services\HotelNumbersUpdateService.cs" />
     <Compile Include="Domain\Services\IBookingDatesService.cs" />
     <Compile Include="Domain\Services\IHotelNumbersUpdateService.cs" />
+    <Compile Include="Domain\Services\ImageService.cs" />
     <Compile Include="DTO\BoundedBookingDTO.cs" />
     <Compile Include="DTO\BoundedPeriodDTO.cs" />
     <Compile Include="DTO\BoundedReservationsHotelDTO.cs" />

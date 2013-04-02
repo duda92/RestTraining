@@ -1,0 +1,40 @@
+﻿@using RestTraining.Web.Helper;
+@model byte[]
+
+@{
+    Layout = null;
+}
+
+        @Html.HiddenFor(model => Model)
+
+<style type="text/css">
+    .preview-container {width: @string.Format("{0}px", ImageHelper.maxImageWidth); height:@string.Format("{0}px", ImageHelper.maxImageHeight); display:block; position:relative;overflow:hidden;}
+    .preview-container img{position:absolute; top:0; left:0; width:100%;}
+</style>
+
+<script type="text/javascript">
+    var conHeight = $(".preview-container").height();
+    var imgHeight = $(".preview-container img").height();
+    var gap = (imgHeight - conHeight) / 2;
+    $(".preview-container img").css("margin-top", -gap);
+
+
+    function readURL(input)
+    {
+        if (input.files && input.files[0])
+        {
+            var reader = new FileReader();
+            reader.onload = function (e)
+            {
+                $('#preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    </script>
+    <input id="file" name="file" type="file" onchange="readURL(this);">
+
+ 
+<div class="preview-container">
+    <img id="preview" src="@ImageHelper.ToHtmlSrc(Model)" alt="your image"/>
+</div>

@@ -88,6 +88,7 @@ namespace RestTraining.Api.Domain
             {
                 Title = "Test",
                 Address = "Test",
+                Description = "This is description of hotel: Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
                 HotelNumbers = new List<HotelNumber>
                     {
                         new HotelNumber
@@ -111,6 +112,7 @@ namespace RestTraining.Api.Domain
             {
                 Title = "Test",
                 Address = "Test",
+                Description = "This is description of hotel: Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
                 HotelNumbers = new List<HotelNumber>
                     {
                         new HotelNumber

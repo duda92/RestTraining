@@ -75,14 +75,31 @@ namespace Links
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
                       
+        public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
+                      
+        public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
+        public static readonly string html5shiv_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/html5shiv.min.js") ? Url("html5shiv.min.js") : Url("html5shiv.js");
+                      
         public static readonly string jquery_1_6_2_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.6.2-vsdoc.min.js") ? Url("jquery-1.6.2-vsdoc.min.js") : Url("jquery-1.6.2-vsdoc.js");
                       
         public static readonly string jquery_1_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.6.2.min.js") ? Url("jquery-1.6.2.min.js") : Url("jquery-1.6.2.js");
                       
         public static readonly string jquery_1_6_2_min_js = Url("jquery-1.6.2.min.js");
+        public static readonly string jquery_1_9_1_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.9.1.intellisense.min.js") ? Url("jquery-1.9.1.intellisense.min.js") : Url("jquery-1.9.1.intellisense.js");
+                      
+        public static readonly string jquery_1_9_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.9.1.min.js") ? Url("jquery-1.9.1.min.js") : Url("jquery-1.9.1.js");
+                      
+        public static readonly string jquery_1_9_1_min_js = Url("jquery-1.9.1.min.js");
+        public static readonly string jquery_1_9_1_min_map = Url("jquery-1.9.1.min.map");
+        public static readonly string jquery_migrate_1_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-migrate-1.1.1.min.js") ? Url("jquery-migrate-1.1.1.min.js") : Url("jquery-migrate-1.1.1.js");
+                      
+        public static readonly string jquery_migrate_1_1_1_min_js = Url("jquery-migrate-1.1.1.min.js");
         public static readonly string jquery_ui_1_8_11_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.8.11.min.js") ? Url("jquery-ui-1.8.11.min.js") : Url("jquery-ui-1.8.11.js");
                       
         public static readonly string jquery_ui_1_8_11_min_js = Url("jquery-ui-1.8.11.min.js");
+        public static readonly string jquery_ui_1_8_20_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.8.20.min.js") ? Url("jquery-ui-1.8.20.min.js") : Url("jquery-ui-1.8.20.js");
+                      
+        public static readonly string jquery_ui_1_8_20_min_js = Url("jquery-ui-1.8.20.min.js");
         public static readonly string jquery_unobtrusive_ajax_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.unobtrusive-ajax.min.js") ? Url("jquery.unobtrusive-ajax.min.js") : Url("jquery.unobtrusive-ajax.js");
                       
         public static readonly string jquery_unobtrusive_ajax_min_js = Url("jquery.unobtrusive-ajax.min.js");
@@ -91,6 +108,8 @@ namespace Links
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
                       
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
+        public static readonly string jquery_validate_unobtrusive_custom_for_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive-custom-for-bootstrap.min.js") ? Url("jquery.validate.unobtrusive-custom-for-bootstrap.min.js") : Url("jquery.validate.unobtrusive-custom-for-bootstrap.js");
+                      
         public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
                       
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
@@ -98,7 +117,13 @@ namespace Links
                       
         public static readonly string knockout_2_0_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-2.0.0.min.js") ? Url("knockout-2.0.0.min.js") : Url("knockout-2.0.0.js");
                       
+        public static readonly string knockout_2_1_0_debug_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-2.1.0.debug.min.js") ? Url("knockout-2.1.0.debug.min.js") : Url("knockout-2.1.0.debug.js");
+                      
+        public static readonly string knockout_2_1_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-2.1.0.min.js") ? Url("knockout-2.1.0.min.js") : Url("knockout-2.1.0.js");
+                      
         public static readonly string modernizr_2_0_6_development_only_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.0.6-development-only.min.js") ? Url("modernizr-2.0.6-development-only.min.js") : Url("modernizr-2.0.6-development-only.js");
+                      
+        public static readonly string modernizr_2_5_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.5.3.min.js") ? Url("modernizr-2.5.3.min.js") : Url("modernizr-2.5.3.js");
                       
     }
 

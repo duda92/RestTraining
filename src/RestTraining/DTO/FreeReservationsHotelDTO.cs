@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using RestTraining.Api.Domain.Entities;
 
 namespace RestTraining.Api.DTO
 {
@@ -17,5 +16,9 @@ namespace RestTraining.Api.DTO
         {
             HotelNumbers = new List<HotelNumberDTO>();
         }
+
+        public string Description { get; set; }
+
+        public byte[] Image { get; set; }
     }
 }

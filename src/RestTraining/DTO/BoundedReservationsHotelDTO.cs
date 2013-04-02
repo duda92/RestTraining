@@ -16,5 +16,9 @@ namespace RestTraining.Api.DTO
         {
             HotelNumbers = new List<HotelNumberDTO>();
         }
+
+        public string Description { get; set; }
+
+        public byte[] Image { get; set; }
     }
 }

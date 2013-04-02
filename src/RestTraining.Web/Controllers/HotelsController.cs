@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Web.Mvc;
 using RestTraining.Api;
 using RestTraining.Api.DTO;
+using System.Drawing;
+using System.Web;
 
 namespace RestTraining.Web.Controllers
 {
@@ -92,7 +95,7 @@ namespace RestTraining.Web.Controllers
             if (!ModelState.IsValid)
             {
                 _viewDataProvider.ControllerActionType = ControllerActionType.Edit;
-                return View(MVC.Hotels.Views.EditOrCreate); 
+                return View(MVC.Hotels.Views.EditOrCreate, hotel); 
             }
 
             HttpStatusCode responseCode;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using RestTraining.Api.Domain.Entities;
+using RestTraining.Api.Domain.Services;
 
 namespace RestTraining.Api.DTO
 {
@@ -38,6 +39,8 @@ namespace RestTraining.Api.DTO
                     HotelNumbers = hotelDTO.HotelNumbers.Select(x => x.ToEntity()).ToList(),
                     Id = hotelDTO.Id,
                     Title = hotelDTO.Title,
+                    Image = ImageService.ToPngImageBytes(hotelDTO.Image), 
+                    Description = hotelDTO.Description
                 };
             else if (hotelDTO.Type == HotelDTO.TypeDescriminator.Bounded)
             {
@@ -47,6 +50,8 @@ namespace RestTraining.Api.DTO
                     HotelNumbers = hotelDTO.HotelNumbers.Select(x => x.ToEntity()).ToList(),
                     Id = hotelDTO.Id,
                     Title = hotelDTO.Title,
+                    Image = ImageService.ToPngImageBytes(hotelDTO.Image),
+                    Description = hotelDTO.Description
                 };
             }
             else
@@ -60,7 +65,9 @@ namespace RestTraining.Api.DTO
                 HotelNumbers = hotel.HotelNumbers.Select(x => x.ToDTO()).ToList(),
                 Id = hotel.Id,
                 Title = hotel.Title,
-                Type = hotel is FreeReservationsHotel ? HotelDTO.TypeDescriminator.Free : HotelDTO.TypeDescriminator.Bounded
+                Type = hotel is FreeReservationsHotel ? HotelDTO.TypeDescriminator.Free : HotelDTO.TypeDescriminator.Bounded,
+                Image = hotel.Image,
+                Description = hotel.Description
             };
         }
 
@@ -72,6 +79,8 @@ namespace RestTraining.Api.DTO
                     HotelNumbers = hotelDTO.HotelNumbers.Select(x => x.ToEntity()).ToList(),
                     Id = hotelDTO.Id,
                     Title = hotelDTO.Title,
+                    Image = ImageService.ToPngImageBytes(hotelDTO.Image),
+                    Description = hotelDTO.Description
                 };
         }
         public static FreeReservationsHotelDTO ToDTO(this FreeReservationsHotel hotel)
@@ -81,7 +90,9 @@ namespace RestTraining.Api.DTO
                 Address = hotel.Address,
                 HotelNumbers = hotel.HotelNumbers.Select(x => x.ToDTO()).ToList(),
                 Id = hotel.Id,
-                Title = hotel.Title
+                Title = hotel.Title,
+                Image = hotel.Image,
+                Description = hotel.Description
             };
         }
 
@@ -93,7 +104,9 @@ namespace RestTraining.Api.DTO
                 HotelNumbers = hotel.HotelNumbers.Select(x => x.ToDTO()).ToList(),
                 Id = hotel.Id,
                 Title = hotel.Title,
-                Type = HotelDTO.TypeDescriminator.Free
+                Type = HotelDTO.TypeDescriminator.Free,
+                Image = hotel.Image,
+                Description = hotel.Description
             };
         }
 
@@ -105,6 +118,8 @@ namespace RestTraining.Api.DTO
                 HotelNumbers = hotelDTO.HotelNumbers.Select(x => x.ToEntity()).ToList(),
                 Id = hotelDTO.Id,
                 Title = hotelDTO.Title,
+                Image = ImageService.ToPngImageBytes(hotelDTO.Image),
+                Description = hotelDTO.Description
             };
         }
         public static BoundedReservationsHotelDTO ToDTO(this BoundedReservationsHotel hotel)
@@ -114,7 +129,9 @@ namespace RestTraining.Api.DTO
                 Address = hotel.Address,
                 HotelNumbers = hotel.HotelNumbers.Select(x => x.ToDTO()).ToList(),
                 Id = hotel.Id,
-                Title = hotel.Title
+                Title = hotel.Title,
+                Image = hotel.Image,
+                Description = hotel.Description
             };
         }
         public static HotelDTO ToBaseDTO(this BoundedReservationsHotel hotel)
@@ -125,7 +142,9 @@ namespace RestTraining.Api.DTO
                 HotelNumbers = hotel.HotelNumbers.Select(x => x.ToDTO()).ToList(),
                 Id = hotel.Id,
                 Title = hotel.Title,
-                Type = HotelDTO.TypeDescriminator.Bounded
+                Type = HotelDTO.TypeDescriminator.Bounded,
+                Image = hotel.Image,
+                Description = hotel.Description
             };
         }
 
