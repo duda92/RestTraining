@@ -15,11 +15,7 @@
         <ul class="thumbnails">
             @foreach (var hotel in @Model)
             {
-                <li class="span4">
-                     <div class="thumbnail pagination-centered">
-                         @Html.DisplayFor(x => hotel, MVC.Shared.Views.DisplayTemplates.HotelDTO)
-                     </div>
-                </li>
+                 @Html.DisplayFor(x => hotel, MVC.Shared.Views.DisplayTemplates.HotelDTO)  
             }
         </ul>
     </div>

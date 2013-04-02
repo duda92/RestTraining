@@ -267,7 +267,7 @@
     <Content Include="Views\Shared\_validationSummary.cshtml" />
     <Content Include="Views\Shared\_BootstrapLayout.narrow.cshtml" />
     <Content Include="Views\Shared\_BootstrapLayout.empty.cshtml" />
-    <Content Include="Views\Shared\_BootstrapLayout.basic.cshtml" />
+    <Content Include="Views\Shared\_BootstrapLayout.cshtml" />
     <Content Include="Views\Shared\_alerts.cshtml" />
     <Content Include="Views\ExampleLayouts\TBD.cshtml" />
     <Content Include="Views\ExampleLayouts\Starter.cshtml" />
