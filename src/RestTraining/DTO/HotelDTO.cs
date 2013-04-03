@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace RestTraining.Api.DTO
 {
@@ -14,8 +15,10 @@ namespace RestTraining.Api.DTO
 
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; }
-
+        
+        [Required(ErrorMessage = "Address is required")]
         public string Address { get; set; }
 
         public string Description { get; set; }

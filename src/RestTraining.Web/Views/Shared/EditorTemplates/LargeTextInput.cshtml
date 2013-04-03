@@ -1,0 +1,9 @@
+﻿@model string
+
+@{
+    Layout = null;
+}
+
+<textarea class="editor" name="@ViewData.ModelMetadata.PropertyName" id ="@ViewData.ModelMetadata.PropertyName">
+    @Model
+</textarea>
