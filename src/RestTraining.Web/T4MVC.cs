@@ -75,6 +75,7 @@ namespace Links
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
                       
+        public static readonly string bootstrap_fileupload_min_js = Url("bootstrap-fileupload.min.js");
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
                       
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
@@ -134,6 +135,7 @@ namespace Links
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string body_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/body.min.css") ? Url("body.min.css") : Url("body.css");
              
+        public static readonly string bootstrap_fileupload_min_css = Url("bootstrap-fileupload.min.css");
         public static readonly string bootstrap_mvc_validation_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-mvc-validation.min.css") ? Url("bootstrap-mvc-validation.min.css") : Url("bootstrap-mvc-validation.css");
              
         public static readonly string bootstrap_responsive_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-responsive.min.css") ? Url("bootstrap-responsive.min.css") : Url("bootstrap-responsive.css");

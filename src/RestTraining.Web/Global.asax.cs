@@ -18,6 +18,7 @@ namespace RestTraining.Web
             BootstrapSupport.BootstrapBundleConfig.RegisterBundles(BundleTable.Bundles);
             ModelBinders.Binders.Add(typeof(HotelNumberDTO), new HotelNumberDTOBinder());
             ModelBinders.Binders.Add(typeof(HotelDTO), new HotelDTOBinder());
+            ModelBinders.Binders.Add(typeof(BoundedBookingDTO), new BoundedBookingDTOBinder());
         }
     }
 }

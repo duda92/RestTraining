@@ -1,0 +1,45 @@
+﻿@model int
+@using RestTraining.Api.DTO
+@using RestTraining.Api.Domain.Entities
+
+@{
+    Layout = null;
+    var boundedPeriods = (List<BoundedPeriodDTO>)ViewData["BoundedPeriods"];
+
+    var propertyName = ViewData.ModelMetadata.PropertyName;
+    var rowAttribute = "row-bounded-period-id";
+    var tableId = "periods";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        selectBoundedPeriod(@Model);
+    });
+
+    function selectBoundedPeriod(id)
+    {
+        $("#@propertyName").val(id);
+        $("#@tableId tr[@rowAttribute='" + id + "']").addClass('success');
+        $("#@tableId tr:not([@rowAttribute='" + id + "'])").removeClass('success');
+    } 
+</script>
+
+    <input id="@propertyName" name="@propertyName" type="hidden" value="0" />
+    
+    <h2>Bounded periods</h2>
+    <table class="table table-striped table-bordered" id="@tableId">
+        <thead>
+            <tr>
+                <th>Begin Date</th>
+                <th>End Date</th>
+            </tr>
+           </thead>
+    @foreach (var boundedPeriod in boundedPeriods)
+    {
+        <tr class="rowlink" onclick="selectBoundedPeriod(@boundedPeriod.Id)" @rowAttribute ="@boundedPeriod.Id">
+            <td>@Html.DisplayFor(model => boundedPeriod.BeginDate)</td>
+            <td>@Html.DisplayFor(model => boundedPeriod.EndDate)</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,81 @@
+﻿@model int
+@using RestTraining.Api.DTO
+@using RestTraining.Api.Domain.Entities
+
+@{
+    Layout = null;
+    var hotelNumbers = (List<HotelNumberDTO>)ViewData["HotelNumbers"];
+    var propertyName = ViewData.ModelMetadata.PropertyName;
+    var rowAttribute = "row-hotel-number-id";
+    var tableId = "hotelNumbers";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        selectHotelNumber(@Model);
+    });
+
+    function selectHotelNumber(id)
+    {
+        $("#@propertyName").val(id);
+        $("#@tableId tr[@rowAttribute='" + id + "']").addClass('success');
+        $("#@tableId tr:not([@rowAttribute='" + id + "'])").removeClass('success');
+    }
+</script>
+
+<h2>Hotel numbers</h2>
+
+    <input id="@propertyName" name="@propertyName" type="hidden" value="0" />
+    <table class="table table-striped table-bordered" id="@tableId">
+        <thead>
+            <tr class="rowlink">
+                <th>#</th>
+                <th>Type</th>
+                @foreach (var val in Enum.GetValues(typeof(IncludeItemType)))
+                {
+                    <th>@val</th>
+                }
+                <th>Views</th>
+            </tr>
+        </thead>
+        <tbody data-provides="rowlink">
+            
+            @for (int index = 0; index < hotelNumbers.Count; index++)
+            {
+                var hotelNumber = hotelNumbers[index];
+                
+                <tr class="rowlink" onclick="selectHotelNumber(@hotelNumber.Id)" @rowAttribute="@hotelNumber.Id">
+                    <td>@(index + 1)</td>
+                    <td>@hotelNumber.HotelNumberType.ToString()</td>
+                    @foreach (var val in Enum.GetValues(typeof(IncludeItemType)))
+                    {
+                        <td style="font-size: 40px;">
+                            @if (hotelNumber.IncludeItems.Any(x => x.IncludeItemType == (IncludeItemType)val))
+                            { 
+                                <i class="iconic-check" style="color: #51A351"></i>
+                            }
+                            else
+                            {
+                                <i class="iconic-x" style="color: #BD362F"></i>
+                            }
+                        </td>
+                    }
+                    <td>
+                        @{
+                            var viewsString = new System.Text.StringBuilder();
+                            foreach (var windowView in hotelNumber.WindowViews)
+                            {
+                                viewsString.Append(windowView.ToString());
+                                if (hotelNumber.WindowViews.Last() != windowView)
+                                {
+                                    viewsString.Append(", ");
+                                }
+                            }
+                            Html.Raw(viewsString.ToString());
+                         }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

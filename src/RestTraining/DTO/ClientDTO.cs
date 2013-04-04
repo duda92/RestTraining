@@ -4,10 +4,10 @@ namespace RestTraining.Api.DTO
 {
     public class ClientDTO
     {
-        [Required(ErrorMessage = "You must enter your name")]
+        [Required(ErrorMessage = "Name is invalid")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "You must enter your phone number")]
+        [Required(ErrorMessage = "PhoneNumber is invalid")]
         public string PhoneNumber { get; set; }
     }
 }

@@ -16,6 +16,14 @@ namespace RestTraining.Web.Binders
                 propertyDescriptor.SetValue(bindingContext.Model, periodId);
                 return;
             }
+            if (propertyDescriptor.Name == "HotelNumberId")
+            {
+                string periodIdString = bindingContext.ValueProvider.GetValue("HotelNumberId").AttemptedValue;
+                int periodId = 0;
+                int.TryParse(periodIdString, out periodId);
+                propertyDescriptor.SetValue(bindingContext.Model, periodId);
+                return;
+            }
             base.BindProperty(controllerContext, bindingContext, propertyDescriptor);
         }
     }

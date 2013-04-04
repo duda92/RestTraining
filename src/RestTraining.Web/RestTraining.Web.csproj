@@ -143,6 +143,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Binders\BoundedBookingDTOBinder.cs" />
     <Compile Include="Binders\HotelDTOBinder.cs" />
     <Compile Include="Binders\HotelNumberDTOBinder.cs" />
     <Compile Include="BootstrapSupport\ControlGroupExtensions.cs" />
@@ -344,6 +345,8 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Shared\EditorTemplates\ImageUpload.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LargeTextInput.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\HotelNumberSelect.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BoundedPeriodSelect_.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

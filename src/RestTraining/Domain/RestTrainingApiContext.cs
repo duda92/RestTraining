@@ -5,6 +5,7 @@ using RestTraining.Api.Domain.Repositories;
 using RestTraining.Api.Domain.Services;
 using System.Collections.Generic;
 using RestTraining.Domain;
+using System;
 
 namespace RestTraining.Api.Domain
 {
@@ -97,7 +98,7 @@ namespace RestTraining.Api.Domain
                                 IncludeItems = new List<IncludedItem>
                                     {
                                         new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner },
-                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner }
+                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.TvSet }
                                     },
                                     WindowViews = new List<WindowView>
                                         {
@@ -120,7 +121,7 @@ namespace RestTraining.Api.Domain
                                 HotelNumberType = HotelNumberType.Double,
                                 IncludeItems = new List<IncludedItem>
                                     {
-                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner },
+                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.Balcony },
                                         new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner }
                                     },
                                     WindowViews = new List<WindowView>
@@ -138,6 +139,32 @@ namespace RestTraining.Api.Domain
             var freeReservationsHotelRepository = new FreeReservationsHotelRepository(new HotelNumbersUpdateService());
             freeReservationsHotelRepository.InsertOrUpdate(freeReservationsHotel);
             freeReservationsHotelRepository.Save();
+
+            var boundedPeriod1 = new BoundedPeriod
+            {
+                BeginDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(7),
+                BoundedReservationsHotelId = boundedReservationsHotel.Id
+            };
+            var boundedPeriod2 = new BoundedPeriod
+            {
+                BeginDate = DateTime.Now.AddDays(8),
+                EndDate = DateTime.Now.AddDays(15),
+                BoundedReservationsHotelId = boundedReservationsHotel.Id
+            };
+            var boundedPeriod3 = new BoundedPeriod
+            {
+                BeginDate = DateTime.Now.AddDays(16),
+                EndDate = DateTime.Now.AddDays(23),
+                BoundedReservationsHotelId = boundedReservationsHotel.Id
+            };
+
+            var boundedPeriodsRepository = new BoundedPeriodRepository(new BookingDatesService());
+            boundedPeriodsRepository.InsertOrUpdate(boundedPeriod1);
+            boundedPeriodsRepository.InsertOrUpdate(boundedPeriod2);
+            boundedPeriodsRepository.InsertOrUpdate(boundedPeriod3);
+            boundedPeriodsRepository.Save();
+
 
             context.SaveChanges();
         }

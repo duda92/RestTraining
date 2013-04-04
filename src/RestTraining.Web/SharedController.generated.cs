@@ -54,12 +54,15 @@ namespace T4MVC
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public partial class _EditorTemplatesClass
             {
+                public readonly string BoundedPeriodSelect_ = "BoundedPeriodSelect_";
                 public readonly string Client = "Client";
+                public readonly string HotelNumberSelect = "HotelNumberSelect";
                 public readonly string HotelNumberType = "HotelNumberType";
                 public readonly string ImageUpload = "ImageUpload";
                 public readonly string IncludeItem = "IncludeItem";
                 public readonly string IncludeItemList = "IncludeItemList";
                 public readonly string IncludeItemType = "IncludeItemType";
+                public readonly string LargeTextInput = "LargeTextInput";
                 public readonly string WindowViewTypeList = "WindowViewTypeList";
             }
         }

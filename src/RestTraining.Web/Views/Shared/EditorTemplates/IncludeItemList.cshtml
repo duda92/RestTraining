@@ -11,7 +11,7 @@
     @foreach (var item in Model)
     {
         <div class="include-item">
-            @Html.EditorFor(x => item, "IncludeItem")
+            @Html.EditorFor(x => item, MVC.Shared.Views.EditorTemplates.IncludeItem)
             @Html.ValidationMessageFor(x => item)
         </div>
     }

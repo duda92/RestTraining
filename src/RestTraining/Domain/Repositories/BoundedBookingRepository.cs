@@ -53,6 +53,9 @@ namespace RestTraining.Api.Domain.Repositories
                 throw new InvalidDatesBookingException();
             }
             boundedBooking.BoundedPeriod = _context.BoundedPeriods.First(x => x.Id == boundedBooking.BoundedPeriod.Id);
+
+            UpdateClient(boundedBooking);
+
             if (boundedBooking.Id == default(int))
             {
                 _context.BoundedBookings.Add(boundedBooking);
@@ -60,6 +63,15 @@ namespace RestTraining.Api.Domain.Repositories
             else
             {
                 _context.Entry(boundedBooking).State = EntityState.Modified;
+            }
+        }
+
+        private void UpdateClient(BoundedBooking boundedBooking)
+        {
+            if (boundedBooking.Id == 0) return;
+            if (boundedBooking.Client.Id == 0)
+            {
+                _context.Clients.Add(boundedBooking.Client);
             }
         }
 

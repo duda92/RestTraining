@@ -29,7 +29,7 @@ namespace RestTraining.Api.Controllers
 
         public BoundedBookingDTO Get(int hotelId, int id)
         {
-            var boundedBooking = _boundedBookingRepository.AllIncluding(x => x.Client).SingleOrDefault(x => x.HotelId == hotelId && x.Id == id);
+            var boundedBooking = _boundedBookingRepository.AllIncluding(x => x.Client, x => x.BoundedPeriod).SingleOrDefault(x => x.HotelId == hotelId && x.Id == id);
             if (boundedBooking == null)
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             return boundedBooking.ToDTO();

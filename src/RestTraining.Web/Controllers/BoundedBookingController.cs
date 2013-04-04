@@ -75,9 +75,10 @@ namespace RestTraining.Web.Controllers
                 throw new Exception("invalid hotel type for bounded reservations");
 
             var hotelNumbers = JsonRequestExecutor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(HotelNumbersResource, hotelId));
-
+            var boundedPeriods = JsonRequestExecutor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(BoundedPeriodsResource, hotelId));
+            
             var boundedBooking = JsonRequestExecutor.ExecuteGet<BoundedBookingDTO>(BaseUrl, string.Format(BoundedBookingResource + "{1}", hotelId, id));
-            var boundedBookingViewModel = new BoundedBookingViewModel { BoundedBooking = boundedBooking, HotelNumbers = hotelNumbers };
+            var boundedBookingViewModel = new BoundedBookingViewModel { BoundedBooking = boundedBooking, HotelNumbers = hotelNumbers, BoundedPeriods = boundedPeriods };
             return View(MVC.BoundedBooking.Views.EditOrCreate, boundedBookingViewModel);
         }
 
