@@ -5,21 +5,31 @@
     var viewDateProvider = new ViewDataProviderForView(this);
 }
 
-@Html.ActionLink("Add", MVC.BoundedPeriods.Create(viewDateProvider.HotelId), new { @class = "btn btn-primary btn-large" })
+<div class="btn-group" style="float: right">
+        <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">Admin<span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action(MVC.BoundedPeriods.Create(viewDateProvider.HotelId))" class="btn btn-small"><i class="icon-plus-sign"></i>Add</a></li>
+        </ul>
+    </div>
 
-<ol>
-@for (int index = 0; index < Model.Count; index++)
-{
-    var period = Model[index];
-    <li>
-        <p>
-            <h4>
-                <small>from </small>
-                <span>@period.BeginDate.ToString("MM-dd-yyyy")</span>
-                <small>to </small>
-                <span>@period.EndDate.ToString("MM-dd-yyyy")</span>
-            </h4>
-        </p>
-    </li>
-}
-    </ol>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (int index = 0; index < Model.Count; index++)
+        {
+            var period = Model[index];
+            <tr>
+                <td>@index</td>
+                <td>@period.BeginDate.ToString("MM-dd-yyyy")</td>
+                <td>@period.EndDate.ToString("MM-dd-yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

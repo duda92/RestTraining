@@ -3,6 +3,13 @@
 
 @{
     var viewDataProvider = new ViewDataProviderForView(this);
+    
+    if (viewDataProvider.IsInvalidBoundedPeriod)//conflinct - already exists
+    {
+        <div class="alert alert-error">
+            Entered date range intersects with existing bounded periods 
+        </div>
+    }
 }
 
 @using (Html.BeginForm()) {

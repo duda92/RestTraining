@@ -5,6 +5,14 @@
     var viewDataProvider = new ViewDataProviderForView(this);
 }
 
+<script type="text/javascript">
+    function selectHotelNumber(index)
+    {
+        var currentValue = $("#BoundedBooking_HotelNumberId")[index].checked;
+        $("#BoundedBooking_HotelNumberId")[index].checked = !currentValue;
+    }
+</script>
+
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(x => x.BoundedBooking.HotelId)
@@ -12,55 +20,81 @@
     
     foreach (var boundedPeriod in Model.BoundedPeriods)
     {
-        <div class="editor-label">
-            @Html.LabelFor(model => boundedPeriod.BeginDate)
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => boundedPeriod.BeginDate)
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => boundedPeriod.BeginDate)
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => boundedPeriod.BeginDate)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => boundedPeriod.EndDate)
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => boundedPeriod.EndDate)
-        </div>
-        @Html.RadioButtonFor(x => x.BoundedBooking.BoundedPeriodId, boundedPeriod.Id)
+    <div class="editor-label">
+        @Html.LabelFor(model => boundedPeriod.EndDate)
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => boundedPeriod.EndDate)
+    </div>
+    @Html.RadioButtonFor(x => x.BoundedBooking.BoundedPeriodId, boundedPeriod.Id)
     }
     <h2>Hotel numbers</h2>
-    <ul>
-        @for (int index = 0; index < Model.HotelNumbers.Count; index++)
-        {
-            var hotelNumber = Model.HotelNumbers[index];
-            <li>
-                <div class="hotel-number-description">
-                    #@index
-                    @Html.RadioButtonFor(x => x.BoundedBooking.HotelNumberId, hotelNumber.Id)
-                    <h3>Number includes:</h3>
-                    <ul>
-                        @foreach (var include in hotelNumber.IncludeItems)
-                        {
-                            <li>
-                                @include.IncludeItemType.ToString()
-                            </li>
+
+
+    
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr class="rowlink">
+                <th>#</th>
+                <th>Type</th>
+                @foreach (var val in Enum.GetValues(typeof(RestTraining.Api.Domain.Entities.IncludeItemType)))
+                {
+                    <th>@val</th>
+                }
+                <th>Views</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody data-provides="rowlink">
+            
+            @for (int index = 0; index < Model.HotelNumbers.Count; index++)
+            {
+                var hotelNumber = Model.HotelNumbers[index];
+                <tr class="success rowlink" onclick="selectHotelNumber(@index)">
+                    <td>@(index+1)</td>
+                    <td>@hotelNumber.HotelNumberType.ToString()</td>
+                    @foreach (var val in Enum.GetValues(typeof(RestTraining.Api.Domain.Entities.IncludeItemType)))
+                    {
+                        <td style="font-size: 40px;">
+                            @if (hotelNumber.IncludeItems.Contains(val))
+                            { 
+                                <i class="iconic-check" style="color: #51A351"></i>
+                            }
+                            else
+                            {
+                                <i class="iconic-x" style="color: #BD362F"></i>
+                            }
+                        </td>
+                    }
+                    <td>
+                        @{
+                            var viewsString = new System.Text.StringBuilder();
                         }
-                    </ul>
-                    <h3>Window views:</h3>
-                    <ul>
                         @foreach (var windowView in hotelNumber.WindowViews)
                         {
-                            <li>
-                                @windowView.ToString()
-                            </li>
+                            viewsString.Append(windowView.ToString());
+                            if (hotelNumber.WindowViews.Last() != windowView)
+                            {
+                                viewsString.Append(", ");
+                            }
                         }
-                    </ul>
-                </div>
-            </li>
+                        @Html.Raw(viewsString.ToString())
+                    </td>
+                    <td>@Html.RadioButtonFor(x => x.BoundedBooking.HotelNumberId, hotelNumber.Id)</td>
+                </tr>
+                
         }
-    </ul>
+        </tbody>
+    </table>
 
     @Html.EditorFor(x => x.BoundedBooking.Client, "Client")
 
     <input type="submit" value="Book" />
 }
-
