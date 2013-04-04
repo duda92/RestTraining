@@ -1,4 +1,5 @@
 ﻿@using RestTraining.Web
+@using RestTraining.Api.Domain.Entities
 @model RestTraining.Web.Models.BoundedBookingViewModel
 
 @{
@@ -60,10 +61,10 @@
                 <tr class="success rowlink" onclick="selectHotelNumber(@index)">
                     <td>@(index+1)</td>
                     <td>@hotelNumber.HotelNumberType.ToString()</td>
-                    @foreach (var val in Enum.GetValues(typeof(RestTraining.Api.Domain.Entities.IncludeItemType)))
+                    @foreach (var val in Enum.GetValues(typeof(IncludeItemType)))
                     {
                         <td style="font-size: 40px;">
-                            @if (hotelNumber.IncludeItems.Contains(val))
+                            @if (hotelNumber.IncludeItems.Any(x => x.IncludeItemType == (IncludeItemType)val))
                             { 
                                 <i class="iconic-check" style="color: #51A351"></i>
                             }
