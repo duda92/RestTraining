@@ -114,7 +114,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Functional\ClientsControllerFunctionalTests.cs" />
+    <Compile Include="Functional\BoundedBookingControllerTests.cs" />
     <Compile Include="Functional\HotelsControllerFunctionalTests.cs" />
     <Compile Include="Functional\BoundedReservationsHotelsControllerFunctionalTests.cs" />
     <Compile Include="Functional\FreeReservationsHotelsControllerFunctionalTests.cs" />

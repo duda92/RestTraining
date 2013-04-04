@@ -7,7 +7,7 @@ using RestTraining.Api.Tests.Utils;
 namespace RestTraining.Api.Tests.Functional
 {
     [TestClass]
-    public class BoundedBookingControllerTests
+    public class FreeBookingControllerTests
     {
         private FreeReservationsHotelDTO hotel;
         private int hotelId;
@@ -37,7 +37,7 @@ namespace RestTraining.Api.Tests.Functional
             TestHelpers.FreeBookingApiHelper.TestPost(hotelId, booking1, out code);
             Assert.AreEqual(HttpStatusCode.Created, code);
         }
-        
+
         [TestMethod]
         public void Post_PostIntersectedBookings_ExpectConflictResponseCode1()
         {
@@ -108,7 +108,7 @@ namespace RestTraining.Api.Tests.Functional
             AssertBadRequestCode(booking1);
         }
 
-        
+
         [TestMethod]
         public void Put_PostBookingGetBookingUpdateBookingPutBooking_ExpectOkCodeAndUpdateBookingProperties()
         {
@@ -157,6 +157,6 @@ namespace RestTraining.Api.Tests.Functional
             Assert.AreEqual(HttpStatusCode.Conflict, code);
         }
 
-        
+
     }
 }
