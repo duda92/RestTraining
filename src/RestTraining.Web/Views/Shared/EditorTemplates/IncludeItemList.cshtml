@@ -12,6 +12,7 @@
     {
         <div class="include-item">
             @Html.EditorFor(x => item, "IncludeItem")
+            @Html.ValidationMessageFor(x => item)
         </div>
     }
 </div>
