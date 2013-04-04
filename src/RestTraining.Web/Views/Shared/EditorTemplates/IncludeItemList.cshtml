@@ -5,7 +5,8 @@
     Layout = null;
 }
 
-<h3>Include items</h3>
+<h5>Include items</h5>
+<a class="btn" onclick=" createItem(); return false;" href="#">Add</a>
 <div class="include-items">
     @foreach (var item in Model)
     {
@@ -14,8 +15,6 @@
         </div>
     }
 </div>
-
-<a href="#" onclick=" createItem(); return false;">Add</a>
 
 <script>
     function removeItem(element) {

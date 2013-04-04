@@ -2,9 +2,8 @@
 @{
     Layout = null;
 }
-<div class="include-item">
+<div class="form-inline" style="margin:10px 10px 10px 0px">
     @Html.EditorFor(x => x.IncludeItemType, MVC.Shared.Views.EditorTemplates.IncludeItemType)
     @Html.EditorFor(x => x.Count)
-    <a href="#" onclick="removeItem(this); return false;"> remove</a>
+    <button class="btn" onclick="removeItem(this); return false;">Remove</button>
 </div>
-

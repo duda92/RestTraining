@@ -2,8 +2,6 @@
 @using RestTraining.Api.Domain.Entities
 @model HotelNumberDTO
 
-<h2>Edit hotel number</h2>
-
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
@@ -15,7 +13,7 @@
             @Html.EditorFor(x => x.HotelNumberType, MVC.Shared.Views.EditorTemplates.HotelNumberType)
             @Html.EditorFor(x => x.WindowViews, MVC.Shared.Views.EditorTemplates.WindowViewTypeList)
         <p>
-            <button type="submit" value="Save" class="btn btn-primary btn-small" />
+            <button type="submit" class="btn btn-primary btn-small">Save</button>
         </p>
     </fieldset>
 }

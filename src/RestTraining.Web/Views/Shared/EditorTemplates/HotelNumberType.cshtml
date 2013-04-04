@@ -6,13 +6,11 @@
     Layout = null;
 }
 
-<div class="editor-label">
-            @Html.Label("Hotel number type")
-        </div>
-        <div class="editor-field">
-            
-            @Html.EnumDropDownListFor(model => model, Model)
+<h5>Type</h5>
+<div class="editor-field">
 
-            @Html.ValidationMessageFor(model => model)
+    @Html.EnumDropDownListFor(model => model, Model)
 
-        </div>
+    @Html.ValidationMessageFor(model => model)
+
+</div>

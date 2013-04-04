@@ -3,26 +3,22 @@
 @{
     Layout = null;
 }
-        <div class="editor-label">
-            @Html.LabelFor(model => model)
-        </div>
-        <div class="editor-field">
-            @foreach(WindowViewType d in Enum.GetValues(typeof(WindowViewType)))
-            {
-                <h3>@d.ToString();
-                    @{
-                        var isChecked = Model != null && Model.Contains(d);
-                        if (isChecked)
-                        {
-                            <input type="checkbox" name="WindowViews" value="@d" checked>
-                        }
-                        else
-                        {
-                            <input type="checkbox" name="WindowViews" value="@d">
-                        }
-                    }
-                </h3>
-            }
-
-        @Html.ValidationMessageFor(model => model)
-        </div>
+<h4>Views to: </h4>
+@foreach (WindowViewType d in Enum.GetValues(typeof(WindowViewType)))
+{           
+    <label class="checkbox">
+        @{
+                var isChecked = Model != null && Model.Contains(d);
+                if (isChecked)
+                {
+                    <input type="checkbox" name="WindowViews" value="@d" checked>
+                }
+                else
+                {
+                    <input type="checkbox" name="WindowViews" value="@d">
+                }
+        }
+        @d.ToString()
+    </label>         
+}
+@Html.ValidationMessageFor(model => model)
