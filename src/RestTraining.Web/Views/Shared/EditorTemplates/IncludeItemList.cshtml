@@ -18,14 +18,16 @@
 
 <script>
     function removeItem(element) {
-        element.parentNode.parentNode.removeChild(element.parentNode);
+        var nodeToDelete = element.parentNode;
+        var nodeDeleteFrom = element.parentNode.parentNode;
+        nodeDeleteFrom.removeChild(nodeToDelete);
     }
 </script>
 
 <script type="text/javascript">
     function createItem() 
     {
-        var emptyForm = $(".include-item-source").first().clone();
+        var emptyForm = $(".include-item-source").last().clone();
         emptyForm.css("display", "block");
         $(".include-items").append(emptyForm);
     }
