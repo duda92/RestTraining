@@ -27,7 +27,7 @@ namespace RestTraining.Api.Tests.Utils
 
         public static int RandomInt(int max)
         {
-            return Rng.Next(max);
+            return Rng.Next(1, max);
         }
     }
 }
