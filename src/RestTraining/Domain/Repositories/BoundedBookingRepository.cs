@@ -79,7 +79,7 @@ namespace RestTraining.Api.Domain.Repositories
 
         public void Delete(int id)
         {
-            var boundedBooking = _context.BoundedBookings.Include(x => x.Client).FirstOrDefault(x => x.Id == id);
+            var boundedBooking = _context.BoundedBookings.Include(x => x.Client).Include(x => x.BoundedPeriod).FirstOrDefault(x => x.Id == id);
             if (boundedBooking == null)
             {
                 throw new ParameterNotFoundException("Id");
