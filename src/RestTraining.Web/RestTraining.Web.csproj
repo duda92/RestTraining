@@ -143,7 +143,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Binders\BoundedBookingDTOBinder.cs" />
+    <Compile Include="Binders\BookingDTOBinder.cs" />
+    <Compile Include="Binders\DateTimeBinder.cs" />
     <Compile Include="Binders\HotelDTOBinder.cs" />
     <Compile Include="Binders\HotelNumberDTOBinder.cs" />
     <Compile Include="BootstrapSupport\ControlGroupExtensions.cs" />
@@ -208,6 +209,7 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datepicker.css" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\Site.css" />
@@ -268,6 +270,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\bootstrap-fileupload.min.css" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-fileupload.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

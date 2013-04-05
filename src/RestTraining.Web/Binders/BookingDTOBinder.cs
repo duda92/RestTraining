@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace RestTraining.Web.Binders
 {
-    public class BoundedBookingDTOBinder : DefaultModelBinder
+    public class BookingDTOBinder : DefaultModelBinder
     {
         protected override void BindProperty(ControllerContext controllerContext, ModelBindingContext bindingContext, System.ComponentModel.PropertyDescriptor propertyDescriptor)
         {
@@ -22,6 +22,14 @@ namespace RestTraining.Web.Binders
                 int periodId = 0;
                 int.TryParse(periodIdString, out periodId);
                 propertyDescriptor.SetValue(bindingContext.Model, periodId);
+                return;
+            }
+            if (propertyDescriptor.PropertyType == typeof(DateTime))
+            {
+                string periodIdString = bindingContext.ValueProvider.GetValue(propertyDescriptor.Name).AttemptedValue;
+                DateTime date;
+                DateTime.TryParse(periodIdString, out date);
+                propertyDescriptor.SetValue(bindingContext.Model, date);
                 return;
             }
             base.BindProperty(controllerContext, bindingContext, propertyDescriptor);

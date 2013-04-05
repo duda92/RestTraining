@@ -13,7 +13,8 @@ namespace BootstrapSupport
                 "~/Scripts/jquery.validate.js",
                 "~/scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js",
-                "~/Scripts/bootstrap-fileupload.min.js"
+                "~/Scripts/bootstrap-fileupload.min.js",
+                "~/Scripts/bootstrap-datepicker.js"
                 ));
 
             bundles.Add(new StyleBundle("~/content/css").Include(
@@ -21,7 +22,8 @@ namespace BootstrapSupport
                 "~/Content/body.css",
                 "~/Content/bootstrap-responsive.css",
                 "~/Content/bootstrap-mvc-validation.css",
-                "~/Content/bootstrap-fileupload.min.css"
+                "~/Content/bootstrap-fileupload.min.css",
+                "~/Content/datepicker.css"
                 ));
         }
     }
