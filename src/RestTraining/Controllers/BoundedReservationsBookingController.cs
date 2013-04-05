@@ -26,7 +26,7 @@ namespace RestTraining.Api.Controllers
             var bookings = _boundedBookingRepository.AllIncluding(x => x.Client).Where(x => x.HotelId == hotelId).ToList();
             return bookings.Select(x => x.ToDTO()).ToList();
         }
-
+        
         public BoundedBookingDTO Get(int hotelId, int id)
         {
             var boundedBooking = _boundedBookingRepository.AllIncluding(x => x.Client, x => x.BoundedPeriod).SingleOrDefault(x => x.HotelId == hotelId && x.Id == id);
@@ -73,7 +73,7 @@ namespace RestTraining.Api.Controllers
             try
             {
                 _boundedBookingRepository.InsertOrUpdate(boundedBooking);
-                _boundedBookingRepository.Save();
+                //_boundedBookingRepository.Save();
             }
             catch (InvalidDatesBookingException)
             {

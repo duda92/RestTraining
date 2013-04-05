@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using RestTraining.Api.Domain.Entities;
@@ -62,17 +63,18 @@ namespace RestTraining.Api.Domain.Repositories
             }
             else
             {
-                _context.Entry(boundedBooking).State = EntityState.Modified;
+                _context.UpdateBoundedBooking(boundedBooking);
+                //_context.Entry(boundedBooking).State = EntityState.Modified;
             }
         }
 
         private void UpdateClient(BoundedBooking boundedBooking)
         {
             if (boundedBooking.Id == 0) return;
-            if (boundedBooking.Client.Id == 0)
-            {
-                _context.Clients.Add(boundedBooking.Client);
-            }
+            var prevBooking = _context.BoundedBookings.Find(boundedBooking.Id);
+            var clientId = prevBooking.ClientId;
+            _context.Entry(prevBooking).State = EntityState.Detached;
+            boundedBooking.ClientId = clientId;
         }
 
         public void Delete(int id)

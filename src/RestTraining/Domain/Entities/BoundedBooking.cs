@@ -8,7 +8,5 @@
         }
 
         public BoundedPeriod BoundedPeriod { get; set; }
-
-        //public int BoundedPeriodId { get; set; }
     }
 }

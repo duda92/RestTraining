@@ -22,7 +22,25 @@ namespace RestTraining.Api.Domain
                                                        update Hotels  
                                                        set Discriminator = @Discriminator  
                                                        where Id = @Id 
-                                                  END"
+                                                  END",
+            @"Create PROCEDURE UpdateBoundedBooking
+	                @Id int,
+	                @HotelId int,
+	                @HotelNumberId int,
+	                @ClientId int, 
+	                @Name nvarchar(max),
+	                @PhoneNumber nvarchar(max),
+	                @BoundedPeriodId int
+                AS
+                BEGIN
+	                update [BoundedBookings]
+	                set HotelId = @HotelId, HotelNumberId = @HotelNumberId, ClientId = @ClientId, BoundedPeriod_Id = @BoundedPeriodId
+	                where Id = @Id 
+
+	                update [Clients]
+	                set PhoneNumber = @PhoneNumber, Name = @Name
+	                where Id = @ClientId
+                END"
         };
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -54,7 +72,19 @@ namespace RestTraining.Api.Domain
         public void SetHotelType(Hotel hotel)
         {
             var discriminator = GetDiscriminator(hotel);
-            this.Database.ExecuteSqlCommand("exec ChangeHotelType @Id, @Discriminator", new SqlParameter("@Id", hotel.Id), new SqlParameter("@Discriminator", discriminator));    
+            Database.ExecuteSqlCommand("exec ChangeHotelType @Id, @Discriminator", new SqlParameter("@Id", hotel.Id), new SqlParameter("@Discriminator", discriminator));    
+        }
+
+        public void UpdateBoundedBooking(BoundedBooking boundedBooking)
+        {
+            Database.ExecuteSqlCommand("exec UpdateBoundedBooking @Id, @HotelId, @HotelNumberId, @ClientId,  @Name, @PhoneNumber, @BoundedPeriodId",
+                new SqlParameter("@Id", boundedBooking.Id), new SqlParameter("@HotelId", boundedBooking.HotelId),
+                new SqlParameter("@HotelNumberId", boundedBooking.HotelNumberId),
+                new SqlParameter("@ClientId", boundedBooking.ClientId),
+                new SqlParameter("@Name", boundedBooking.Client.Name),
+                new SqlParameter("@PhoneNumber", boundedBooking.Client.PhoneNumber),
+                new SqlParameter("@BoundedPeriodId", boundedBooking.BoundedPeriod.Id)
+                );
         }
 
         private string GetDiscriminator(Hotel hotel)
@@ -98,6 +128,20 @@ namespace RestTraining.Api.Domain
                                 IncludeItems = new List<IncludedItem>
                                     {
                                         new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner },
+                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.TvSet }
+                                    },
+                                    WindowViews = new List<WindowView>
+                                        {
+                                            new WindowView  { Type = WindowViewType.Pool },
+                                            new WindowView  { Type = WindowViewType.Trash },
+                                        }
+                            },
+                            new HotelNumber
+                            {
+                                HotelNumberType = HotelNumberType.Double,
+                                IncludeItems = new List<IncludedItem>
+                                    {
+                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.Balcony },
                                         new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.TvSet }
                                     },
                                     WindowViews = new List<WindowView>

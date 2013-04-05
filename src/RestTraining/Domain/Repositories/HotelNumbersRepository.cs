@@ -127,7 +127,7 @@ namespace RestTraining.Api.Domain.Repositories
 
         public virtual void UpdateWindowViews(HotelNumber hotelNumber)
         {
-            List<WindowView> newViews = _context.
+            var newViews = _context.
                 WindowViews.ToList().
                 Where(wv => hotelNumber.WindowViews.Any(x => x.Type == wv.Type)).ToList();
                   
