@@ -32,41 +32,10 @@
         @Html.ValidationMessageFor(model => model.FreeBooking.EndDate)
     </div>
 
-    <h2>Hotel numbers</h2>
-    @Html.ValidationMessageFor(x => x.FreeBooking.HotelNumberId)
-    <ul>
-        @for (int index = 0; index < Model.HotelNumbers.Count; index++)
-        {
-            var hotelNumber = Model.HotelNumbers[index];
-            <li>
-                <div class="hotel-number-description">
-                    #@index
-                    @Html.RadioButtonFor(x => x.FreeBooking.HotelNumberId, hotelNumber.Id)
-                    <h3>Number includes:</h3>
-                    <ul>
-                        @foreach (var include in hotelNumber.IncludeItems)
-                        {
-                            <li>
-                                @include.IncludeItemType.ToString()
-                            </li>
-                        }
-                    </ul>
-                    <h3>Window views:</h3>
-                    <ul>
-                        @foreach (var windowView in hotelNumber.WindowViews)
-                        {
-                            <li>
-                                @windowView.ToString()
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </li>
-        }
-    </ul>
+    @Html.EditorFor(x => x.FreeBooking.HotelNumberId, MVC.Shared.Views.EditorTemplates.HotelNumberSelect, new { HotelNumbers = Model.HotelNumbers })
 
-    @Html.EditorFor(x => x.FreeBooking.Client, "Client")
+    @Html.EditorFor(x => x.FreeBooking.Client, MVC.Shared.Views.EditorTemplates.Client)
 
-    <input type="submit" value="Book"/>
+    <input type="submit" value="Book" class = "btn btn-primary" />
 }
 
