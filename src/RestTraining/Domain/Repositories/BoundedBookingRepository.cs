@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using RestTraining.Api.Domain.Entities;
@@ -64,7 +63,6 @@ namespace RestTraining.Api.Domain.Repositories
             else
             {
                 _context.UpdateBoundedBooking(boundedBooking);
-                //_context.Entry(boundedBooking).State = EntityState.Modified;
             }
         }
 

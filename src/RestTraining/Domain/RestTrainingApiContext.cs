@@ -13,35 +13,26 @@ namespace RestTraining.Api.Domain
     {
         public DbSet<Client> Clients { get; set; }
 
-        public static List<string> OnSeedSqlCommands = new List<string> 
-        { 
-            @"Create PROCEDURE ChangeHotelType 
-                                                  @Id int, 
-                                                  @Discriminator nvarchar(128) 
-                                                  AS BEGIN 
-                                                       update Hotels  
-                                                       set Discriminator = @Discriminator  
-                                                       where Id = @Id 
-                                                  END",
-            @"Create PROCEDURE UpdateBoundedBooking
-	                @Id int,
-	                @HotelId int,
-	                @HotelNumberId int,
-	                @ClientId int, 
-	                @Name nvarchar(max),
-	                @PhoneNumber nvarchar(max),
-	                @BoundedPeriodId int
-                AS
-                BEGIN
-	                update [BoundedBookings]
-	                set HotelId = @HotelId, HotelNumberId = @HotelNumberId, ClientId = @ClientId, BoundedPeriod_Id = @BoundedPeriodId
-	                where Id = @Id 
+        public void UpdateBoundedBooking(BoundedBooking boundedBooking)
+        {
+            UpdateBoundedBookingStoredProcedure.Execute(this, boundedBooking);
+        }
 
-	                update [Clients]
-	                set PhoneNumber = @PhoneNumber, Name = @Name
-	                where Id = @ClientId
-                END"
-        };
+        public void SetHotelType(Hotel hotel)
+        {
+            SetHotelTypeStoredProcedure.Execute(this, hotel); 
+        }
+
+        public static List<string> OnSeedSqlCommands
+        {
+            get
+            {
+                return new List<string> { SetHotelTypeStoredProcedure.CreateSqlCommand, UpdateBoundedBookingStoredProcedure.CreateSqlCommand };
+            }
+        }
+
+        public static readonly SetHotelTypeStoredProcedure SetHotelTypeStoredProcedure = new SetHotelTypeStoredProcedure();
+        public static readonly UpdateBoundedBookingStoredProcedure UpdateBoundedBookingStoredProcedure = new UpdateBoundedBookingStoredProcedure();
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -69,28 +60,6 @@ namespace RestTraining.Api.Domain
 
         public DbSet<FreeBooking> FreeBookings { get; set; }
 
-        public void SetHotelType(Hotel hotel)
-        {
-            var discriminator = GetDiscriminator(hotel);
-            Database.ExecuteSqlCommand("exec ChangeHotelType @Id, @Discriminator", new SqlParameter("@Id", hotel.Id), new SqlParameter("@Discriminator", discriminator));    
-        }
-
-        public void UpdateBoundedBooking(BoundedBooking boundedBooking)
-        {
-            Database.ExecuteSqlCommand("exec UpdateBoundedBooking @Id, @HotelId, @HotelNumberId, @ClientId,  @Name, @PhoneNumber, @BoundedPeriodId",
-                new SqlParameter("@Id", boundedBooking.Id), new SqlParameter("@HotelId", boundedBooking.HotelId),
-                new SqlParameter("@HotelNumberId", boundedBooking.HotelNumberId),
-                new SqlParameter("@ClientId", boundedBooking.ClientId),
-                new SqlParameter("@Name", boundedBooking.Client.Name),
-                new SqlParameter("@PhoneNumber", boundedBooking.Client.PhoneNumber),
-                new SqlParameter("@BoundedPeriodId", boundedBooking.BoundedPeriod.Id)
-                );
-        }
-
-        private string GetDiscriminator(Hotel hotel)
-        {
-            return (hotel is FreeReservationsHotel) ? "FreeReservationsHotel" : "BoundedReservationsHotel";
-        }
     }
 
     public class DbInitializer : DropCreateDatabaseAlways<RestTrainingApiContext>
@@ -209,9 +178,81 @@ namespace RestTraining.Api.Domain
             boundedPeriodsRepository.InsertOrUpdate(boundedPeriod3);
             boundedPeriodsRepository.Save();
 
-
             context.SaveChanges();
         }
+    }
 
+    public abstract class StoredProcedure
+    {
+        public abstract string CreateSqlCommand { get; }
+    }
+  
+    public class SetHotelTypeStoredProcedure : StoredProcedure
+    {
+        public override string CreateSqlCommand 
+        { 
+            get
+            {
+                return @"Create PROCEDURE ChangeHotelType 
+                                                  @Id int, 
+                                                  @Discriminator nvarchar(128) 
+                                                  AS BEGIN 
+                                                       update Hotels  
+                                                       set Discriminator = @Discriminator  
+                                                       where Id = @Id 
+                                                  END";
+            } 
+        }
+
+        public void Execute(RestTrainingApiContext context, Hotel hotel)
+        {
+            var discriminator = GetDiscriminator(hotel);
+            context.Database.ExecuteSqlCommand("exec ChangeHotelType @Id, @Discriminator", new SqlParameter("@Id", hotel.Id), new SqlParameter("@Discriminator", discriminator));    
+        }
+
+        private string GetDiscriminator(Hotel hotel)
+        {
+            return (hotel is FreeReservationsHotel) ? "FreeReservationsHotel" : "BoundedReservationsHotel";
+        }
+    }
+
+    public class UpdateBoundedBookingStoredProcedure : StoredProcedure
+    {
+        public override string CreateSqlCommand
+        {
+            get
+            {
+                return @"Create PROCEDURE UpdateBoundedBooking
+	                @Id int,
+	                @HotelId int,
+	                @HotelNumberId int,
+	                @ClientId int, 
+	                @Name nvarchar(max),
+	                @PhoneNumber nvarchar(max),
+	                @BoundedPeriodId int
+                AS
+                BEGIN
+	                update [BoundedBookings]
+	                set HotelId = @HotelId, HotelNumberId = @HotelNumberId, ClientId = @ClientId, BoundedPeriod_Id = @BoundedPeriodId
+	                where Id = @Id 
+
+	                update [Clients]
+	                set PhoneNumber = @PhoneNumber, Name = @Name
+	                where Id = @ClientId
+                END";
+            }
+        }
+
+        public void Execute(RestTrainingApiContext context, BoundedBooking boundedBooking)
+        {
+            context.Database.ExecuteSqlCommand("exec UpdateBoundedBooking @Id, @HotelId, @HotelNumberId, @ClientId,  @Name, @PhoneNumber, @BoundedPeriodId",
+                new SqlParameter("@Id", boundedBooking.Id), new SqlParameter("@HotelId", boundedBooking.HotelId),
+                new SqlParameter("@HotelNumberId", boundedBooking.HotelNumberId),
+                new SqlParameter("@ClientId", boundedBooking.ClientId),
+                new SqlParameter("@Name", boundedBooking.Client.Name),
+                new SqlParameter("@PhoneNumber", boundedBooking.Client.PhoneNumber),
+                new SqlParameter("@BoundedPeriodId", boundedBooking.BoundedPeriod.Id)
+                );
+        }
     }
 }
