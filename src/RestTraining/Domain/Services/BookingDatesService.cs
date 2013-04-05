@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.Unity.Utility;
 using RestTraining.Api.Domain.Entities;
+using RestTraining.Api.Infrastructure;
 
 namespace RestTraining.Api.Domain.Services
 {
@@ -27,13 +28,13 @@ namespace RestTraining.Api.Domain.Services
         {
             var hotel = context.FreeReservationsHotels.Find(freeBooking.HotelId);
             if (hotel == null)
-                throw new ArgumentException("Hotel passed does not exist");
+                throw new ParameterNotFoundException("HotelId");
             var hotelNumber =
                 context.HotelNumbers.SingleOrDefault(
                     x => x.HotelId == freeBooking.HotelId && 
                         x.Id == freeBooking.HotelNumberId);
             if (hotelNumber == null)
-                throw new ArgumentException("HotelNumber passed does not exist");
+                throw new ParameterNotFoundException("HotelNumberId");
 
             var allBookingsForNumber =
                 context.FreeBookings.Where(x => x.HotelId == freeBooking.HotelId && x.HotelNumberId == freeBooking.HotelNumberId && x.Id != freeBooking.Id ).ToList();
@@ -46,15 +47,15 @@ namespace RestTraining.Api.Domain.Services
         {
             var boundedPeriod = context.BoundedPeriods.Find(boundedBooking.BoundedPeriod.Id);
             if (boundedPeriod == null)
-                throw new ArgumentException("Bounded period not found");
+                throw new ParameterNotFoundException("BoundedPeriodId");
             var hotel = context.BoundedReservationsHotels.Find(boundedBooking.HotelId);
             if (hotel == null)
-                throw new ArgumentException("Hotel passed does not exist");
+                throw new ParameterNotFoundException("HotelId");
             var hotelNumber =
                 context.HotelNumbers.SingleOrDefault(
                     x => x.HotelId == boundedBooking.HotelId && x.Id == boundedBooking.HotelNumberId);
             if (hotelNumber == null)
-                throw new ArgumentException("HotelNumber passed does not exist");
+                throw new ParameterNotFoundException("HotelNumberId");
 
             var debugValue1 = context.BoundedBookings.Where(x => x.HotelId == boundedBooking.HotelId &&
                                                                  x.HotelNumberId == boundedBooking.HotelNumberId && 
@@ -67,13 +68,6 @@ namespace RestTraining.Api.Domain.Services
 
         public bool DoesDatesIntersect(DateTime beginDate, DateTime endDate, List<Pair<DateTime, DateTime>> datesList)
         {
-            if (datesList.Any(x => x.First >= x.Second))
-                throw new ArgumentException("Invalid datesList passed, beginDate cannot be bigger or equal the endDate");
-
-            if (beginDate > endDate)
-                throw new ArgumentException("Invalid dates passed, beginDate cannot be bigger or equal the endDate",
-                                            "beginDate and endDate");
-
             return datesList.Any(x => (x.First <= beginDate && x.Second >= beginDate) ||
                                       (x.First <= endDate && x.Second >= endDate) ||
                                       (x.First >= beginDate && x.Second <= endDate));

@@ -82,7 +82,7 @@ namespace RestTraining.Api.Domain.Repositories
             var boundedBooking = _context.BoundedBookings.Include(x => x.Client).FirstOrDefault(x => x.Id == id);
             if (boundedBooking == null)
             {
-                throw new ParameterNotFoundException();
+                throw new ParameterNotFoundException("Id");
             } 
             _context.BoundedBookings.Remove(boundedBooking);
         }
@@ -96,15 +96,17 @@ namespace RestTraining.Api.Domain.Repositories
         {
             var boundedHotel = _context.BoundedReservationsHotels.Find(boundedBooking.HotelId);
             if (boundedHotel == null)
-                throw new ParameterNotFoundException();
+                throw new ParameterNotFoundException("HotelId");
         }
 
         private void PreUpdateCheck(BoundedBooking boundedBooking)
         {
             var boundedHotel = _context.BoundedReservationsHotels.Find(boundedBooking.HotelId);
+            if (boundedHotel == null)
+                throw new ParameterNotFoundException("HotelId"); 
             var boundedPeriod = _context.BoundedPeriods.Find(boundedBooking.Id);
-            if (boundedHotel == null || boundedPeriod == null)
-                throw new ParameterNotFoundException();
+            if (boundedPeriod == null)
+                throw new ParameterNotFoundException("BoundedPeriodId");
         }
 
         public void Dispose()

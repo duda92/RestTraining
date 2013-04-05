@@ -7,7 +7,7 @@ using RestTraining.Api.Tests.Utils;
 namespace RestTraining.Api.Tests.Functional
 {
     [TestClass]
-    public class BoundedBookingControllerTests
+    public class FreeBookingControllerTests
     {
         private FreeReservationsHotelDTO hotel;
         private int hotelId;

@@ -1,5 +1,3 @@
-
-
 using System;
 
 namespace RestTraining.Api.Infrastructure
@@ -11,7 +9,16 @@ namespace RestTraining.Api.Infrastructure
 
     public class ParameterNotFoundException : NullReferenceException
     {
-        public string parameterName { get; set; }
+        public string ParameterName { get; set; }
+        public ParameterNotFoundException(string parameterName)
+        {
+            ParameterName = parameterName;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} not found", ParameterName);
+        }
     }
 
     public class BoundedPeriodDatesException : ArgumentException

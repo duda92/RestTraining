@@ -120,41 +120,6 @@ namespace RestTraining.Api.Tests
             }
         }
 
-        //public static class ClientsApiHelper
-        //{
-        //    public const string Resource = "/api/Clients/";
-
-        //    public static int TestPost(ClientDTO clientObj)
-        //    {
-        //        var responseObj = JsonRequestExecutor.ExecutePost<ClientDTO>(clientObj, BaseUrl, Resource);
-        //        return responseObj.Id;
-        //    }
-
-        //    public static List<ClientDTO> TestGet()
-        //    {
-        //        var responseObj = JsonRequestExecutor.ExecuteGet<List<ClientDTO>>(BaseUrl, Resource);
-        //        return responseObj;
-        //    }
-
-        //    public static ClientDTO TestGet(int id)
-        //    {
-        //        var responseObj = JsonRequestExecutor.ExecuteGet<ClientDTO>(BaseUrl, (Resource + id.ToString()));
-        //        return responseObj;
-        //    }
-
-        //    public static int TestPut(ClientDTO clientObj)
-        //    {
-        //        var responseObj = JsonRequestExecutor.ExecutePut<ClientDTO>(clientObj, BaseUrl, Resource);
-        //        return responseObj.Id;
-        //    }
-
-        //    public static ClientDTO CreateRandomClientDTO()
-        //    {
-        //        var client =  new Client { Name = RandomUtils.RandomString(10), PhoneNumber = RandomUtils.RandomString(10) };
-        //        return client.ToDTO();
-        //    }
-        //}
-
         public static class HotelsApiHelper
         {
             public const string Resource = "/api/Hotels/";
@@ -343,6 +308,51 @@ namespace RestTraining.Api.Tests
                     HotelNumberId = hotelNumber.Id
                 };
                 return freeBookingDTO;
+            }
+        }
+
+        public static class BoundedBookingApiHelper
+        {
+            public const string Resource = "api/Booking/BoundedReservations/{0}/";
+
+            public static int TestPost(int hotelId, BoundedBookingDTO booking, out HttpStatusCode code)
+            {
+                var responseObj = JsonRequestExecutor.ExecutePost(booking, BaseUrl, string.Format(Resource, hotelId), out code);
+                return responseObj == null ? 0 : responseObj.Id;
+            }
+
+            public static List<BoundedBookingDTO> TestGet(int hotelId, out HttpStatusCode code)
+            {
+                var responseObj = JsonRequestExecutor.ExecuteGet<List<BoundedBookingDTO>>(BaseUrl, string.Format(Resource, hotelId), out code);
+                return responseObj;
+            }
+
+            public static BoundedBookingDTO TestGet(int hotelId, int id, out HttpStatusCode code)
+            {
+                var responseObj = JsonRequestExecutor.ExecuteGet<BoundedBookingDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, id), out code);
+                return responseObj;
+            }
+
+            public static int TestPut(BoundedBookingDTO boundedPeriod, out HttpStatusCode code)
+            {
+                var responseObj = JsonRequestExecutor.ExecutePut(boundedPeriod, BaseUrl, string.Format(Resource, boundedPeriod.HotelId), out code);
+                return responseObj.Id;
+            }
+
+            public static BoundedBookingDTO CreateBoundedBookingDTO(int hotelId, int hotelNumberId, int boundedPeriodId)
+            {
+                var BoundedBookingDTO = new BoundedBookingDTO
+                {
+                    BoundedPeriodId = boundedPeriodId,
+                    Client = new ClientDTO
+                    {
+                        Name = RandomUtils.RandomString(10),
+                        PhoneNumber = RandomUtils.RandomString(10)
+                    },
+                    HotelId = hotelId,
+                    HotelNumberId = hotelNumberId
+                };
+                return BoundedBookingDTO;
             }
         }
     }

@@ -45,10 +45,14 @@ namespace RestTraining.Api.Domain.Repositories
         public void InsertOrUpdate(FreeBooking freeBooking)
         {
             var hotel = _context.FreeReservationsHotels.SingleOrDefault(x => x.Id == freeBooking.HotelId);
-            var hotelNumber = _context.HotelNumbers.SingleOrDefault(x => x.Id == freeBooking.HotelNumberId && x.HotelId == freeBooking.HotelId);
-            if (hotel == null || hotelNumber == null)
+            if (hotel == null)
             {
-                throw new ParameterNotFoundException();
+                throw new ParameterNotFoundException("HotelId");
+            } 
+            var hotelNumber = _context.HotelNumbers.SingleOrDefault(x => x.Id == freeBooking.HotelNumberId && x.HotelId == freeBooking.HotelId);
+            if (hotelNumber == null)
+            {
+                throw new ParameterNotFoundException("HotelNumber");
             }
             if (!_bookingDatesService.IsFreeBookingValid(_context, freeBooking))
             {

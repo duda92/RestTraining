@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using RestTraining.Api.DTO;
 using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Domain.Services;
 using RestTraining.Api.Infrastructure;
@@ -80,7 +79,7 @@ namespace RestTraining.Api.Domain.Repositories
             PreInsertCheck(boundedPeriod);
             if (_context.BoundedPeriods.Find(boundedPeriod.Id) == null)
             {
-                throw new ParameterNotFoundException();
+                throw new ParameterNotFoundException("BoundedPeriodId");
             }
         }
 
@@ -88,7 +87,7 @@ namespace RestTraining.Api.Domain.Repositories
         {
             if (_context.BoundedReservationsHotels.Find(boundedPeriod.BoundedReservationsHotelId) == null)
             {
-                throw new ParameterNotFoundException();
+                throw new ParameterNotFoundException("HotelId");
             }
         }
 
@@ -97,7 +96,7 @@ namespace RestTraining.Api.Domain.Repositories
             var boundedPeriod = _context.BoundedPeriods.Find(id);
             if (boundedPeriod == null)
             {
-                throw new ParameterNotFoundException();
+                throw new ParameterNotFoundException("Id");
             }
             _context.BoundedPeriods.Remove(boundedPeriod);
         }
@@ -123,7 +122,7 @@ namespace RestTraining.Api.Domain.Repositories
         {
             var hotel = _context.BoundedReservationsHotels.Find(hotelId);
             if (hotel == null)
-                throw new ParameterNotFoundException();
+                throw new ParameterNotFoundException("HotelId");
         }
 
         public void Dispose()
