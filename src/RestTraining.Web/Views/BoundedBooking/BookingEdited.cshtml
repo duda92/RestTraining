@@ -1,5 +1,5 @@
 ﻿@using RestTraining.Web
-@model RestTraining.Api.DTO.BoundedBookingDTO
+@model RestTraining.Web.Models.BookingCreatedViewModel
 
 @{
     var viewDataProvider = new ViewDataProviderForView(this);
@@ -7,17 +7,39 @@
 
     <h3>Booked Successfuly</h3>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.BoundedPeriodId)
+
+<div class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label">@Html.LabelFor(model => model.BeginDate)</label>
+        <div class="controls">
+            @Model.BeginDate.ToShortDateString()
+        </div>
     </div>
-<div class="editor-field">
-    @Html.DisplayFor(model => model.BoundedPeriodId)
+    <div class="control-group">
+        <label class="control-label">@Html.LabelFor(model => model.EndDate)</label>
+        <div class="controls">
+            @Model.EndDate.ToShortDateString()
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">@Html.LabelFor(model => model.Client.Name)</label>
+        <div class="controls">
+            @Html.DisplayFor(model => model.Client.Name)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">@Html.LabelFor(model => model.Client.PhoneNumber)</label>
+        <div class="controls">
+            @Html.DisplayFor(model => model.Client.PhoneNumber)
+        </div>
+    </div>
+
 </div>
 
 <h2>Hotel number</h2>
     @Html.DisplayFor(x => x.Client, "Client")
 
-@Html.ActionLink("Delete this booking", MVC.BoundedBooking.Delete(viewDataProvider.HotelId, Model.Id))
-@Html.ActionLink("Edit this booking", MVC.BoundedBooking.Edit(viewDataProvider.HotelId, Model.Id))
+@Html.ActionLink("Delete this booking", MVC.BoundedBooking.Delete(viewDataProvider.HotelId, Model.BookingId))
+@Html.ActionLink("Edit this booking", MVC.BoundedBooking.Edit(viewDataProvider.HotelId, Model.BookingId))
 
 

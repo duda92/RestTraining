@@ -61,6 +61,14 @@ namespace RestTraining.Api.Domain.Repositories
             {
                 //_context.BoundedBookings.Add(boundedBooking);
                 _context.InsertBoundedBooking(boundedBooking);
+                var insertedBooking =
+                    _context.BoundedBookings.Single(
+                        x =>
+                        x.BoundedPeriod.Id == boundedBooking.BoundedPeriod.Id &&
+                        x.HotelNumberId == boundedBooking.HotelNumberId && x.HotelId == boundedBooking.HotelId);
+                boundedBooking.Id = insertedBooking.Id;
+                boundedBooking.ClientId = insertedBooking.ClientId;
+                _context.Entry(insertedBooking).State = EntityState.Detached;
             }
             else
             {

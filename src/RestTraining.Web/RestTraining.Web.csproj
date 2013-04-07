@@ -187,6 +187,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\BookingCreatedViewModel.cs" />
     <Compile Include="Models\BoundedBookingViewModel.cs" />
     <Compile Include="Models\FreeBookingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

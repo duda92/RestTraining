@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using RestTraining.Api;
@@ -44,6 +45,7 @@ namespace RestTraining.Web.Controllers
 
             HttpStatusCode responseCode;
             var response = JsonRequestExecutor.ExecutePost(boundedBooking, BaseUrl, string.Format(BoundedBookingResource, hotelId), out responseCode);
+            
             if (responseCode == HttpStatusCode.Conflict)
             {
                 _viewDataProvider.BookingDatesConflict();
@@ -56,7 +58,20 @@ namespace RestTraining.Web.Controllers
             }
             if (responseCode == HttpStatusCode.OK || responseCode == HttpStatusCode.Created)
             {
-                return View(MVC.BoundedBooking.Views.BookingEdited, response);
+                var boundedPeriod = boundedPeriods.Single(x => x.Id == response.BoundedPeriodId);
+                var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
+                var hotelNumber = hotelNumbers.Single(x => x.Id == response.HotelNumberId);
+            
+                var viewModel = new BookingCreatedViewModel
+                {
+                    BeginDate = boundedPeriod.BeginDate,
+                    EndDate = boundedPeriod.EndDate,
+                    Client = response.Client,
+                    Hotel = hotel,
+                    HotelNumber = hotelNumber,
+                    BookingId = response.Id
+                };
+                return View(MVC.BoundedBooking.Views.BookingEdited, viewModel);
             }
             if (responseCode == HttpStatusCode.BadGateway)
             {
@@ -85,10 +100,10 @@ namespace RestTraining.Web.Controllers
         [HttpPost]
         public virtual ActionResult Edit(int hotelId, BoundedBookingDTO boundedBooking)
         {
-            var boundedPeriods = JsonRequestExecutor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(BoundedPeriodsResource, hotelId));
             _viewDataProvider.ControllerActionType = ControllerActionType.Edit;
+            var boundedPeriods = JsonRequestExecutor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(BoundedPeriodsResource, hotelId));
             var hotelNumbers = JsonRequestExecutor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(HotelNumbersResource, hotelId));
-
+               
             if (!ModelState.IsValid)
             {
                 return View(MVC.BoundedBooking.Views.EditOrCreate, new BoundedBookingViewModel { BoundedBooking = boundedBooking, HotelNumbers = hotelNumbers, BoundedPeriods = boundedPeriods });
@@ -109,7 +124,20 @@ namespace RestTraining.Web.Controllers
             }
             if (responseCode == HttpStatusCode.OK || responseCode == HttpStatusCode.Created)
             {
-                return View(MVC.BoundedBooking.Views.BookingEdited, response);
+                var boundedPeriod = boundedPeriods.Single(x => x.Id == response.BoundedPeriodId); 
+                var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
+                var hotelNumber = hotelNumbers.Single(x => x.Id == response.HotelNumberId);
+
+                var viewModel = new BookingCreatedViewModel
+                    {
+                        BeginDate = boundedPeriod.BeginDate,
+                        EndDate = boundedPeriod.EndDate,
+                        Client = response.Client,
+                        Hotel = hotel,
+                        HotelNumber = hotelNumber,
+                        BookingId = response.Id
+                    };
+                return View(MVC.BoundedBooking.Views.BookingEdited, viewModel);
             }
             if (responseCode == HttpStatusCode.BadGateway)
             {

@@ -72,7 +72,6 @@ namespace RestTraining.Api.Controllers
             try
             {
                 _boundedBookingRepository.InsertOrUpdate(boundedBooking);
-                //_boundedBookingRepository.Save();
             }
             catch (InvalidDatesBookingException)
             {
