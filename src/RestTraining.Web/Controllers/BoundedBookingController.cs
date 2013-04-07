@@ -16,6 +16,31 @@ namespace RestTraining.Web.Controllers
         private const string BoundedBookingResource = "api/Booking/BoundedReservations/{0}/";
         private const string BoundedPeriodsResource = "api/BoundedReservations/{0}/Periods/";
 
+
+        public virtual ActionResult Index(int hotelId)
+        {
+            var bookings = JsonRequestExecutor.ExecuteGet<List<BoundedBookingDTO>>(BaseUrl, string.Format(BoundedBookingResource, hotelId));
+            var bookingList = new List<BookingFullViewModel>();
+
+            foreach (var booking in bookings)
+            {
+                var boundedPeriod = JsonRequestExecutor.ExecuteGet<BoundedPeriodDTO>(BaseUrl, string.Format(BoundedPeriodsResource + "{1}", hotelId, booking.BoundedPeriodId));
+                var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
+                var hotelNumber = JsonRequestExecutor.ExecuteGet<HotelNumberDTO>(BaseUrl, string.Format(HotelNumbersResource + "{1}", hotelId, booking.HotelNumberId));
+                bookingList.Add(new BookingFullViewModel
+                {
+                    BeginDate = boundedPeriod.BeginDate,
+                    EndDate = boundedPeriod.EndDate,
+                    Client = booking.Client,
+                    Hotel = hotel,
+                    HotelNumber = hotelNumber,
+                    BookingId = booking.Id
+                });
+            }
+
+            return View(MVC.Shared.Views.BookingFullViewModelList, bookingList);
+        }
+
         public virtual ActionResult Create(int hotelId)
         {
             _viewDataProvider.ControllerActionType = ControllerActionType.Create;
@@ -62,7 +87,7 @@ namespace RestTraining.Web.Controllers
                 var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
                 var hotelNumber = hotelNumbers.Single(x => x.Id == response.HotelNumberId);
             
-                var viewModel = new BookingCreatedViewModel
+                var viewModel = new BookingFullViewModel
                 {
                     BeginDate = boundedPeriod.BeginDate,
                     EndDate = boundedPeriod.EndDate,
@@ -128,7 +153,7 @@ namespace RestTraining.Web.Controllers
                 var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
                 var hotelNumber = hotelNumbers.Single(x => x.Id == response.HotelNumberId);
 
-                var viewModel = new BookingCreatedViewModel
+                var viewModel = new BookingFullViewModel
                     {
                         BeginDate = boundedPeriod.BeginDate,
                         EndDate = boundedPeriod.EndDate,

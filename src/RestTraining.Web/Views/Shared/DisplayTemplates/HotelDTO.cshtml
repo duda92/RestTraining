@@ -16,6 +16,14 @@
                     <ul class="dropdown-menu">
                         <li><a href="@Url.Action(MVC.Hotels.Edit(Model.Id))" class="btn btn-small"><i class="icon-pencil"></i>Edit</a></li>
                         <li><a href="@Url.Action(MVC.Hotels.Delete(Model.Id))" class="btn btn-small"><i class="icon-trash"></i>Delete</a></li>
+                        @if (Model.Type == HotelDTO.TypeDescriminator.Free)
+                        {
+                            <li><a href="@Url.Action(MVC.FreeBooking.Index(Model.Id))" class="btn btn-small"><i class="icon-trash"></i>Bookings</a></li>
+                        }
+                        @if (Model.Type == HotelDTO.TypeDescriminator.Bounded)
+                        {
+                            <li><a href="@Url.Action(MVC.BoundedBooking.Index(Model.Id))" class="btn btn-small"><i class="icon-trash"></i>Bookings</a></li>
+                        }
                     </ul>
                 </div>
             </h3>

@@ -3,7 +3,7 @@ using RestTraining.Api.DTO;
 
 namespace RestTraining.Web.Models
 {
-    public class BookingCreatedViewModel
+    public class BookingFullViewModel
     {
         public DateTime BeginDate { get; set; }
 

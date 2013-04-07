@@ -40,6 +40,13 @@ namespace RestTraining.Api.Domain.Repositories
 
         public void InsertOrUpdate(BoundedBooking boundedBooking)
         {
+            var period = _context.BoundedPeriods.SingleOrDefault(x => x.Id == boundedBooking.BoundedPeriod.Id);
+            if (period == null)
+                throw new ParameterNotFoundException("BoundedPeriod");
+
+            _context.Entry(period).State = EntityState.Detached;
+            boundedBooking.BoundedPeriod = period;
+                
             if (boundedBooking.Id == default(int))
             {
                 PreInsertCheck(boundedBooking);
@@ -59,7 +66,6 @@ namespace RestTraining.Api.Domain.Repositories
 
             if (boundedBooking.Id == default(int))
             {
-                //_context.BoundedBookings.Add(boundedBooking);
                 _context.InsertBoundedBooking(boundedBooking);
                 var insertedBooking =
                     _context.BoundedBookings.Single(

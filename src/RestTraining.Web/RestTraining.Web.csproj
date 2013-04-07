@@ -187,7 +187,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\BookingCreatedViewModel.cs" />
+    <Compile Include="Models\BookingFullViewModel.cs" />
     <Compile Include="Models\BoundedBookingViewModel.cs" />
     <Compile Include="Models\FreeBookingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -351,6 +351,8 @@
     <Content Include="Views\Shared\EditorTemplates\LargeTextInput.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\HotelNumberSelect.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BoundedPeriodSelect_.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\BookingFullViewModel.cshtml" />
+    <Content Include="Views\Shared\BookingFullViewModelList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -405,9 +407,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\BoundedPeriods\EditOrCreate.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\FreeBooking\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Client.cshtml" />

@@ -1,0 +1,35 @@
+﻿@using RestTraining.Api.DTO
+@using RestTraining.Web.Models
+@model List<BookingFullViewModel>
+
+@if (Model.Count == 0)
+{
+    <h1>Sorry, no bookings for this hotel</h1> 
+}
+<div class="span12">
+    <ul class="thumbnails">
+        @foreach (var booking in Model)
+        {
+            <li class="span4">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <div class="btn-group" style="float: right">
+                            <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">Admin<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                @if (booking.Hotel.Type == HotelDTO.TypeDescriminator.Free)
+                                {
+                                    <li><a href="@Url.Action(MVC.FreeBooking.Delete(booking.Hotel.Id, booking.BookingId))" class="btn btn-small"><i class="icon-trash"></i>Delete</a></li>
+                                }
+                                @if (booking.Hotel.Type == HotelDTO.TypeDescriminator.Bounded)
+                                {
+                                    <li><a href="@Url.Action(MVC.BoundedBooking.Delete(booking.Hotel.Id, booking.BookingId))" class="btn btn-small"><i class="icon-trash"></i>Delete</a></li>
+                                }
+                            </ul>
+                        </div>
+                        @Html.DisplayFor(x => booking, MVC.Shared.Views.DisplayTemplates.BookingFullViewModel)
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

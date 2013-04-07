@@ -23,7 +23,7 @@ namespace RestTraining.Api.Controllers
 
         public List<BoundedBookingDTO> Get(int hotelId)
         {
-            var bookings = _boundedBookingRepository.AllIncluding(x => x.Client).Where(x => x.HotelId == hotelId).ToList();
+            var bookings = _boundedBookingRepository.AllIncluding(x => x.Client, x => x.BoundedPeriod).Where(x => x.HotelId == hotelId).ToList();
             return bookings.Select(x => x.ToDTO()).ToList();
         }
         
