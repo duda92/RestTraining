@@ -18,7 +18,7 @@ namespace RestTraining.Web
         public const string HotelIdKey = "hotel_id_key";
         public const string ApiServiceNotResponse = "api_service_not_response";
         public const string ResourceNotFoundKey = "resource_not_found_key";
-        public static string FreeBookingDatesConflictKey = "free_booking_dates_conflict_key";
+        public static string BookingDatesConflictKey = "free_booking_dates_conflict_key";
     }
 
     public class ViewDataProviderForView
@@ -80,11 +80,11 @@ namespace RestTraining.Web
             }
         }
 
-        public bool IsFreeBookingDatesConflict
+        public bool IsBookingDatesConflict
         {
             get
             {
-                var savedValue = _view.ViewData[ViewUtils.FreeBookingDatesConflictKey];
+                var savedValue = _view.ViewData[ViewUtils.BookingDatesConflictKey];
                 return savedValue != null;
             }
         }
@@ -126,7 +126,7 @@ namespace RestTraining.Web
 
         public void BookingDatesConflict()
         {
-            _controller.ViewData[ViewUtils.FreeBookingDatesConflictKey] = true;
+            _controller.ViewData[ViewUtils.BookingDatesConflictKey] = true;
         }
     }
 }

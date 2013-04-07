@@ -5,7 +5,7 @@
     var viewDataProvider = new ViewDataProviderForView(this);
 }
 
-@if (viewDataProvider.IsFreeBookingDatesConflict)
+@if (viewDataProvider.IsBookingDatesConflict)
 {
     <div class="alert alert-error">
         These dates are not avaliable for booking with this hotel number <br/>

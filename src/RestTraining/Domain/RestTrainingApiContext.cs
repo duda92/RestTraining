@@ -18,6 +18,11 @@ namespace RestTraining.Api.Domain
             UpdateBoundedBookingStoredProcedure.Execute(this, boundedBooking);
         }
 
+        public void InsertBoundedBooking(BoundedBooking boundedBooking)
+        {
+            InsertBoundedBookingStoredProcedure.Execute(this, boundedBooking);
+        }
+
         public void SetHotelType(Hotel hotel)
         {
             SetHotelTypeStoredProcedure.Execute(this, hotel); 
@@ -27,12 +32,13 @@ namespace RestTraining.Api.Domain
         {
             get
             {
-                return new List<string> { SetHotelTypeStoredProcedure.CreateSqlCommand, UpdateBoundedBookingStoredProcedure.CreateSqlCommand };
+                return new List<string> { SetHotelTypeStoredProcedure.CreateSqlCommand, InsertBoundedBookingStoredProcedure.CreateSqlCommand, UpdateBoundedBookingStoredProcedure.CreateSqlCommand };
             }
         }
 
         public static readonly SetHotelTypeStoredProcedure SetHotelTypeStoredProcedure = new SetHotelTypeStoredProcedure();
         public static readonly UpdateBoundedBookingStoredProcedure UpdateBoundedBookingStoredProcedure = new UpdateBoundedBookingStoredProcedure();
+        public static readonly InsertBoundedBookingStoredProcedure InsertBoundedBookingStoredProcedure = new InsertBoundedBookingStoredProcedure();
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -59,7 +65,6 @@ namespace RestTraining.Api.Domain
         public DbSet<BoundedBooking> BoundedBookings { get; set; }
 
         public DbSet<FreeBooking> FreeBookings { get; set; }
-
     }
 
     public class DbInitializer : DropCreateDatabaseAlways<RestTrainingApiContext>
@@ -263,6 +268,42 @@ namespace RestTraining.Api.Domain
                 new SqlParameter("@Id", boundedBooking.Id), new SqlParameter("@HotelId", boundedBooking.HotelId),
                 new SqlParameter("@HotelNumberId", boundedBooking.HotelNumberId),
                 new SqlParameter("@ClientId", boundedBooking.ClientId),
+                new SqlParameter("@Name", boundedBooking.Client.Name),
+                new SqlParameter("@PhoneNumber", boundedBooking.Client.PhoneNumber),
+                new SqlParameter("@BoundedPeriodId", boundedBooking.BoundedPeriod.Id)
+                );
+        }
+    }
+
+    public class InsertBoundedBookingStoredProcedure : StoredProcedure
+    {
+        public override string CreateSqlCommand
+        {
+            get
+            {
+                return @"Create PROCEDURE [dbo].[InsertBoundedBooking]
+	                @HotelId int,
+	                @HotelNumberId int,
+	                @Name nvarchar(max),
+	                @PhoneNumber nvarchar(max),
+	                @BoundedPeriodId int
+                AS
+                BEGIN
+	                insert [Clients]
+	                values (@Name, @PhoneNumber)
+                    
+                    insert [BoundedBookings]
+                    values (@HotelId, @HotelNumberId, @@IDENTITY, @BoundedPeriodId)
+	                
+                END";
+            }
+        }
+
+        public void Execute(RestTrainingApiContext context, BoundedBooking boundedBooking)
+        {
+            context.Database.ExecuteSqlCommand("exec InsertBoundedBooking @HotelId, @HotelNumberId, @Name, @PhoneNumber, @BoundedPeriodId",
+                new SqlParameter("@HotelId", boundedBooking.HotelId),
+                new SqlParameter("@HotelNumberId", boundedBooking.HotelNumberId),
                 new SqlParameter("@Name", boundedBooking.Client.Name),
                 new SqlParameter("@PhoneNumber", boundedBooking.Client.PhoneNumber),
                 new SqlParameter("@BoundedPeriodId", boundedBooking.BoundedPeriod.Id)

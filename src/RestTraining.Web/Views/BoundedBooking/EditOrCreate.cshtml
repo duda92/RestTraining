@@ -1,11 +1,16 @@
 ﻿@using RestTraining.Web
-@using RestTraining.Api.Domain.Entities
 @model RestTraining.Web.Models.BoundedBookingViewModel
 
 @{
     var viewDataProvider = new ViewDataProviderForView(this);
 }
-
+@if (viewDataProvider.IsBookingDatesConflict)
+{
+    <div class="alert alert-error">
+        These dates are not avaliable for booking with this hotel number <br/>
+        Hotel number is already booked for these days
+    </div>
+}
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(x => x.BoundedBooking.HotelId)

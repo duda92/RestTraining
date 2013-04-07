@@ -52,13 +52,15 @@ namespace RestTraining.Api.Domain.Repositories
             {
                 throw new InvalidDatesBookingException();
             }
-            boundedBooking.BoundedPeriod = _context.BoundedPeriods.First(x => x.Id == boundedBooking.BoundedPeriod.Id);
+            var bp = _context.BoundedPeriods.First(x => x.Id == boundedBooking.BoundedPeriod.Id);
+            boundedBooking.BoundedPeriod = bp;
 
             UpdateClient(boundedBooking);
 
             if (boundedBooking.Id == default(int))
             {
-                _context.BoundedBookings.Add(boundedBooking);
+                //_context.BoundedBookings.Add(boundedBooking);
+                _context.InsertBoundedBooking(boundedBooking);
             }
             else
             {
