@@ -59,7 +59,6 @@ namespace RestTraining.Api.Domain.Repositories
 
             if (boundedBooking.Id == default(int))
             {
-                //_context.BoundedBookings.Add(boundedBooking);
                 _context.InsertBoundedBooking(boundedBooking);
                 var insertedBooking =
                     _context.BoundedBookings.Single(

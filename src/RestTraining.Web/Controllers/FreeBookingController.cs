@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using RestTraining.Api;
@@ -55,7 +56,18 @@ namespace RestTraining.Web.Controllers
             }
             if (responseCode == HttpStatusCode.OK || responseCode == HttpStatusCode.Created)
             {
-                return View(MVC.FreeBooking.Views.BookingEdited, response);
+                var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
+                var hotelNumber = hotelNumbers.Single(x => x.Id == response.HotelNumberId);
+                var viewModel = new BookingCreatedViewModel
+                {
+                    BeginDate = response.BeginDate,
+                    EndDate = response.EndDate,
+                    Client = response.Client,
+                    Hotel = hotel,
+                    HotelNumber = hotelNumber,
+                    BookingId = response.Id
+                };
+                return View(MVC.FreeBooking.Views.BookingEdited, viewModel);
             }
             if (responseCode == HttpStatusCode.BadGateway)
             {
@@ -106,7 +118,18 @@ namespace RestTraining.Web.Controllers
             }
             if (responseCode == HttpStatusCode.OK || responseCode == HttpStatusCode.Created)
             {
-                return View(MVC.FreeBooking.Views.BookingEdited, response);
+                var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
+                var hotelNumber = hotelNumbers.Single(x => x.Id == response.HotelNumberId);
+                var viewModel = new BookingCreatedViewModel
+                {
+                    BeginDate = response.BeginDate,
+                    EndDate = response.EndDate,
+                    Client = response.Client,
+                    Hotel = hotel,
+                    HotelNumber = hotelNumber,
+                    BookingId = response.Id
+                };
+                return View(MVC.FreeBooking.Views.BookingEdited, viewModel);
             }
             if (responseCode == HttpStatusCode.BadGateway)
             {

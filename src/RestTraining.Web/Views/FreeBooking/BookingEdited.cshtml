@@ -1,5 +1,5 @@
-﻿@model RestTraining.Api.DTO.FreeBookingDTO
-@using RestTraining.Web
+﻿@using RestTraining.Web
+@model RestTraining.Web.Models.BookingCreatedViewModel
 
 @{
     var viewDataProvider = new ViewDataProviderForView(this);
@@ -7,24 +7,64 @@
 
     <h3>Booked Successfuly</h3>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.BeginDate)
-    </div>
-    <div class="editor-field">
-        @Html.DisplayFor(model => model.BeginDate)
-    </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.EndDate)
+<div class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label">@Html.LabelFor(model => model.BeginDate)</label>
+        <div class="controls"  style="padding-top: 5px;">
+            @Model.BeginDate.ToShortDateString()
+        </div>
     </div>
-    <div class="editor-field">
-        @Html.DisplayFor(model => model.EndDate)
+    <div class="control-group">
+        <label class="control-label">@Html.LabelFor(model => model.EndDate)</label>
+        <div class="controls" style="padding-top: 5px;">
+            @Model.EndDate.ToShortDateString()
+        </div>
     </div>
+    <div class="control-group">
+        <label class="control-label">Client Name</label>
+        <div class="controls"  style="padding-top: 5px;">
+            @Html.DisplayFor(model => model.Client.Name)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Client PhoneNumber</label>
+        <div class="controls"  style="padding-top: 5px;">
+            @Html.DisplayFor(model => model.Client.PhoneNumber)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Hotel</label>
+        <div class="controls"  style="padding-top: 5px;">
+            @Model.Hotel.Title , @Model.Hotel.Address
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Hotel number</label>
+        <div class="controls"  style="padding-top: 5px;">
+            Type: @Model.HotelNumber.HotelNumberType<br/>
+            Viewndow View: @foreach (var vw in Model.HotelNumber.WindowViews)
+                      {
+                          @Html.Raw(vw)
+                          if (vw != Model.HotelNumber.WindowViews.Last())
+                          {
+                              @Html.Raw(", ")
+                          }
+                      }
+            <br/>
+            Includes: @foreach (var item in Model.HotelNumber.IncludeItems)
+                      {
+                          @Html.Raw(item.IncludeItemType)
+                          if (item != Model.HotelNumber.IncludeItems.Last())
+                          {
+                              @Html.Raw(", ")
+                          }
+                      }
+        </div>
+    </div>
+</div>
 
-<h2>Hotel number</h2>
-    @Html.DisplayFor(x => x.Client, "Client")
-
-@Html.ActionLink("Delete this booking", MVC.FreeBooking.Delete(viewDataProvider.HotelId, Model.Id))
-@Html.ActionLink("Edit this booking", MVC.FreeBooking.Edit(viewDataProvider.HotelId, Model.Id))
+@Html.ActionLink("Delete this booking", MVC.FreeBooking.Delete(viewDataProvider.HotelId, Model.BookingId), new { @class = "btn btn-primary btn-large" })
+@Html.ActionLink("Edit this booking", MVC.FreeBooking.Edit(viewDataProvider.HotelId, Model.BookingId), new { @class = "btn btn-primary btn-large" })
 
 
