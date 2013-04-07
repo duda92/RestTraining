@@ -69,6 +69,7 @@ namespace RestTraining.Api.Domain.Repositories
                 previousBooking.Client.PhoneNumber = freeBooking.Client.PhoneNumber;
                 previousBooking.BeginDate = freeBooking.BeginDate;
                 previousBooking.EndDate = freeBooking.EndDate;
+                previousBooking.HotelNumberId = freeBooking.HotelNumberId;
                 _context.Entry(previousBooking).State = EntityState.Modified;
             }
         }

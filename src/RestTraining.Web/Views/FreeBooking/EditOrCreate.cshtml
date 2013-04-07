@@ -7,46 +7,78 @@
 
 @if (viewDataProvider.IsFreeBookingDatesConflict)
 {
-    <div class="alert alert-error" id="alert">
+    <div class="alert alert-error">
         These dates are not avaliable for booking with this hotel number <br/>
         Hotel number is already booked for these days
-        @Html.ValidationMessageFor(model => model.FreeBooking.BeginDate)
-        @Html.ValidationMessageFor(model => model.FreeBooking.EndDate)
-        @Html.ValidationMessageFor(model => model.FreeBooking.HotelId)
-        @Html.ValidationMessageFor(model => model.FreeBooking.HotelNumberId)
     </div>
 }
 
+<div id="alert">
+    
+</div>
+
+<div class="@if (!ViewData.ModelState.IsValidField("freeBooking.HotelNumberId"))
+            { @Html.Raw("alert alert-error"); }">
+    @Html.ValidationMessageFor(model => model.FreeBooking.HotelNumberId)
+</div>
+<div class="@if (!ViewData.ModelState.IsValidField("freeBooking.BeginDate"))
+            { @Html.Raw("alert alert-error");
+            }">
+    @Html.ValidationMessageFor(model => model.FreeBooking.BeginDate)
+</div>
+<div class="@if (!ViewData.ModelState.IsValidField("freeBooking.EndDate"))
+            { @Html.Raw("alert alert-error");
+            }">
+    @Html.ValidationMessageFor(model => model.FreeBooking.EndDate)
+</div>
+<div class="@if (!ViewData.ModelState.IsValidField("freeBooking.HotelId"))
+            { @Html.Raw("alert alert-error");
+            }">
+    @Html.ValidationMessageFor(model => model.FreeBooking.HotelId)
+</div>
 <script type="text/javascript">
+    
+
     $(document).ready(function ()
     {
-        var startDate = new Date(2012, 1, 20);
-        var endDate = new Date(2012, 1, 25);
+        var startDate = new Date(@Model.FreeBooking.BeginDate.Subtract(new DateTime(1970, 1,1)).TotalMilliseconds);
+        var endDate = new Date(@Model.FreeBooking.EndDate.Subtract(new DateTime(1970, 1,1)).TotalMilliseconds);
+        startDate.setHours(0, 0, 0, 0);
+        endDate.setHours(0, 0, 0, 0);
+        
         $('#date-start')
             .datepicker()
             .on('changeDate', function (ev) {
-                if (ev.date.valueOf() > endDate.valueOf()) {
-                    $('#alert').show().find('strong').text('The start date must be before the end date.');
-                } else {
-                    $('#alert').hide();
-                    startDate = new Date(ev.date);
-                    $('#date-start-display').text($('#date-start').data('date'));
-                    $('#FreeBooking_BeginDate').val($('#date-start').data('date'));
+                if (ev.date.valueOf() >= endDate.valueOf())
+                {
+                    $('#alert').addClass("alert alert-error");
+                    $('#alert').show().text('The start date must be before the end date.');
+                }
+                else
+                {
+                    $('#alert').hide().removeClass("alert alert-error");
                 }
                 $('#date-start').datepicker('hide');
+                startDate = new Date(ev.date);
+                $('#date-start-display').text($('#date-start').data('date'));
+                $('#FreeBooking_BeginDate').val($('#date-start').data('date'));
             });
         $('#date-end')
             .datepicker()
             .on('changeDate', function (ev) {
-                if (ev.date.valueOf() < startDate.valueOf()) {
-                    $('#alert').show().find('strong').text('The end date must be after the start date.');
-                } else {
-                    $('#alert').hide();
-                    endDate = new Date(ev.date);
-                    $('#date-end-display').text($('#date-end').data('date'));
-                    $('#FreeBooking_EndDate').val($('#date-end').data('date'));
+                if (ev.date.valueOf() <= startDate.valueOf())
+                {
+                    $('#alert').addClass("alert alert-error");
+                    $('#alert').show().text('The end date must be after the start date.');
                 }
-                $('#date-end').datepicker('hide');
+                else
+                {
+                    $('#alert').hide().removeClass("alert alert-error");
+                }
+                $('#date-start').datepicker('hide');
+                endDate = new Date(ev.date);
+                $('#date-end-display').text($('#date-end').data('date'));
+                $('#FreeBooking_EndDate').val($('#date-end').data('date'));
             });
         //$('#alert').hide();
     });

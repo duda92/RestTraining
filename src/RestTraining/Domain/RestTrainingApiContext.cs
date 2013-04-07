@@ -33,7 +33,7 @@ namespace RestTraining.Api.Domain
 
         public static readonly SetHotelTypeStoredProcedure SetHotelTypeStoredProcedure = new SetHotelTypeStoredProcedure();
         public static readonly UpdateBoundedBookingStoredProcedure UpdateBoundedBookingStoredProcedure = new UpdateBoundedBookingStoredProcedure();
-
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Hotel>().HasMany(j => j.HotelNumbers).WithRequired().HasForeignKey(x => x.HotelId);
@@ -136,6 +136,20 @@ namespace RestTraining.Api.Domain
                                     {
                                         new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.Balcony },
                                         new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.AirConditioner }
+                                    },
+                                    WindowViews = new List<WindowView>
+                                        {
+                                            new WindowView  { Type = WindowViewType.Pool },
+                                            new WindowView  { Type = WindowViewType.Trash },
+                                        }
+                            },
+                            new HotelNumber
+                            {
+                                HotelNumberType = HotelNumberType.Double,
+                                IncludeItems = new List<IncludedItem>
+                                    {
+                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.Balcony },
+                                        new IncludedItem { Count = 1, IncludeItemType = IncludeItemType.TvSet }
                                     },
                                     WindowViews = new List<WindowView>
                                         {
@@ -255,4 +269,5 @@ namespace RestTraining.Api.Domain
                 );
         }
     }
+
 }
