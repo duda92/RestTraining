@@ -6,7 +6,7 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using RestTraining.Api.DTO;
+using RestTraining.Common.DTO;
 using RestTraining.Api.Domain.Entities;
 
 namespace RestTraining.Api.Infrastructure

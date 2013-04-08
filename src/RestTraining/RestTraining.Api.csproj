@@ -150,6 +150,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BoundedPeriodsController.cs" />
     <Compile Include="Controllers\BoundedReservationsBookingController.cs" />
     <Compile Include="Controllers\BoundedReservationsHotelsController.cs" />
@@ -159,6 +160,8 @@
     <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelNumbersController.cs" />
+    <Compile Include="Domain\DTOMapperExtensions.cs" />
+    <Compile Include="Domain\LogOnModel.cs" />
     <Compile Include="Domain\Entities\BoundedBooking.cs" />
     <Compile Include="Domain\Entities\FreeBooking.cs" />
     <Compile Include="Domain\Entities\IncludedItem.cs" />
@@ -183,17 +186,7 @@
     <Compile Include="Domain\Services\IBookingDatesService.cs" />
     <Compile Include="Domain\Services\IHotelNumbersUpdateService.cs" />
     <Compile Include="Domain\Services\ImageService.cs" />
-    <Compile Include="DTO\BoundedBookingDTO.cs" />
-    <Compile Include="DTO\BoundedPeriodDTO.cs" />
-    <Compile Include="DTO\BoundedReservationsHotelDTO.cs" />
-    <Compile Include="DTO\ClientDTO.cs" />
-    <Compile Include="Infrastructure\DateGreaterThanAttribute.cs" />
-    <Compile Include="DTO\DTOMapperExtensions.cs" />
-    <Compile Include="DTO\FreeBookingDTO.cs" />
-    <Compile Include="DTO\FreeReservationsHotelDTO.cs" />
-    <Compile Include="DTO\HotelDTO.cs" />
-    <Compile Include="DTO\HotelNumberDTO.cs" />
-    <Compile Include="DTO\IncludedItemDTO.cs" />
+    <Compile Include="Handlers\BasicAuthenticationMessageHandler.cs" />
     <Compile Include="Infrastructure\JsonMediaTypeFormatter.cs" />
     <Compile Include="Infrastructure\InvalidDatesBookingException.cs" />
     <Compile Include="Domain\Entities\Booking.cs" />
@@ -211,8 +204,8 @@
     <Compile Include="Domain\Entities\IncludeItemType.cs" />
     <Compile Include="Domain\RestTrainingApiContext.cs" />
     <Compile Include="Domain\Entities\WindowViewType.cs" />
-    <Compile Include="JsonRequestExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\RestApiMembershipProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -237,6 +230,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RestTraining.Common\RestTraining.Common.csproj">
+      <Project>{b5123391-d0e1-4bbe-9624-f70cf2a27d40}</Project>
+      <Name>RestTraining.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

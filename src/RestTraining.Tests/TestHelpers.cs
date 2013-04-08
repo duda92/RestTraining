@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using RestTraining.Api.DTO;
+using RestTraining.Common.DTO;
 using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Tests.Utils;
+using RestTraining.Common.Proxy;
 using RestTraining.Domain;
 
 namespace RestTraining.Api.Tests

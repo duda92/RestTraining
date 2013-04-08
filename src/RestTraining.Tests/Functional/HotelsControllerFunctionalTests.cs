@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestTraining.Api.DTO;
+using RestTraining.Common.DTO;
 
 namespace RestTraining.Api.Tests.Functional
 {
@@ -64,7 +64,7 @@ namespace RestTraining.Api.Tests.Functional
             var hotelId = TestHelpers.BoundedReservationsHotelApiHelper.TestPost(hotel);
 
             var insertedHotel = TestHelpers.HotelsApiHelper.TestGet(hotelId);
-            insertedHotel.Type = DTO.HotelDTO.TypeDescriminator.Free;
+            insertedHotel.Type = HotelDTO.TypeDescriminator.Free;
 
             var insertedHotelNumbers = TestHelpers.HotelNumbersApiHelper.TestGet(hotelId);
             var updatedHotelId = TestHelpers.HotelsApiHelper.Put(insertedHotel);

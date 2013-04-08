@@ -1,7 +1,6 @@
 using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Domain.Repositories;
 using RestTraining.Api.Domain.Services;
-using RestTraining.Domain;
 
 namespace RestTraining.Api.Tests.Helpers
 {

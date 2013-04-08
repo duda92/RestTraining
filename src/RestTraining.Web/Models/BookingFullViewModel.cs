@@ -1,5 +1,5 @@
 ﻿using System;
-using RestTraining.Api.DTO;
+using RestTraining.Common.DTO;
 
 namespace RestTraining.Web.Models
 {

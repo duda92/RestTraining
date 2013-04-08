@@ -2,11 +2,42 @@
 using System.Linq;
 using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Domain.Services;
+using RestTraining.Domain;
 
-namespace RestTraining.Api.DTO
+namespace RestTraining.Common.DTO
 {
     public static class DTOMapperExtensions
     {
+        public static HotelNumberTypeDTO ToDTO(this HotelNumberType hotelNumberType)
+        {
+            return (HotelNumberTypeDTO)hotelNumberType;
+        }
+
+        public static HotelNumberType ToEntity(this HotelNumberTypeDTO hotelNumberTypeDTO)
+        {
+            return (HotelNumberType)hotelNumberTypeDTO;
+        }
+
+        public static WindowViewTypeDTO ToDTO(this WindowViewType windowViewType)
+        {
+            return (WindowViewTypeDTO)windowViewType;
+        }
+
+        public static WindowViewType ToEntity(this WindowViewTypeDTO windowViewTypeDTO)
+        {
+            return (WindowViewType)windowViewTypeDTO;
+        }
+
+        public static IncludeItemTypeDTO ToDTO(this IncludeItemType includeItemType)
+        {
+            return (IncludeItemTypeDTO)includeItemType;
+        }
+
+        public static IncludeItemType ToEntity(this IncludeItemTypeDTO includeItemTypeDTO)
+        {
+            return (IncludeItemType)includeItemTypeDTO;
+        }
+
         public static HotelNumberDTO ToDTO(this HotelNumber hotelNumber)
         {
             return new HotelNumberDTO
@@ -14,8 +45,8 @@ namespace RestTraining.Api.DTO
                 Id = hotelNumber.Id,
                 IncludeItems = hotelNumber.IncludeItems.Select(x => x.ToDTO()).ToList(),
                 HotelId = hotelNumber.HotelId,
-                HotelNumberType = hotelNumber.HotelNumberType,
-                WindowViews = hotelNumber.WindowViews.Select(x => x.Type).ToList()
+                HotelNumberType = hotelNumber.HotelNumberType.ToDTO(),
+                WindowViews = hotelNumber.WindowViews.Select(x => x.Type.ToDTO()).ToList()
             };
         }
         public static HotelNumber ToEntity(this HotelNumberDTO hotelNumberDTO)
@@ -25,8 +56,8 @@ namespace RestTraining.Api.DTO
                 Id = hotelNumberDTO.Id,
                 IncludeItems = hotelNumberDTO.IncludeItems.Select(x => x.ToEntity()).ToList(),
                 HotelId = hotelNumberDTO.HotelId,
-                HotelNumberType = hotelNumberDTO.HotelNumberType,
-                WindowViews = hotelNumberDTO.WindowViews.Select(x => new WindowView { Type = x }).ToList()
+                HotelNumberType = hotelNumberDTO.HotelNumberType.ToEntity(),
+                WindowViews = hotelNumberDTO.WindowViews.Select(x => new WindowView { Type = x.ToEntity() }).ToList()
             };
         }
 
@@ -245,7 +276,7 @@ namespace RestTraining.Api.DTO
             {
                 Count = includedItemDTO.Count,
                 Id = 0,
-                IncludeItemType = includedItemDTO.IncludeItemType
+                IncludeItemType = includedItemDTO.IncludeItemType.ToEntity()
             };
         }
         public static IncludedItemDTO ToDTO(this IncludedItem includedItem)
@@ -253,7 +284,7 @@ namespace RestTraining.Api.DTO
             return new IncludedItemDTO
             {
                 Count = includedItem.Count,
-                IncludeItemType = includedItem.IncludeItemType
+                IncludeItemType = includedItem.IncludeItemType.ToDTO()
             };
         }
 

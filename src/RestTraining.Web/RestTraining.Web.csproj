@@ -350,7 +350,7 @@
     <Content Include="Views\Shared\EditorTemplates\ImageUpload.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LargeTextInput.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\HotelNumberSelect.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\BoundedPeriodSelect_.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BoundedPeriodSelect.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\BookingFullViewModel.cshtml" />
     <Content Include="Views\Shared\BookingFullViewModelList.cshtml" />
   </ItemGroup>
@@ -362,12 +362,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Hotels\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RestTraining\RestTraining.Api.csproj">
-      <Project>{b48a2b47-906e-4b93-9caa-aee9b9f43a02}</Project>
-      <Name>RestTraining.Api</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -431,6 +425,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\DisplayTemplates\HotelDTO.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RestTraining.Common\RestTraining.Common.csproj">
+      <Project>{b5123391-d0e1-4bbe-9624-f70cf2a27d40}</Project>
+      <Name>RestTraining.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

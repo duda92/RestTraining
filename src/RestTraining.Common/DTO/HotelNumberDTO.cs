@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
-using RestTraining.Domain;
 
-namespace RestTraining.Api.DTO
+namespace RestTraining.Common.DTO
 {
     public class HotelNumberDTO
     {
         public HotelNumberDTO()
         {
-            WindowViews = new List<WindowViewType>();
+            WindowViews = new List<WindowViewTypeDTO>();
             IncludeItems = new List<IncludedItemDTO>();
         }
 
         public int Id { get; set; }
 
-        public List<WindowViewType> WindowViews { get; set; }
+        public List<WindowViewTypeDTO> WindowViews { get; set; }
 
         public List<IncludedItemDTO> IncludeItems { get; set; }
 
-        public HotelNumberType HotelNumberType { get; set; }
+        public HotelNumberTypeDTO HotelNumberType { get; set; }
 
         public int HotelId { get; set; }
     }

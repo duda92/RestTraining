@@ -1,4 +1,4 @@
-﻿namespace RestTraining.Domain
+﻿namespace RestTraining.Api.Domain.Entities
 {
     public enum HotelNumberType
     {

@@ -44,7 +44,7 @@
     @Html.HiddenFor(x => x.BoundedBooking.HotelId)
     @Html.HiddenFor(x => x.BoundedBooking.Id)
     
-    @Html.EditorFor(x => x.BoundedBooking.BoundedPeriodId, MVC.Shared.Views.EditorTemplates.BoundedPeriodSelect_, new { BoundedPeriods = Model.BoundedPeriods })
+    @Html.EditorFor(x => x.BoundedBooking.BoundedPeriodId, MVC.Shared.Views.EditorTemplates.BoundedPeriodSelect, new { BoundedPeriods = Model.BoundedPeriods })
     @Html.EditorFor(x => x.BoundedBooking.HotelNumberId, MVC.Shared.Views.EditorTemplates.HotelNumberSelect, new { HotelNumbers = Model.HotelNumbers })
 
     @Html.EditorFor(x => x.BoundedBooking.Client, MVC.Shared.Views.EditorTemplates.Client)

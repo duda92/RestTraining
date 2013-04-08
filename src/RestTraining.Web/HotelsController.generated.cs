@@ -157,9 +157,9 @@ namespace RestTraining.Web.Controllers
             return callInfo;
         }
 
-        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, RestTraining.Api.DTO.HotelDTO hotel);
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, RestTraining.Common.DTO.HotelDTO hotel);
 
-        public override System.Web.Mvc.ActionResult Create(RestTraining.Api.DTO.HotelDTO hotel)
+        public override System.Web.Mvc.ActionResult Create(RestTraining.Common.DTO.HotelDTO hotel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "hotel", hotel);
@@ -177,9 +177,9 @@ namespace RestTraining.Web.Controllers
             return callInfo;
         }
 
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, RestTraining.Api.DTO.HotelDTO hotel);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, RestTraining.Common.DTO.HotelDTO hotel);
 
-        public override System.Web.Mvc.ActionResult Edit(RestTraining.Api.DTO.HotelDTO hotel)
+        public override System.Web.Mvc.ActionResult Edit(RestTraining.Common.DTO.HotelDTO hotel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "hotel", hotel);
@@ -197,9 +197,9 @@ namespace RestTraining.Web.Controllers
             return callInfo;
         }
 
-        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, RestTraining.Api.DTO.HotelDTO hotel);
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, RestTraining.Common.DTO.HotelDTO hotel);
 
-        public override System.Web.Mvc.ActionResult Delete(RestTraining.Api.DTO.HotelDTO hotel)
+        public override System.Web.Mvc.ActionResult Delete(RestTraining.Common.DTO.HotelDTO hotel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "hotel", hotel);

@@ -179,9 +179,9 @@ namespace RestTraining.Web.Controllers
             return callInfo;
         }
 
-        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int hotelId, RestTraining.Api.DTO.BoundedPeriodDTO boundedPeriod);
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int hotelId, RestTraining.Common.DTO.BoundedPeriodDTO boundedPeriod);
 
-        public override System.Web.Mvc.ActionResult Create(int hotelId, RestTraining.Api.DTO.BoundedPeriodDTO boundedPeriod)
+        public override System.Web.Mvc.ActionResult Create(int hotelId, RestTraining.Common.DTO.BoundedPeriodDTO boundedPeriod)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "hotelId", hotelId);
@@ -201,9 +201,9 @@ namespace RestTraining.Web.Controllers
             return callInfo;
         }
 
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int hotelId, RestTraining.Api.DTO.BoundedPeriodDTO boundedPeriod);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int hotelId, RestTraining.Common.DTO.BoundedPeriodDTO boundedPeriod);
 
-        public override System.Web.Mvc.ActionResult Edit(int hotelId, RestTraining.Api.DTO.BoundedPeriodDTO boundedPeriod)
+        public override System.Web.Mvc.ActionResult Edit(int hotelId, RestTraining.Common.DTO.BoundedPeriodDTO boundedPeriod)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "hotelId", hotelId);

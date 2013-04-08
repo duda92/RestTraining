@@ -1,8 +1,8 @@
-﻿using System;
+﻿using RestTraining.Common.DataAnotations;
+using System;
 using System.ComponentModel.DataAnnotations;
-using RestTraining.Api.Infrastructure;
 
-namespace RestTraining.Api.DTO
+namespace RestTraining.Common.DTO
 {
     public class FreeBookingDTO
     {

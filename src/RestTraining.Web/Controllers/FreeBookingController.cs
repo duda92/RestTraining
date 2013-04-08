@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using RestTraining.Api;
-using RestTraining.Api.DTO;
+using RestTraining.Common.DTO;
+using RestTraining.Common.Proxy;
 using RestTraining.Web.Models;
 
 namespace RestTraining.Web.Controllers

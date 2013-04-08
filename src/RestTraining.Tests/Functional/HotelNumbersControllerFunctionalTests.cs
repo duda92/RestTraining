@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestTraining.Api.DTO;
+using RestTraining.Common.DTO;
 using RestTraining.Api.Domain.Entities;
 using RestTraining.Domain;
 
@@ -62,7 +62,7 @@ namespace RestTraining.Api.Tests.Functional
                 {
                     var previousWindowViewsCount = hotelNumber.WindowViews.Count;
                     if (previousWindowViewsCount == 0)
-                        hotelNumber.WindowViews.Add(WindowViewType.Pool);
+                        hotelNumber.WindowViews.Add(WindowViewTypeDTO.Pool);
                     else
                         hotelNumber.WindowViews.Clear();
                     var newWindowViewsCount = hotelNumber.WindowViews.Count;

@@ -11,6 +11,12 @@ namespace RestTraining.Api
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapHttpRoute(
+                name: "Account",
+                routeTemplate: "api/Account/",
+                defaults: new { controller = "Account" }
+            );
+            
+            routes.MapHttpRoute(
                 name: "Free Booking",
                 routeTemplate: "api/Booking/FreeReservations/{hotelId}/{id}",
                 defaults: new { controller = "FreeReservationsBooking", id = RouteParameter.Optional }

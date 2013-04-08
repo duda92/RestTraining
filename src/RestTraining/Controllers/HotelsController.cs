@@ -2,13 +2,14 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using RestTraining.Api.DTO;
+using RestTraining.Common.DTO;
 using RestTraining.Api.Domain.Repositories;
 using System.Collections.Generic;
 using System.Web.Http;
 
 namespace RestTraining.Api.Controllers
 {
+    [Authorize]
     public class HotelsController : ApiController
     {
         private readonly IHotelRepository _hotelRepository;

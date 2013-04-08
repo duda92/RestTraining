@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using RestTraining.Domain;
 
 namespace RestTraining.Api.Domain.Entities
 {

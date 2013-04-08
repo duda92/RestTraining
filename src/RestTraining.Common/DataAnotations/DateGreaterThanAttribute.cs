@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace RestTraining.Api.Infrastructure
+namespace RestTraining.Common.DataAnotations
 {
     public sealed class DateGreaterThanAttribute : ValidationAttribute
     {

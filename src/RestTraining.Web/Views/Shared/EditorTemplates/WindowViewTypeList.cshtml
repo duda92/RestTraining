@@ -1,10 +1,10 @@
-﻿@using RestTraining.Domain
-@model List<WindowViewType>
+﻿@using RestTraining.Common.DTO
+@model List<WindowViewTypeDTO>
 @{
     Layout = null;
 }
 <h4>Views to: </h4>
-@foreach (WindowViewType d in Enum.GetValues(typeof(WindowViewType)))
+@foreach (WindowViewTypeDTO d in Enum.GetValues(typeof(WindowViewTypeDTO)))
 {           
     <label class="checkbox">
         @{

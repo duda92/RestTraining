@@ -57,7 +57,7 @@ namespace T4MVC
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public partial class _EditorTemplatesClass
             {
-                public readonly string BoundedPeriodSelect_ = "BoundedPeriodSelect_";
+                public readonly string BoundedPeriodSelect = "BoundedPeriodSelect";
                 public readonly string Client = "Client";
                 public readonly string HotelNumberSelect = "HotelNumberSelect";
                 public readonly string HotelNumberType = "HotelNumberType";

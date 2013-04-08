@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using RestTraining.Api.DTO;
-using RestTraining.Api.Domain.Entities;
-using RestTraining.Domain;
+using RestTraining.Common.DTO;
 
 namespace RestTraining.Web.Binders
 {
@@ -49,8 +47,8 @@ namespace RestTraining.Web.Binders
                     {
                         Count = Int32.Parse(includeItemCountParamsList[i]),
                         IncludeItemType =
-                            (IncludeItemType)
-                            Enum.Parse(typeof(IncludeItemType), includeItemTypeParamsList[i]),
+                            (IncludeItemTypeDTO)
+                            Enum.Parse(typeof(IncludeItemTypeDTO), includeItemTypeParamsList[i]),
                     });
                 hotelNumberDTO.IncludeItems = includeItems;
             }
@@ -65,7 +63,7 @@ namespace RestTraining.Web.Binders
             try
             {
                 var hotelNumberTypeParam = bindingContext.ValueProvider.GetValue("HotelNumberType").AttemptedValue;
-                var hotelNumberType = (HotelNumberType)Enum.Parse(typeof(HotelNumberType), hotelNumberTypeParam);
+                var hotelNumberType = (HotelNumberTypeDTO)Enum.Parse(typeof(HotelNumberTypeDTO), hotelNumberTypeParam);
                 hotelNumberDTO.HotelNumberType = hotelNumberType;
             }
             catch (Exception e)
@@ -82,7 +80,7 @@ namespace RestTraining.Web.Binders
                 ValueProviderResult viewTypesParamVPR = bindingContext.ValueProvider.GetValue("WindowViews");
                 var viewTypesParam = viewTypesParamVPR != null ? viewTypesParamVPR.AttemptedValue.Split(',') : new string[0];
                 var windowViews =
-                    viewTypesParam.Select(viewType => (WindowViewType)Enum.Parse(typeof(WindowViewType), viewType)).ToList();
+                    viewTypesParam.Select(viewType => (WindowViewTypeDTO)Enum.Parse(typeof(WindowViewTypeDTO), viewType)).ToList();
                 hotelNumberDTO.WindowViews = windowViews;
             }
             catch (Exception e)

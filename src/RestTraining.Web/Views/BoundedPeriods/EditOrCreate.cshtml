@@ -1,10 +1,10 @@
 ﻿@using RestTraining.Web
-@model RestTraining.Api.DTO.BoundedPeriodDTO
+@model RestTraining.Common.DTO.BoundedPeriodDTO
 
 @{
     var viewDataProvider = new ViewDataProviderForView(this);
     
-    if (viewDataProvider.IsInvalidBoundedPeriod)//conflinct - already exists
+    if (viewDataProvider.IsInvalidBoundedPeriod)
     {
         <div class="alert alert-error">
             Entered date range intersects with existing bounded periods 

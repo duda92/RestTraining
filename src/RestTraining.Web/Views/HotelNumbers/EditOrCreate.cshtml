@@ -1,12 +1,11 @@
-﻿@using RestTraining.Api.DTO
-@using RestTraining.Api.Domain.Entities
+﻿@using RestTraining.Common.DTO
 @model HotelNumberDTO
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     @Html.HiddenFor(x => x.Id)
-    
+
     <fieldset>
         <legend>Hotel number</legend>
             @Html.EditorFor(x => x.IncludeItems, MVC.Shared.Views.EditorTemplates.IncludeItemList)
@@ -19,7 +18,7 @@
 }
 <div class="include-item-source" style="display: none">
         @{
-            var hidden = new IncludedItemDTO { Count = 1,  IncludeItemType = IncludeItemType.AirConditioner };
+            var hidden = new IncludedItemDTO { Count = 1,  IncludeItemType = IncludeItemTypeDTO.AirConditioner };
         }
         @Html.EditorFor(x => hidden, MVC.Shared.Views.EditorTemplates.IncludeItem, "IncludeItem")
 </div>

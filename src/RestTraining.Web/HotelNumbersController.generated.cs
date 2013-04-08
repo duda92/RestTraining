@@ -179,9 +179,9 @@ namespace RestTraining.Web.Controllers
             return callInfo;
         }
 
-        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int hotelId, RestTraining.Api.DTO.HotelNumberDTO hotelNumber);
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int hotelId, RestTraining.Common.DTO.HotelNumberDTO hotelNumber);
 
-        public override System.Web.Mvc.ActionResult Create(int hotelId, RestTraining.Api.DTO.HotelNumberDTO hotelNumber)
+        public override System.Web.Mvc.ActionResult Create(int hotelId, RestTraining.Common.DTO.HotelNumberDTO hotelNumber)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "hotelId", hotelId);
@@ -201,9 +201,9 @@ namespace RestTraining.Web.Controllers
             return callInfo;
         }
 
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int hotelId, RestTraining.Api.DTO.HotelNumberDTO hotelNumber);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int hotelId, RestTraining.Common.DTO.HotelNumberDTO hotelNumber);
 
-        public override System.Web.Mvc.ActionResult Edit(int hotelId, RestTraining.Api.DTO.HotelNumberDTO hotelNumber)
+        public override System.Web.Mvc.ActionResult Edit(int hotelId, RestTraining.Common.DTO.HotelNumberDTO hotelNumber)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "hotelId", hotelId);

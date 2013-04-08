@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
-using RestTraining.Api;
-using RestTraining.Api.DTO;
+using RestTraining.Common.DTO;
 using System.Linq;
+using RestTraining.Common.Proxy;
+
 namespace RestTraining.Web.Controllers
 {
     public partial class BoundedPeriodsController : ControllerBase

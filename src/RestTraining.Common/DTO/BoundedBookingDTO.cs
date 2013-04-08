@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace RestTraining.Api.DTO
+
+namespace RestTraining.Common.DTO
 {
     public class BoundedBookingDTO
     {

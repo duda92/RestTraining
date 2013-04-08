@@ -4,11 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using RestTraining.Api.DTO;
+using RestTraining.Common.DTO;
 using RestTraining.Api.Domain.Repositories;
 
 namespace RestTraining.Api.Controllers
-{   
+{
+    [Authorize]
     public class ClientsController : ApiController
     {
 		private readonly IClientRepository _clientRepository;

@@ -1,6 +1,5 @@
 ﻿@model int
-@using RestTraining.Api.DTO
-@using RestTraining.Api.Domain.Entities
+@using RestTraining.Common.DTO
 
 @{
     Layout = null;
@@ -32,7 +31,7 @@
             <tr class="rowlink">
                 <th>#</th>
                 <th>Type</th>
-                @foreach (var val in Enum.GetValues(typeof(IncludeItemType)))
+                @foreach (var val in Enum.GetValues(typeof(IncludeItemTypeDTO)))
                 {
                     <th>@val</th>
                 }
@@ -48,10 +47,10 @@
                 <tr class="rowlink" onclick="selectHotelNumber(@hotelNumber.Id)" @rowAttribute="@hotelNumber.Id">
                     <td>@(index + 1)</td>
                     <td>@hotelNumber.HotelNumberType.ToString()</td>
-                    @foreach (var val in Enum.GetValues(typeof(IncludeItemType)))
+                    @foreach (var val in Enum.GetValues(typeof(IncludeItemTypeDTO)))
                     {
                         <td style="font-size: 40px;">
-                            @if (hotelNumber.IncludeItems.Any(x => x.IncludeItemType == (IncludeItemType)val))
+                            @if (hotelNumber.IncludeItems.Any(x => x.IncludeItemType == (IncludeItemTypeDTO)val))
                             { 
                                 <i class="iconic-check" style="color: #51A351"></i>
                             }

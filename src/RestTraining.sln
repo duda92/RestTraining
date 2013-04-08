@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTraining.Api.Tests", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTraining.Web", "RestTraining.Web\RestTraining.Web.csproj", "{4897AC9F-2668-4938-84F0-F07E8FC07BC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestTraining.Common", "RestTraining.Common\RestTraining.Common.csproj", "{B5123391-D0E1-4BBE-9624-F70CF2A27D40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{4897AC9F-2668-4938-84F0-F07E8FC07BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4897AC9F-2668-4938-84F0-F07E8FC07BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4897AC9F-2668-4938-84F0-F07E8FC07BC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5123391-D0E1-4BBE-9624-F70CF2A27D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5123391-D0E1-4BBE-9624-F70CF2A27D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5123391-D0E1-4BBE-9624-F70CF2A27D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5123391-D0E1-4BBE-9624-F70CF2A27D40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestTraining.Api.DTO;
+using RestTraining.Common.DTO;
 
 namespace RestTraining.Api.Tests.Functional
 {

@@ -138,6 +138,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RestTraining.Common\RestTraining.Common.csproj">
+      <Project>{b5123391-d0e1-4bbe-9624-f70cf2a27d40}</Project>
+      <Name>RestTraining.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RestTraining\RestTraining.Api.csproj">
       <Project>{B48A2B47-906E-4B93-9CAA-AEE9B9F43A02}</Project>
       <Name>RestTraining.Api</Name>
