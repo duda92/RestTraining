@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using RestTraining.Api.Infrastructure;
 
 namespace RestTraining.Api.DTO
 {

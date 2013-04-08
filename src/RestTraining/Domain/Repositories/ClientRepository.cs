@@ -34,10 +34,8 @@ namespace RestTraining.Api.Domain.Repositories
         public void InsertOrUpdate(Client client)
         {
             if (client.Id == default(int)) {
-                // New entity
                 _context.Clients.Add(client);
             } else {
-                // Existing entity
                 _context.Entry(client).State = EntityState.Modified;
             }
         }

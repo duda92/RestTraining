@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using RestTraining.Api.DTO;
-using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Domain.Repositories;
 
 namespace RestTraining.Api.Controllers

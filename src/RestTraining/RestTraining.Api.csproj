@@ -187,6 +187,7 @@
     <Compile Include="DTO\BoundedPeriodDTO.cs" />
     <Compile Include="DTO\BoundedReservationsHotelDTO.cs" />
     <Compile Include="DTO\ClientDTO.cs" />
+    <Compile Include="Infrastructure\DateGreaterThanAttribute.cs" />
     <Compile Include="DTO\DTOMapperExtensions.cs" />
     <Compile Include="DTO\FreeBookingDTO.cs" />
     <Compile Include="DTO\FreeReservationsHotelDTO.cs" />
@@ -216,21 +217,6 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.2.js" />
-    <Content Include="Scripts\jquery-1.6.2.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.11.js" />
-    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-2.0.0.debug.js" />
-    <Content Include="Scripts\knockout-2.0.0.js" />
-    <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -240,26 +226,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\aspNetHome.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\facebook.png" />
-    <Content Include="Images\findHosting.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\NuGetGallery.png" />
-    <Content Include="Images\orderedList0.png" />
-    <Content Include="Images\orderedList1.png" />
-    <Content Include="Images\orderedList2.png" />
-    <Content Include="Images\orderedList3.png" />
-    <Content Include="Images\orderedList4.png" />
-    <Content Include="Images\orderedList5.png" />
-    <Content Include="Images\orderedList6.png" />
-    <Content Include="Images\orderedList7.png" />
-    <Content Include="Images\orderedList8.png" />
-    <Content Include="Images\orderedList9.png" />
-    <Content Include="Images\twitter.png" />
-    <Content Include="Images\windowsLive.png" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

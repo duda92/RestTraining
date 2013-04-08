@@ -11,6 +11,34 @@
         Hotel number is already booked for these days
     </div>
 }
+
+@if (Model.BoundedPeriods.Count == 0)
+{
+    <div class="alert alert-error">
+        There is no bounded periods for this hotel 
+        Add them in admin sections before make a booking
+    </div>
+}
+
+@if (Model.HotelNumbers.Count == 0)
+{
+    <div class="alert alert-error">
+        There is no hotel numbers for this hotel 
+        Add them in admin sections before make a booking
+    </div>
+}
+
+<div class="@if (!ViewData.ModelState.IsValidField("boundedBooking.HotelNumberId"))
+            { @Html.Raw("alert alert-error"); }">
+    @Html.ValidationMessageFor(model => model.BoundedBooking.HotelNumberId)
+</div>
+<div class="@if (!ViewData.ModelState.IsValidField("boundedBooking.BoundedPeriodId"))
+            { @Html.Raw("alert alert-error");
+            }">
+    @Html.ValidationMessageFor(model => model.BoundedBooking.BoundedPeriodId)
+</div>
+
+
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(x => x.BoundedBooking.HotelId)

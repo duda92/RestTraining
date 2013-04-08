@@ -52,7 +52,7 @@ namespace RestTraining.Api.Domain.Repositories
             else 
             {
                 if (freereservationshotel.HotelNumbers.Count != 0)
-                    freereservationshotel.HotelNumbers.Clear(); // put hotel does not affect hotel numbers, only on create
+                    freereservationshotel.HotelNumbers.Clear();
                 _context.Entry(freereservationshotel).State = EntityState.Modified;
             }
         }
