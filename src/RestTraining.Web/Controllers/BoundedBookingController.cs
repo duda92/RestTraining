@@ -19,14 +19,14 @@ namespace RestTraining.Web.Controllers
 
         public virtual ActionResult Index(int hotelId)
         {
-            var bookings = JsonRequestExecutor.ExecuteGet<List<BoundedBookingDTO>>(BaseUrl, string.Format(BoundedBookingResource, hotelId));
+            var bookings = executor.ExecuteGet<List<BoundedBookingDTO>>(BaseUrl, string.Format(BoundedBookingResource, hotelId));
             var bookingList = new List<BookingFullViewModel>();
 
             foreach (var booking in bookings)
             {
-                var boundedPeriod = JsonRequestExecutor.ExecuteGet<BoundedPeriodDTO>(BaseUrl, string.Format(BoundedPeriodsResource + "{1}", hotelId, booking.BoundedPeriodId));
-                var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
-                var hotelNumber = JsonRequestExecutor.ExecuteGet<HotelNumberDTO>(BaseUrl, string.Format(HotelNumbersResource + "{1}", hotelId, booking.HotelNumberId));
+                var boundedPeriod = executor.ExecuteGet<BoundedPeriodDTO>(BaseUrl, string.Format(BoundedPeriodsResource + "{1}", hotelId, booking.BoundedPeriodId));
+                var hotel = executor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
+                var hotelNumber = executor.ExecuteGet<HotelNumberDTO>(BaseUrl, string.Format(HotelNumbersResource + "{1}", hotelId, booking.HotelNumberId));
                 bookingList.Add(new BookingFullViewModel
                 {
                     BeginDate = boundedPeriod.BeginDate,
@@ -44,13 +44,13 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Create(int hotelId)
         {
             _viewDataProvider.ControllerActionType = ControllerActionType.Create;
-            var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
+            var hotel = executor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
 
             if (hotel.Type != HotelDTO.TypeDescriminator.Bounded)
                 throw new Exception("invalid hotel type for bounded reservations");
 
-            var hotelNumbers = JsonRequestExecutor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(HotelNumbersResource, hotelId));
-            var boundedPeriods = JsonRequestExecutor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(BoundedPeriodsResource, hotelId));
+            var hotelNumbers = executor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(HotelNumbersResource, hotelId));
+            var boundedPeriods = executor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(BoundedPeriodsResource, hotelId));
             var boundedBooking = new BoundedBookingDTO { HotelId = hotelId };
             var boundedBookingViewModel = new BoundedBookingViewModel { BoundedBooking = boundedBooking, HotelNumbers = hotelNumbers, BoundedPeriods = boundedPeriods };
             return View(MVC.BoundedBooking.Views.EditOrCreate, boundedBookingViewModel);
@@ -60,8 +60,8 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Create(int hotelId, BoundedBookingDTO boundedBooking)
         {
             _viewDataProvider.ControllerActionType = ControllerActionType.Create;
-            var hotelNumbers = JsonRequestExecutor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(HotelNumbersResource, hotelId));
-            var boundedPeriods = JsonRequestExecutor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(BoundedPeriodsResource, hotelId));
+            var hotelNumbers = executor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(HotelNumbersResource, hotelId));
+            var boundedPeriods = executor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(BoundedPeriodsResource, hotelId));
             
             if (!ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace RestTraining.Web.Controllers
             }
 
             HttpStatusCode responseCode;
-            var response = JsonRequestExecutor.ExecutePost(boundedBooking, BaseUrl, string.Format(BoundedBookingResource, hotelId), out responseCode);
+            var response = executor.ExecutePost(boundedBooking, BaseUrl, string.Format(BoundedBookingResource, hotelId), out responseCode);
             
             if (responseCode == HttpStatusCode.Conflict)
             {
@@ -84,7 +84,7 @@ namespace RestTraining.Web.Controllers
             if (responseCode == HttpStatusCode.OK || responseCode == HttpStatusCode.Created)
             {
                 var boundedPeriod = boundedPeriods.Single(x => x.Id == response.BoundedPeriodId);
-                var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
+                var hotel = executor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
                 var hotelNumber = hotelNumbers.Single(x => x.Id == response.HotelNumberId);
             
                 var viewModel = new BookingFullViewModel
@@ -109,15 +109,15 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Edit(int hotelId, int id)
         {
             _viewDataProvider.ControllerActionType = ControllerActionType.Edit;
-            var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
+            var hotel = executor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
 
             if (hotel.Type != HotelDTO.TypeDescriminator.Bounded)
                 throw new Exception("invalid hotel type for bounded reservations");
 
-            var hotelNumbers = JsonRequestExecutor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(HotelNumbersResource, hotelId));
-            var boundedPeriods = JsonRequestExecutor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(BoundedPeriodsResource, hotelId));
-            
-            var boundedBooking = JsonRequestExecutor.ExecuteGet<BoundedBookingDTO>(BaseUrl, string.Format(BoundedBookingResource + "{1}", hotelId, id));
+            var hotelNumbers = executor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(HotelNumbersResource, hotelId));
+            var boundedPeriods = executor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(BoundedPeriodsResource, hotelId));
+
+            var boundedBooking = executor.ExecuteGet<BoundedBookingDTO>(BaseUrl, string.Format(BoundedBookingResource + "{1}", hotelId, id));
             var boundedBookingViewModel = new BoundedBookingViewModel { BoundedBooking = boundedBooking, HotelNumbers = hotelNumbers, BoundedPeriods = boundedPeriods };
             return View(MVC.BoundedBooking.Views.EditOrCreate, boundedBookingViewModel);
         }
@@ -126,8 +126,8 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Edit(int hotelId, BoundedBookingDTO boundedBooking)
         {
             _viewDataProvider.ControllerActionType = ControllerActionType.Edit;
-            var boundedPeriods = JsonRequestExecutor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(BoundedPeriodsResource, hotelId));
-            var hotelNumbers = JsonRequestExecutor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(HotelNumbersResource, hotelId));
+            var boundedPeriods = executor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(BoundedPeriodsResource, hotelId));
+            var hotelNumbers = executor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(HotelNumbersResource, hotelId));
                
             if (!ModelState.IsValid)
             {
@@ -135,7 +135,7 @@ namespace RestTraining.Web.Controllers
             }
 
             HttpStatusCode responseCode;
-            var response = JsonRequestExecutor.ExecutePut(boundedBooking, BaseUrl, string.Format(BoundedBookingResource, hotelId), out responseCode);
+            var response = executor.ExecutePut(boundedBooking, BaseUrl, string.Format(BoundedBookingResource, hotelId), out responseCode);
 
             if (responseCode == HttpStatusCode.Conflict)
             {
@@ -149,8 +149,8 @@ namespace RestTraining.Web.Controllers
             }
             if (responseCode == HttpStatusCode.OK || responseCode == HttpStatusCode.Created)
             {
-                var boundedPeriod = boundedPeriods.Single(x => x.Id == response.BoundedPeriodId); 
-                var hotel = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
+                var boundedPeriod = boundedPeriods.Single(x => x.Id == response.BoundedPeriodId);
+                var hotel = executor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
                 var hotelNumber = hotelNumbers.Single(x => x.Id == response.HotelNumberId);
 
                 var viewModel = new BookingFullViewModel
@@ -176,7 +176,7 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Delete(int hotelId, int id)
         {
             HttpStatusCode responseCode;
-            JsonRequestExecutor.ExecuteDelete<BoundedBookingDTO>(BaseUrl, string.Format(BoundedBookingResource + "{1}", hotelId, id), out responseCode);
+            executor.ExecuteDelete<BoundedBookingDTO>(BaseUrl, string.Format(BoundedBookingResource + "{1}", hotelId, id), out responseCode);
 
             if (responseCode == HttpStatusCode.NotFound)
             {

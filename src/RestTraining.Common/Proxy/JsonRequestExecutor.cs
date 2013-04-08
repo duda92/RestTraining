@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using Newtonsoft.Json;
 using RestSharp;
+using RestTraining.Common.Authorization;
 
 namespace RestTraining.Common.Proxy
 {
@@ -10,11 +11,15 @@ namespace RestTraining.Common.Proxy
     {
         private string _login;
         private string _password;
+        private string _publicKeyXml;
+        private string _appId;
 
-        public JsonRequestExecutor(string login, string password)
+        public JsonRequestExecutor(string login, string password, string publicKeyXml, string appId)
         {
             _login = login;
             _password = password;
+            _publicKeyXml = publicKeyXml;
+            _appId = appId;
         }
 
         public T ExecutePut<T>(T obj, string baseUrl, string resource)
@@ -93,9 +98,10 @@ namespace RestTraining.Common.Proxy
 
         void SetAuth(RestClient client)
         {
-            //var enc = new Encryptor();
-            //var password = enc.EncryptString("1", WebApiApplication.publicKey);
-            client.Authenticator = new HttpBasicAuthenticator(_login, _password);
+            var encriptor = new RSA();
+            var password = encriptor.EncryptString(_password, _publicKeyXml);
+            client.Authenticator = new HttpBasicAuthenticator(_login, password);
+            client.AddDefaultHeader("appId", _appId);
         }
     }
 }

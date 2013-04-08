@@ -1,7 +1,8 @@
-﻿using RestTraining.Api.Controllers;
-using System;
+﻿using System;
 using System.Linq;
 using System.Web.Security;
+using RestTraining.Common.Authorization;
+using System.Collections.Generic;
 
 namespace RestTraining.Api.Providers
 {
@@ -189,9 +190,7 @@ namespace RestTraining.Api.Providers
 
         public override bool ValidateUser(string username, string password)
         {
-            //var decr = new Decryptor();
-            //var decriptedPassword = decr.DecryptString(password, WebApiApplication.privateKey);
-            return username == "1"; //&& decriptedPassword == "1";
+            return usersPasswords.Any(x => x.Key == username && x.Value == password);
         }
 
         public override int MinRequiredPasswordLength
@@ -203,5 +202,13 @@ namespace RestTraining.Api.Providers
         {
             get { throw new NotImplementedException(); }
         }
+
+        public static List<KeyValuePair<string, string>> usersPasswords = new List<KeyValuePair<string, string>>
+        {
+            new KeyValuePair<string, string> ("client1", "client1"),
+            new KeyValuePair<string, string> ("testClient1", "testClient1"),
+        };
+
     }
+
 }

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Web.Mvc;
 using RestTraining.Common.DTO;
-using System.Drawing;
-using System.Web;
-using RestTraining.Common.Proxy;
 
 namespace RestTraining.Web.Controllers
 {
@@ -17,7 +13,7 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Index()
         {
             HttpStatusCode responseCode;
-            var responseObj = JsonRequestExecutor.ExecuteGet<List<HotelDTO>>(BaseUrl, Resource, out responseCode);
+            var responseObj = executor.ExecuteGet<List<HotelDTO>>(BaseUrl, Resource, out responseCode);
             if (responseCode == HttpStatusCode.OK)
             {
                 return View(responseObj);
@@ -46,7 +42,7 @@ namespace RestTraining.Web.Controllers
                 return View(MVC.Hotels.Views.EditOrCreate, hotel); 
             }
             HttpStatusCode responseCode;
-            JsonRequestExecutor.ExecutePost(hotel, BaseUrl, Resource, out responseCode);
+            executor.ExecutePost(hotel, BaseUrl, Resource, out responseCode);
             if (responseCode == HttpStatusCode.OK || responseCode == HttpStatusCode.Created )
             {
                 return RedirectToAction(MVC.Hotels.Index());
@@ -69,7 +65,7 @@ namespace RestTraining.Web.Controllers
             _viewDataProvider.ControllerActionType = ControllerActionType.Edit;
             
             HttpStatusCode responseCode;
-            var hotelDTO = JsonRequestExecutor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", id), out responseCode);
+            var hotelDTO = executor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", id), out responseCode);
 
             if (responseCode == HttpStatusCode.OK)
             {
@@ -99,7 +95,7 @@ namespace RestTraining.Web.Controllers
             }
 
             HttpStatusCode responseCode;
-            JsonRequestExecutor.ExecutePut(hotel, BaseUrl, Resource, out responseCode);
+            executor.ExecutePut(hotel, BaseUrl, Resource, out responseCode);
             
             if (responseCode == HttpStatusCode.OK)
             {
@@ -122,7 +118,7 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Delete(int id)
         {
             HttpStatusCode responseCode;
-            var hotelDTO = JsonRequestExecutor.ExecuteDelete<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", id), out responseCode);
+            var hotelDTO = executor.ExecuteDelete<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", id), out responseCode);
 
             if (responseCode == HttpStatusCode.OK)
             {
@@ -144,7 +140,7 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Delete(HotelDTO hotel)
         {
             HttpStatusCode responseCode;
-            JsonRequestExecutor.ExecuteDelete<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", hotel.Id), out responseCode);
+            executor.ExecuteDelete<HotelDTO>(BaseUrl, string.Format(Resource + "{0}", hotel.Id), out responseCode);
 
             if (responseCode == HttpStatusCode.OK)
             {

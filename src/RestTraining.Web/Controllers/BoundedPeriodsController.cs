@@ -4,7 +4,6 @@ using System.Net;
 using System.Web.Mvc;
 using RestTraining.Common.DTO;
 using System.Linq;
-using RestTraining.Common.Proxy;
 
 namespace RestTraining.Web.Controllers
 {
@@ -14,7 +13,7 @@ namespace RestTraining.Web.Controllers
         
         public virtual ActionResult Index(int hotelId)
         {
-            var responseObj = JsonRequestExecutor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(Resource, hotelId));
+            var responseObj = executor.ExecuteGet<List<BoundedPeriodDTO>>(BaseUrl, string.Format(Resource, hotelId));
 
             responseObj.OrderBy(x => x.BeginDate).ToList();
 
@@ -36,7 +35,7 @@ namespace RestTraining.Web.Controllers
                 return View(MVC.BoundedPeriods.Views.EditOrCreate, boundedPeriod);
             }
             HttpStatusCode responseCode;
-            JsonRequestExecutor.ExecutePost(boundedPeriod, BaseUrl, string.Format(Resource, hotelId), out responseCode);
+            executor.ExecutePost(boundedPeriod, BaseUrl, string.Format(Resource, hotelId), out responseCode);
             
             if (responseCode == HttpStatusCode.Conflict)
             {
@@ -59,7 +58,7 @@ namespace RestTraining.Web.Controllers
         {
             _viewDataProvider.ControllerActionType = ControllerActionType.Edit;
             HttpStatusCode responseCode;
-            JsonRequestExecutor.ExecuteGet<BoundedPeriodDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, id), out responseCode);
+            executor.ExecuteGet<BoundedPeriodDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, id), out responseCode);
 
             return View(MVC.BoundedPeriods.Views.EditOrCreate, new BoundedPeriodDTO());
         }
@@ -73,7 +72,7 @@ namespace RestTraining.Web.Controllers
                 return View(MVC.BoundedPeriods.Views.EditOrCreate, boundedPeriod);
             }
             HttpStatusCode responseCode;
-            JsonRequestExecutor.ExecutePut(boundedPeriod, BaseUrl, string.Format(Resource, hotelId), out responseCode);
+            executor.ExecutePut(boundedPeriod, BaseUrl, string.Format(Resource, hotelId), out responseCode);
 
             if (responseCode == HttpStatusCode.Conflict)
             {
@@ -105,7 +104,7 @@ namespace RestTraining.Web.Controllers
         public virtual ActionResult Delete(int hotelId, int id)
         {
             HttpStatusCode responseCode;
-            JsonRequestExecutor.ExecuteDelete<BoundedPeriodDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, id), out responseCode);
+            executor.ExecuteDelete<BoundedPeriodDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, id), out responseCode);
 
             if (responseCode == HttpStatusCode.OK)
             {

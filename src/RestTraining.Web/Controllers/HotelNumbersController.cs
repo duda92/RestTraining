@@ -13,7 +13,7 @@ namespace RestTraining.Web.Controllers
 
         public virtual ActionResult Index(int hotelId)
         {
-            var hotelNumbers = JsonRequestExecutor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(Resource, hotelId));
+            var hotelNumbers = executor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(Resource, hotelId));
             return View(hotelNumbers);
         }
 
@@ -28,14 +28,14 @@ namespace RestTraining.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return View(MVC.HotelNumbers.Views.EditOrCreate, hotelNumber);
-            JsonRequestExecutor.ExecutePost(hotelNumber, BaseUrl, string.Format(Resource, hotelId));
+            executor.ExecutePost(hotelNumber, BaseUrl, string.Format(Resource, hotelId));
             return RedirectToAction(MVC.HotelNumbers.Index(hotelId));
         }
         
         [HttpGet]
         public virtual ActionResult Edit(int hotelId, int id)
         {
-            var hotelNumber = JsonRequestExecutor.ExecuteGet<HotelNumberDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, id));
+            var hotelNumber = executor.ExecuteGet<HotelNumberDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, id));
             return View(MVC.HotelNumbers.Views.EditOrCreate, hotelNumber);
         }
 
@@ -44,13 +44,13 @@ namespace RestTraining.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return View(MVC.HotelNumbers.Views.EditOrCreate, hotelNumber);
-            JsonRequestExecutor.ExecutePut(hotelNumber, BaseUrl, string.Format(Resource, hotelId));
+            executor.ExecutePut(hotelNumber, BaseUrl, string.Format(Resource, hotelId));
             return RedirectToAction(MVC.HotelNumbers.Index(hotelId));
         }
 
         public virtual ActionResult Delete(int hotelId, int hotelNumberId)
         {
-            JsonRequestExecutor.ExecuteDelete<HotelNumberDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, hotelNumberId));
+            executor.ExecuteDelete<HotelNumberDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, hotelNumberId));
             return RedirectToAction(MVC.HotelNumbers.Index(hotelId));
         }
     }

@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
+using RestTraining.Common.Authorization;
 
 namespace RestTraining.Api.Handlers
 {
@@ -36,8 +37,21 @@ namespace RestTraining.Api.Handlers
             var parts = userPass.Split(":".ToCharArray());
             var username = parts[0];
             var password = parts[1];
+            if (!request.Headers.Any(x => x.Key == "appId"))
+                return base.SendAsync(request, cancellationToken);
 
-            if (!Membership.ValidateUser(username, password))
+            var appId = request.Headers.FirstOrDefault(x => x.Key == "appId").Value.FirstOrDefault();
+            if (appId == null)
+                return base.SendAsync(request, cancellationToken); 
+            
+            var privateKeyForApp = GetPrivateKeyForApp(appId);
+            if (privateKeyForApp == null)
+                return base.SendAsync(request, cancellationToken); 
+
+            var decriptor = new RSA();
+            var decriptedPassword = decriptor.DecryptString(password, privateKeyForApp);
+
+            if (!Membership.ValidateUser(username, decriptedPassword))
             {
                 return base.SendAsync(request, cancellationToken);
             }
@@ -51,6 +65,12 @@ namespace RestTraining.Api.Handlers
             }
 
             return base.SendAsync(request, cancellationToken);
+        }
+
+        private string GetPrivateKeyForApp(string appId)
+        {
+            var pair = WebApiApplication.privateKeys.Where(x => x.Key == appId).Select(p => new { Key = p.Key, Value = p.Value }).FirstOrDefault();
+            return pair != null ? pair.Value : null;
         }
     }
 }
