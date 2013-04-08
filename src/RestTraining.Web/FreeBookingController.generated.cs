@@ -149,12 +149,10 @@ namespace RestTraining.Web.Controllers
                 public readonly string BookingDeleted = "BookingDeleted";
                 public readonly string BookingEdited = "BookingEdited";
                 public readonly string EditOrCreate = "EditOrCreate";
-                public readonly string Index = "Index";
             }
             public readonly string BookingDeleted = "~/Views/FreeBooking/BookingDeleted.cshtml";
             public readonly string BookingEdited = "~/Views/FreeBooking/BookingEdited.cshtml";
             public readonly string EditOrCreate = "~/Views/FreeBooking/EditOrCreate.cshtml";
-            public readonly string Index = "~/Views/FreeBooking/Index.cshtml";
         }
     }
 
