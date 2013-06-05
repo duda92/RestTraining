@@ -8,6 +8,7 @@ namespace RestTraining.Api.Domain.Entities
         protected Hotel()
         {
             HotelNumbers = new List<HotelNumber>();
+            HotelsAttractions = new List<HotelsAttraction>();
         }
 
         [Key]
@@ -22,5 +23,8 @@ namespace RestTraining.Api.Domain.Entities
         public List<HotelNumber> HotelNumbers { get; set; }
 
         public byte[] Image { get; set; }
+
+        public List<HotelsAttraction> HotelsAttractions { get; set; }
+
     }
 }

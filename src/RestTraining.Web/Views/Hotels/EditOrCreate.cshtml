@@ -66,14 +66,20 @@
         <div class="editor-row">
             @Html.ValidationSummary(true)
         </div>
-    </fieldset>
-
+        @Html.EditorFor(x => x.HotelsAttractions, MVC.Shared.Views.EditorTemplates.HotelsAttractionsList)      
+    </fieldset>      
     <div class="button-group">
         <input type="submit" value="Save" class="btn btn-primary btn-small" />
-        @Html.ActionLink("Cancel", MVC.Hotels.Index(), new { @class="btn" })
+        @Html.ActionLink("Cancel", MVC.Hotels.Index(), new { @class = "btn" })
         @if (viewDateProvider.ControllerActionType == ControllerActionType.Edit)
         {
             @Html.ActionLink("Edit Hotel Numbers", MVC.HotelNumbers.Index(@Model.Id), new { @class = "btn btn-primary btn-small" })
         }
     </div>
 }
+    <div class="hotels-attraction-source" style="display: none">
+        @{
+            var hidden = new HotelsAttractionDTO() { Count = 1, HotelsAttractionType = HotelsAttractionTypeDTO.TennisCourt };
+        }
+        @Html.EditorFor(x => hidden, MVC.Shared.Views.EditorTemplates.HotelsAttraction, "HotelsAttraction")
+    </div>

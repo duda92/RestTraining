@@ -18,6 +18,7 @@ namespace RestTraining.Api.Tests.Helpers
                     Address = "test",
                     Title = "test"
                 };
+                InsertHotelsAttractions(hotel);                
                 hotelRepository.InsertOrUpdate(hotel);
                 hotelRepository.Save();
                 return hotel;
@@ -34,10 +35,26 @@ namespace RestTraining.Api.Tests.Helpers
                     Address = "test",
                     Title = "test"
                 };
+                InsertHotelsAttractions(hotel);
                 hotelRepository.InsertOrUpdate(hotel);
                 hotelRepository.Save();
                 return hotel;
             }
+        }
+
+        private static void InsertHotelsAttractions(Hotel hotel)
+        {
+            hotel.HotelsAttractions.Add(
+                new HotelsAttraction
+                    {
+                        Count = 1,
+                        HotelsAttractionType = HotelsAttractionType.TennisCourt
+                    });
+            hotel.HotelsAttractions.Add(new HotelsAttraction
+                                            {
+                                                Count = 2,
+                                                HotelsAttractionType = HotelsAttractionType.SwimmingPool
+                                            });
         }
 
         public static HotelNumber InsertHotelNumberForFreeReservationsHotel()

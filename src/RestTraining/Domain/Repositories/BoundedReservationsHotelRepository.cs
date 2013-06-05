@@ -52,8 +52,8 @@ namespace RestTraining.Api.Domain.Repositories
             } 
             else
             {
-                if (boundedreservationshotel.HotelNumbers.Count != 0)
-                    boundedreservationshotel.HotelNumbers.Clear(); // put hotel does not affect hotel numbers, only on create
+                boundedreservationshotel.HotelNumbers.Clear(); // put hotel does not affect nested collections
+                boundedreservationshotel.HotelsAttractions.Clear();
                 _context.Entry(boundedreservationshotel).State = EntityState.Modified;
             }
         }

@@ -1,6 +1,8 @@
-﻿using RestTraining.Web.Helper;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using RestTraining.Common.DTO;
+using RestTraining.Web.Helper;
 using System.Web.Mvc;
 
 namespace RestTraining.Web.Binders
@@ -26,6 +28,37 @@ namespace RestTraining.Web.Binders
                         propertyDescriptor.SetValue(bindingContext.Model, imageBytes);
                     } 
                     return;
+                }
+            }
+            if (propertyDescriptor.Name == "HotelsAttractions")
+            {
+                try
+                {
+                    ValueProviderResult hotelsAttractionCountParamVPR = bindingContext.ValueProvider.GetValue("HotelsAttraction.Count");
+                    var hotelsAttractionCountParamsList = hotelsAttractionCountParamVPR != null
+                                                     ? hotelsAttractionCountParamVPR.AttemptedValue.Split(',')
+                                                     : new string[0];
+                    ValueProviderResult hotelsAttractionTypeParamsListVPR =
+                        bindingContext.ValueProvider.GetValue("HotelsAttraction.HotelsAttractionType");
+                    var hotelsAttractionTypeParamsList = hotelsAttractionTypeParamsListVPR != null
+                                                    ? hotelsAttractionTypeParamsListVPR.AttemptedValue.Split(',')
+                                                    : new string[0];
+                    
+                    var hotelsAttractions = new List<HotelsAttractionDTO>();
+                     for (int i = 0; i < hotelsAttractionTypeParamsList.Count(); i++)
+                        hotelsAttractions.Add(new HotelsAttractionDTO
+                        {
+                            Count = Int32.Parse(hotelsAttractionCountParamsList[i]),
+                            HotelsAttractionType = 
+                                (HotelsAttractionTypeDTO)
+                                Enum.Parse(typeof(HotelsAttractionTypeDTO), hotelsAttractionTypeParamsList[i]),
+                        });
+                    propertyDescriptor.SetValue(bindingContext.Model, hotelsAttractions);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    bindingContext.ModelState.AddModelError("cannot bind hotel's attractions", e);
                 }
             }
             base.BindProperty(controllerContext, bindingContext, propertyDescriptor);

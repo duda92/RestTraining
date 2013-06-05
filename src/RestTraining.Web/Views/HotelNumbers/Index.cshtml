@@ -45,7 +45,7 @@
                     @foreach (var include in hotelNumber.IncludeItems)
                     {
                         <tr>
-                            <td>@hotelNumber.IncludeItems.IndexOf(include)</td>
+                            <td>@(hotelNumber.IncludeItems.IndexOf(include) + 1)</td>
                             <td>@include.IncludeItemType.ToString()</td>
                             <td>@include.Count</td>
                         </tr>  

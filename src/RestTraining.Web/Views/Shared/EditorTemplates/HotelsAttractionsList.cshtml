@@ -1,0 +1,36 @@
+﻿@using RestTraining.Common.DTO
+@model List<HotelsAttractionDTO>
+
+@{
+    Layout = null;
+}
+
+<h5>Hotels attractions</h5>
+<a class="btn" onclick=" createItem(); return false;" href="#">Add</a>
+<div class="hotels-attractions">
+    @foreach (var item in Model)
+    {
+        <div class="hotels-attraction">
+            @Html.EditorFor(x => item, MVC.Shared.Views.EditorTemplates.HotelsAttraction)
+            @Html.ValidationMessageFor(x => item)
+        </div>
+    }
+</div>
+
+<script>
+    function removeItem( element )
+    {
+        var nodeToDelete = element.parentNode;
+        var nodeDeleteFrom = element.parentNode.parentNode;
+        nodeDeleteFrom.removeChild( nodeToDelete );
+    }
+</script>
+
+<script type="text/javascript">
+    function createItem()
+    {
+        var emptyForm = $( ".hotels-attraction-source" ).last().clone();
+        emptyForm.css( "display", "block" );
+        $( ".hotels-attractions" ).append( emptyForm );
+    }
+</script>

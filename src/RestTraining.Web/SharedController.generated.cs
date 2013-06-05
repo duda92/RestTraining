@@ -61,6 +61,9 @@ namespace T4MVC
                 public readonly string Client = "Client";
                 public readonly string HotelNumberSelect = "HotelNumberSelect";
                 public readonly string HotelNumberType = "HotelNumberType";
+                public readonly string HotelsAttraction = "HotelsAttraction";
+                public readonly string HotelsAttractionsList = "HotelsAttractionsList";
+                public readonly string HotelsAttractionType = "HotelsAttractionType";
                 public readonly string ImageUpload = "ImageUpload";
                 public readonly string IncludeItem = "IncludeItem";
                 public readonly string IncludeItemList = "IncludeItemList";

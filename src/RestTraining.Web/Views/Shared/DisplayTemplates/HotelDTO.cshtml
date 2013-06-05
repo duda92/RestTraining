@@ -41,6 +41,23 @@
                 {
                     @Html.ActionLink("Check-in Dates", MVC.BoundedPeriods.Index(Model.Id), new { @class = "btn btn-primary btn-large" })
                 }
+                <table class="table table-striped">
+                    <thead>
+                        <th>#</th>
+                        <th>Item</th>
+                        <th>Count</th>
+                    </thead>
+                    <tbody>
+                    @foreach (var attraction in Model.HotelsAttractions)
+                    {
+                        <tr>
+                            <td>@(Model.HotelsAttractions.IndexOf(attraction)+1)</td>
+                            <td>@attraction.HotelsAttractionType.ToString()</td>
+                            <td>@attraction.Count</td>
+                        </tr>  
+                    }
+                    </tbody>
+                </table>
             </p>
         </div>
     </div>

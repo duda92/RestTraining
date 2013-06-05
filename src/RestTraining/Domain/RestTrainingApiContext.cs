@@ -60,11 +60,14 @@ namespace RestTraining.Api.Domain
 
         public DbSet<IncludedItem> IncludeItems { get; set; }
 
+        public DbSet<HotelsAttraction> HotelsAttractions { get; set; }
+
         public DbSet<BoundedPeriod> BoundedPeriods { get; set; }
 
         public DbSet<BoundedBooking> BoundedBookings { get; set; }
 
         public DbSet<FreeBooking> FreeBookings { get; set; }
+
     }
 
     public class DbInitializer : DropCreateDatabaseAlways<RestTrainingApiContext>
@@ -94,6 +97,19 @@ namespace RestTraining.Api.Domain
                 Title = "Test",
                 Address = "Test",
                 Description = "This is description of hotel: Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+
+                HotelsAttractions = new List<HotelsAttraction>
+                {
+                    new HotelsAttraction
+                    {
+                        Count = 1, HotelsAttractionType = HotelsAttractionType.TennisCourt
+                    },
+                    new HotelsAttraction
+                    {
+                        Count = 2, HotelsAttractionType = HotelsAttractionType.WaterSlides
+                    }
+                },
+                
                 HotelNumbers = new List<HotelNumber>
                     {
                         new HotelNumber
@@ -132,6 +148,19 @@ namespace RestTraining.Api.Domain
                 Title = "Test",
                 Address = "Test",
                 Description = "This is description of hotel: Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+                
+                HotelsAttractions = new List<HotelsAttraction>
+                {
+                    new HotelsAttraction
+                    {
+                        Count = 1, HotelsAttractionType = HotelsAttractionType.SwimmingPool
+                    },
+                    new HotelsAttraction
+                    {
+                        Count = 2, HotelsAttractionType = HotelsAttractionType.TennisCourt
+                    }
+                },
+                
                 HotelNumbers = new List<HotelNumber>
                     {
                         new HotelNumber

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestTraining.Common.DTO;
+using RestTraining.Api.Domain.Entities;
 
 namespace RestTraining.Api.Tests.Functional
 {
@@ -17,6 +18,33 @@ namespace RestTraining.Api.Tests.Functional
             var all = TestHelpers.HotelsApiHelper.TestGet();
             Assert.IsTrue(all.Any(x => x.Address == hotel1.Address && x.Title == hotel1.Title && x.Type == HotelDTO.TypeDescriminator.Bounded));
             Assert.IsTrue(all.Any(x => x.Address == hotel2.Address && x.Title == hotel2.Title && x.Type == HotelDTO.TypeDescriminator.Free));
+        }
+
+        [TestMethod]
+        public void Post_Get_Put_PostHotelGetHotelPutHotel_ExpectHotelMatchesUpdatedProperies()
+        {
+            var hotelObj = TestHelpers.HotelsApiHelper.CreateRandomBoundedReservationsHotelDTO();
+            var hotelId = TestHelpers.HotelsApiHelper.Post(hotelObj);
+            hotelObj = TestHelpers.HotelsApiHelper.TestGet(hotelId);
+
+            for (int i = 0; i < 2; i++)
+            {
+                var previousHotelsAttractionCount = hotelObj.HotelsAttractions.Count;
+                if (previousHotelsAttractionCount == 0)
+                    hotelObj.HotelsAttractions.Add(new HotelsAttraction
+                    {
+                        HotelsAttractionType = HotelsAttractionType.SwimmingPool,
+                        Count = 99
+                    }.ToDTO());
+                else
+                    hotelObj.HotelsAttractions.Clear();
+                var newHotelsAttractionsCount = hotelObj.HotelsAttractions.Count;
+
+                TestHelpers.HotelsApiHelper.Put(hotelObj);
+
+                var testPutObj = TestHelpers.HotelsApiHelper.TestGet(hotelId);
+                Assert.AreEqual(newHotelsAttractionsCount, testPutObj.HotelsAttractions.Count);
+            }
         }
 
         [TestMethod]

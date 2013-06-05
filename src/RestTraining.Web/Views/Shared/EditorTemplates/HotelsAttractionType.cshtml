@@ -1,0 +1,12 @@
+﻿@using RestTraining.Web.Helper
+@using RestTraining.Common.DTO
+
+@model HotelsAttractionTypeDTO
+
+@{
+    Layout = null;
+}
+
+@Html.EnumDropDownListFor(model => model, Model)
+    
+@Html.ValidationMessageFor(model => model)

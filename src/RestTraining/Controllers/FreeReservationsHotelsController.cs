@@ -21,13 +21,13 @@ namespace RestTraining.Api.Controllers
 
         public List<FreeReservationsHotelDTO> Get()
         {
-            var hotels = _freeReservationsHotelRepository.All.ToList();
+            var hotels = _freeReservationsHotelRepository.AllIncluding(x => x.HotelsAttractions).ToList();
             return hotels.Select(x => x.ToDTO()).ToList();
         }
 
         public FreeReservationsHotelDTO Get(int id)
         {
-            var hotel = _freeReservationsHotelRepository.Find(id);
+            var hotel = _freeReservationsHotelRepository.AllIncluding(x => x.HotelsAttractions).SingleOrDefault(x => x.Id == id);
             if (hotel == null)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));

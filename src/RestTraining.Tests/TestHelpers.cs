@@ -70,7 +70,18 @@ namespace RestTraining.Api.Tests
                                             new WindowView  { Type = WindowViewType.Trash },
                                         }
                             }
+                        },
+                    HotelsAttractions = new List<HotelsAttraction>
+                    {
+                        new HotelsAttraction
+                        {
+                            Count = 2, HotelsAttractionType = HotelsAttractionType.SwimmingPool
+                        },
+                        new HotelsAttraction
+                        {
+                            Count = 2, HotelsAttractionType = HotelsAttractionType.WaterSlides
                         }
+                    },
                     };
                 return hotel.ToDTO();
             }
@@ -122,7 +133,18 @@ namespace RestTraining.Api.Tests
                                         },
                                     WindowViews = new List<WindowView> { new WindowView { Type = WindowViewType.Sea }, new WindowView { Type = WindowViewType.Trash }, new WindowView { Type = WindowViewType.Pool }}
                                 }
+                        },
+                    HotelsAttractions = new List<HotelsAttraction>
+                    {
+                        new HotelsAttraction
+                        {
+                            Count = 1, HotelsAttractionType = HotelsAttractionType.SwimmingPool
+                        },
+                        new HotelsAttraction
+                        {
+                            Count = 2, HotelsAttractionType = HotelsAttractionType.TennisCourt
                         }
+                    },
                 };
                 return hotel.ToDTO();
             }

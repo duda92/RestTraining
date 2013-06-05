@@ -38,6 +38,16 @@ namespace RestTraining.Common.DTO
             return (IncludeItemType)includeItemTypeDTO;
         }
 
+        public static HotelsAttractionTypeDTO ToDTO(this HotelsAttractionType hotelsAttractionType)
+        {
+            return (HotelsAttractionTypeDTO)hotelsAttractionType;
+        }
+
+        public static HotelsAttractionType ToEntity(this HotelsAttractionTypeDTO hotelsAttractionTypeDTO)
+        {
+            return (HotelsAttractionType)hotelsAttractionTypeDTO;
+        }
+
         public static HotelNumberDTO ToDTO(this HotelNumber hotelNumber)
         {
             return new HotelNumberDTO
@@ -71,7 +81,8 @@ namespace RestTraining.Common.DTO
                     Id = hotelDTO.Id,
                     Title = hotelDTO.Title,
                     Image = ImageService.ToPngImageBytes(hotelDTO.Image), 
-                    Description = hotelDTO.Description
+                    Description = hotelDTO.Description,
+                    HotelsAttractions = hotelDTO.HotelsAttractions.Select(x => x.ToEntity()).ToList()
                 };
             else if (hotelDTO.Type == HotelDTO.TypeDescriminator.Bounded)
             {
@@ -82,7 +93,8 @@ namespace RestTraining.Common.DTO
                     Id = hotelDTO.Id,
                     Title = hotelDTO.Title,
                     Image = ImageService.ToPngImageBytes(hotelDTO.Image),
-                    Description = hotelDTO.Description
+                    Description = hotelDTO.Description,
+                    HotelsAttractions = hotelDTO.HotelsAttractions.Select(x => x.ToEntity()).ToList()
                 };
             }
             else
@@ -98,7 +110,8 @@ namespace RestTraining.Common.DTO
                 Title = hotel.Title,
                 Type = hotel is FreeReservationsHotel ? HotelDTO.TypeDescriminator.Free : HotelDTO.TypeDescriminator.Bounded,
                 Image = hotel.Image,
-                Description = hotel.Description
+                Description = hotel.Description,
+                HotelsAttractions = hotel.HotelsAttractions.Select(x => x.ToDTO()).ToList()
             };
         }
 
@@ -111,7 +124,8 @@ namespace RestTraining.Common.DTO
                     Id = hotelDTO.Id,
                     Title = hotelDTO.Title,
                     Image = ImageService.ToPngImageBytes(hotelDTO.Image),
-                    Description = hotelDTO.Description
+                    Description = hotelDTO.Description,
+                    HotelsAttractions = hotelDTO.HotelsAttractions.Select(x => x.ToEntity()).ToList()
                 };
         }
         public static FreeReservationsHotelDTO ToDTO(this FreeReservationsHotel hotel)
@@ -123,7 +137,8 @@ namespace RestTraining.Common.DTO
                 Id = hotel.Id,
                 Title = hotel.Title,
                 Image = hotel.Image,
-                Description = hotel.Description
+                Description = hotel.Description,
+                HotelsAttractions = hotel.HotelsAttractions.Select(x => x.ToDTO()).ToList()
             };
         }
 
@@ -137,7 +152,8 @@ namespace RestTraining.Common.DTO
                 Title = hotel.Title,
                 Type = HotelDTO.TypeDescriminator.Free,
                 Image = hotel.Image,
-                Description = hotel.Description
+                Description = hotel.Description,
+                HotelsAttractions = hotel.HotelsAttractions.Select(x => x.ToDTO()).ToList()
             };
         }
 
@@ -150,7 +166,8 @@ namespace RestTraining.Common.DTO
                 Id = hotelDTO.Id,
                 Title = hotelDTO.Title,
                 Image = ImageService.ToPngImageBytes(hotelDTO.Image),
-                Description = hotelDTO.Description
+                Description = hotelDTO.Description,
+                HotelsAttractions = hotelDTO.HotelsAttractions.Select(x => x.ToEntity()).ToList()
             };
         }
         public static BoundedReservationsHotelDTO ToDTO(this BoundedReservationsHotel hotel)
@@ -162,7 +179,8 @@ namespace RestTraining.Common.DTO
                 Id = hotel.Id,
                 Title = hotel.Title,
                 Image = hotel.Image,
-                Description = hotel.Description
+                Description = hotel.Description,
+                HotelsAttractions = hotel.HotelsAttractions.Select(x => x.ToDTO()).ToList()
             };
         }
         public static HotelDTO ToBaseDTO(this BoundedReservationsHotel hotel)
@@ -175,7 +193,8 @@ namespace RestTraining.Common.DTO
                 Title = hotel.Title,
                 Type = HotelDTO.TypeDescriminator.Bounded,
                 Image = hotel.Image,
-                Description = hotel.Description
+                Description = hotel.Description,
+                HotelsAttractions = hotel.HotelsAttractions.Select(x => x.ToDTO()).ToList()
             };
         }
 
@@ -217,7 +236,6 @@ namespace RestTraining.Common.DTO
                 BeginDate = freeBookingDTO.BeginDate,
                 EndDate = freeBookingDTO.EndDate,
                 Client = freeBookingDTO.Client.ToEntity(),
-                //ClientId = freeBookingDTO.Client.Id,
                 HotelId = freeBookingDTO.HotelId,
                 HotelNumberId = freeBookingDTO.HotelNumberId,
                 Id = freeBookingDTO.Id
@@ -285,6 +303,24 @@ namespace RestTraining.Common.DTO
             {
                 Count = includedItem.Count,
                 IncludeItemType = includedItem.IncludeItemType.ToDTO()
+            };
+        }
+
+        public static HotelsAttraction ToEntity(this HotelsAttractionDTO hotelsAttractionDTO)
+        {
+            return new HotelsAttraction
+            {
+                Count = hotelsAttractionDTO.Count,
+                Id = 0,
+                HotelsAttractionType = hotelsAttractionDTO.HotelsAttractionType.ToEntity()
+            };
+        }
+        public static HotelsAttractionDTO ToDTO(this HotelsAttraction hotelsAttraction)
+        {
+            return new HotelsAttractionDTO
+            {
+                Count = hotelsAttraction.Count,
+                HotelsAttractionType = hotelsAttraction.HotelsAttractionType.ToDTO()
             };
         }
 

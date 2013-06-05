@@ -25,11 +25,14 @@ namespace RestTraining.Common.DTO
 
         public List<HotelNumberDTO> HotelNumbers { get; set; }
 
+        public List<HotelsAttractionDTO> HotelsAttractions { get; set; }
+
         public byte[] Image { get; set; }
 
         public HotelDTO()
         {
             HotelNumbers = new List<HotelNumberDTO>();
+            HotelsAttractions = new List<HotelsAttractionDTO>();
         }
     }
 }

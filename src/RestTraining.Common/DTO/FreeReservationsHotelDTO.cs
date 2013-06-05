@@ -12,9 +12,12 @@ namespace RestTraining.Common.DTO
 
         public List<HotelNumberDTO> HotelNumbers { get; set; }
 
+        public List<HotelsAttractionDTO> HotelsAttractions { get; set; }
+
         public FreeReservationsHotelDTO()
         {
             HotelNumbers = new List<HotelNumberDTO>();
+            HotelsAttractions = new List<HotelsAttractionDTO>();
         }
 
         public string Description { get; set; }

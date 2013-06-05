@@ -47,11 +47,21 @@ namespace RestTraining.Api.Domain.Repositories
             }
             else
             {
-                _context.SetHotelType(hotel);
-                _context.Entry(hotel).State = EntityState.Modified;
+                UpdateHotelSimpleFields(hotel);
+                UpdateHotelsAttractions(hotel);
             }
         }
-  
+
+        private void UpdateHotelSimpleFields(Hotel hotel)
+        {
+            _context.SetHotelType(hotel);
+            var prev = _context.Hotels.First(x => x.Id == hotel.Id);
+            prev.Image = hotel.Image;
+            prev.Title = hotel.Title;
+            prev.Address = hotel.Address;
+            prev.Description = hotel.Description; 
+        }
+
         public void Delete(int id)
         {
             var hotel = _context.Hotels.Find(id);
@@ -68,6 +78,25 @@ namespace RestTraining.Api.Domain.Repositories
             _context.Dispose();
         }
 
+        public virtual void UpdateHotelsAttractions(Hotel hotel)
+        {
+            _context.Entry(hotel).State = EntityState.Detached;
+            var attractionsToRemove = _context.HotelsAttractions.Where(x => x.HotelId == hotel.Id).ToList();
+            var prev = _context.Hotels.First(x => x.Id == hotel.Id);
+            foreach (var hotelsAttraction in attractionsToRemove)
+            {
+                prev.HotelsAttractions.Remove(hotelsAttraction);
+            }
+            foreach (var hotelsAttraction in attractionsToRemove)
+            {
+                _context.HotelsAttractions.Remove(hotelsAttraction);
+            }
+            foreach (var hotelsAttraction in hotel.HotelsAttractions)
+            {
+                hotelsAttraction.Id = 0;
+                prev.HotelsAttractions.Add(hotelsAttraction);
+            }
+        }
     }
         
 }

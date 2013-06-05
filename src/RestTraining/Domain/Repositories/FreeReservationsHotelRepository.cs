@@ -51,8 +51,8 @@ namespace RestTraining.Api.Domain.Repositories
             } 
             else 
             {
-                if (freereservationshotel.HotelNumbers.Count != 0)
-                    freereservationshotel.HotelNumbers.Clear();
+                freereservationshotel.HotelNumbers.Clear();
+                freereservationshotel.HotelsAttractions.Clear();
                 _context.Entry(freereservationshotel).State = EntityState.Modified;
             }
         }
