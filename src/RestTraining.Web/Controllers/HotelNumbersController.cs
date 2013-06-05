@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
 using RestTraining.Common.DTO;
-using RestTraining.Common.Proxy;
+using RestTraining.Web.Models;
 
 namespace RestTraining.Web.Controllers
 {
     public partial class HotelNumbersController : ControllerBase
     {
         public const string Resource = "/api/Hotels/{0}/HotelNumbers/";
+        public const string SearchResource = "/api/HotelNumbers/Search";
 
         public virtual ActionResult Index(int hotelId)
         {
@@ -53,5 +53,24 @@ namespace RestTraining.Web.Controllers
             executor.ExecuteDelete<HotelNumberDTO>(BaseUrl, string.Format(Resource + "{1}", hotelId, hotelNumberId));
             return RedirectToAction(MVC.HotelNumbers.Index(hotelId));
         }
+
+        [HttpGet]
+        public virtual ActionResult Search()
+        {
+            var viewModel = new HotelNumbersSearchViewModel();
+            return View(MVC.HotelNumbers.Views.Search, viewModel);
+        }
+
+        [HttpPost]
+        public virtual ActionResult Search(HotelNumbersSearchViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(MVC.HotelNumbers.Views.Search, viewModel);
+            HttpStatusCode responseCode;
+            var searchResults = executor.ExecutePost<HotelNumbersSearchQuery, List<HotelNumberDTO>>(viewModel.Query, BaseUrl, string.Format(SearchResource), out responseCode);
+            viewModel.Results = searchResults;
+            return View(viewModel);
+        }
+
     }
 }

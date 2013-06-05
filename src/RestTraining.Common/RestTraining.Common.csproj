@@ -57,6 +57,7 @@
     <Compile Include="DTO\FreeReservationsHotelDTO.cs" />
     <Compile Include="DTO\HotelDTO.cs" />
     <Compile Include="DTO\HotelNumberDTO.cs" />
+    <Compile Include="DTO\HotelNumbersSearchQuery.cs" />
     <Compile Include="DTO\HotelNumberTypeDTO.cs" />
     <Compile Include="DTO\HotelsAttractionDTO.cs" />
     <Compile Include="DTO\HotelsAttractionTypeDTO.cs" />

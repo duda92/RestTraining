@@ -88,6 +88,7 @@ namespace RestTraining.Web.Controllers
             public readonly string Create = "Create";
             public readonly string Edit = "Edit";
             public readonly string Delete = "Delete";
+            public readonly string Search = "Search";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -97,6 +98,7 @@ namespace RestTraining.Web.Controllers
             public const string Create = "Create";
             public const string Edit = "Edit";
             public const string Delete = "Delete";
+            public const string Search = "Search";
         }
 
 
@@ -136,6 +138,14 @@ namespace RestTraining.Web.Controllers
             public readonly string hotelId = "hotelId";
             public readonly string hotelNumberId = "hotelNumberId";
         }
+        static readonly ActionParamsClass_Search s_params_Search = new ActionParamsClass_Search();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Search SearchParams { get { return s_params_Search; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Search
+        {
+            public readonly string viewModel = "viewModel";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -148,9 +158,11 @@ namespace RestTraining.Web.Controllers
             {
                 public readonly string EditOrCreate = "EditOrCreate";
                 public readonly string Index = "Index";
+                public readonly string Search = "Search";
             }
             public readonly string EditOrCreate = "~/Views/HotelNumbers/EditOrCreate.cshtml";
             public readonly string Index = "~/Views/HotelNumbers/Index.cshtml";
+            public readonly string Search = "~/Views/HotelNumbers/Search.cshtml";
         }
     }
 
@@ -220,6 +232,25 @@ namespace RestTraining.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "hotelId", hotelId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "hotelNumberId", hotelNumberId);
             DeleteOverride(callInfo, hotelId, hotelNumberId);
+            return callInfo;
+        }
+
+        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Search()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
+            SearchOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, RestTraining.Web.Models.HotelNumbersSearchViewModel viewModel);
+
+        public override System.Web.Mvc.ActionResult Search(RestTraining.Web.Models.HotelNumbersSearchViewModel viewModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
+            SearchOverride(callInfo, viewModel);
             return callInfo;
         }
 

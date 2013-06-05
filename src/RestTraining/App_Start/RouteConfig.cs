@@ -23,7 +23,13 @@ namespace RestTraining.Api
             );
 
             routes.MapHttpRoute(
-                name: "Test",
+                name: "Hotel Numbers Search",
+                routeTemplate: "api/HotelNumbers/Search",
+                defaults: new { controller = "HotelNumbersSearch" }
+            );
+
+            routes.MapHttpRoute(
+                name: "Hotel Numbers",
                 routeTemplate: "api/Hotels/{hotelId}/HotelNumbers/{id}",
                 defaults: new { controller = "HotelNumbers", id = RouteParameter.Optional }
             );

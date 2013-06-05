@@ -190,6 +190,7 @@
     <Compile Include="Models\BookingFullViewModel.cs" />
     <Compile Include="Models\BoundedBookingViewModel.cs" />
     <Compile Include="Models\FreeBookingViewModel.cs" />
+    <Compile Include="Models\HotelNumbersSearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -356,6 +357,7 @@
     <Content Include="Views\Shared\EditorTemplates\HotelsAttraction.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\HotelsAttractionType.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\HotelsAttractionsList.cshtml" />
+    <Content Include="Views\HotelNumbers\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

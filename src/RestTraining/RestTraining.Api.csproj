@@ -160,6 +160,7 @@
     <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelNumbersController.cs" />
+    <Compile Include="Controllers\HotelNumbersSearchController.cs" />
     <Compile Include="Domain\DTOMapperExtensions.cs" />
     <Compile Include="Domain\Entities\HotelsAttraction.cs" />
     <Compile Include="Domain\Entities\HotelsAttractionType.cs" />

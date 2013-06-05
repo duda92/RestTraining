@@ -1,0 +1,68 @@
+﻿@model RestTraining.Web.Models.HotelNumbersSearchViewModel
+
+@{
+    var searchResults = Model.Results;
+}
+
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Search" />
+}
+
+<ul class="thumbnails">
+    @for (int index = 0; index < searchResults.Count; index++)
+    {
+        var hotelNumber = searchResults[index];
+        <li class="span4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <div class="row">
+                        <div class="span2">
+                            <h1>#@(index + 1)</h1>
+                        </div>
+                        <div class="span1" style="float: right">
+                            <div class="btn-group" style="float: right">
+                                <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">Admin<span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="@Url.Action(MVC.HotelNumbers.Edit(hotelNumber.HotelId, hotelNumber.Id))" class="btn btn-small"><i class="icon-minus"></i>Edit</a></li>
+                                    <li><a href="@Url.Action(MVC.HotelNumbers.Delete(hotelNumber.HotelId, hotelNumber.Id))" class="btn btn-small"><i class="icon-pencil"></i>Delete</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <h5>Number includes:</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <th>#</th>
+                        <th>Item</th>
+                        <th>Count</th>
+                    </thead>
+                    <tbody>
+                    @foreach (var include in hotelNumber.IncludeItems)
+                    {
+                        <tr>
+                            <td>@(hotelNumber.IncludeItems.IndexOf(include) + 1)</td>
+                            <td>@include.IncludeItemType.ToString()</td>
+                            <td>@include.Count</td>
+                        </tr>  
+                    }
+                    </tbody>
+                </table>
+                    <h5>Views to: </h5>
+                    @{
+                        var viewsString = new System.Text.StringBuilder();
+                        foreach (var windowView in hotelNumber.WindowViews)
+                        {
+                            viewsString.Append(windowView.ToString());
+                            if (hotelNumber.WindowViews.Last() != windowView)
+                            {
+                                viewsString.Append(", ");
+                            }
+                        }
+                        @Html.Raw(viewsString.ToString())
+                    }
+                  </div>
+                </div>
+              </li>
+    }
+</ul>

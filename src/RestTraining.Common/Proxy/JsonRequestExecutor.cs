@@ -62,6 +62,11 @@ namespace RestTraining.Common.Proxy
 
         public T ExecutePost<T>(T obj, string baseUrl, string resource, out HttpStatusCode resposeCode)
         {
+            return ExecutePost<T, T>(obj, baseUrl, resource, out resposeCode);
+        }
+
+        public TR ExecutePost<T, TR>(T obj, string baseUrl, string resource, out HttpStatusCode resposeCode)
+        {
             var client = new RestClient(baseUrl);
             var request = new RestRequest(resource, Method.POST);
             SetAuth(client);
@@ -69,8 +74,8 @@ namespace RestTraining.Common.Proxy
             request.AddParameter("text/json", json, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
             var response = client.Execute(request);
-            var responseObj = JsonConvert.DeserializeObject<T>(response.Content);
-            resposeCode = response.StatusCode; 
+            var responseObj = JsonConvert.DeserializeObject<TR>(response.Content);
+            resposeCode = response.StatusCode;
             return responseObj;
         }
 

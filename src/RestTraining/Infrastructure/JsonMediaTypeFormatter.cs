@@ -44,7 +44,8 @@ namespace RestTraining.Api.Infrastructure
                   || type == typeof(List<HotelNumber>)
                   || type == typeof (HotelDTO)
                   || type == typeof (Client)
-                  || type == typeof (BoundedPeriod);
+                  || type == typeof (BoundedPeriod)
+                  || type == typeof (HotelNumbersSearchQuery);
        }
 
         public override Task<object> ReadFromStreamAsync(Type type, Stream stream, HttpContentHeaders contentHeaders, IFormatterLogger formatterLogger)
