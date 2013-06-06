@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using RestTraining.Api.Domain.Entities;
+using RestTraining.Common.DTO;
 
 namespace RestTraining.Api.Domain.Repositories
 {
@@ -14,5 +16,6 @@ namespace RestTraining.Api.Domain.Repositories
         void InsertOrUpdate(HotelNumber hotelNumber, int hotelId);
         void Delete(int id);
         void Save();
+        List<HotelNumber> GetByQuery(HotelNumbersSearchQuery query);
     }
 }

@@ -20,7 +20,7 @@ namespace RestTraining.Api.Controllers
         
         public List<HotelNumberDTO> Post (HotelNumbersSearchQuery query)
         {
-            var results = _hotelNumbersRepository.All.ToList();
+            var results = _hotelNumbersRepository.GetByQuery(query).ToList();
             return results.Select(x => x.ToDTO()).ToList();
         }
     }

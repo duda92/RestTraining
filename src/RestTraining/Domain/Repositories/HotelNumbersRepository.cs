@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using RestTraining.Api.Domain.Entities;
 using RestTraining.Api.Domain.Services;
+using RestTraining.Common.DTO;
 
 namespace RestTraining.Api.Domain.Repositories
 {
@@ -84,6 +86,72 @@ namespace RestTraining.Api.Domain.Repositories
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public List<HotelNumber> GetByQuery(HotelNumbersSearchQuery query)
+        {
+            var all = All;
+
+            var filteredByIncludeItems = new List<HotelNumber>();
+            foreach (var hotelNumber in all)
+            {
+                var isSuitable = true;
+                foreach(var queryIncludeItem in query.IncludeItems)
+                {
+                    if (!hotelNumber.IncludeItems.Any(x => x.Count >= queryIncludeItem.Count && x.IncludeItemType == queryIncludeItem.IncludeItemType.ToEntity()))
+                    {
+                        isSuitable = false;
+                        break;
+                    }
+                }
+                if (isSuitable && !filteredByIncludeItems.Any(x => x.Id == hotelNumber.Id))
+                {
+                    filteredByIncludeItems.Add(hotelNumber);
+                }
+            }
+
+            var filteredByWindowViews = new List<HotelNumber>();
+            foreach (var hotelNumber in all)
+            {
+                var isSuitable = true;
+                foreach (var queryWindowView in query.WindowViews)
+                {
+                    if (!hotelNumber.WindowViews.Any(x => x.Type == queryWindowView.ToEntity()))
+                    {
+                        isSuitable = false;
+                        break;
+                    }
+                }
+                if (isSuitable && !filteredByWindowViews.Any(x => x.Id == hotelNumber.Id))
+                {
+                    filteredByWindowViews.Add(hotelNumber);
+                }
+            }
+
+            var filteredByHotelsAttractions = new List<HotelNumber>();
+            foreach (var hotelNumber in all)
+            {
+                var hotel = _context.Hotels.Include(y => y.HotelsAttractions).Single(x => x.Id == hotelNumber.HotelId);
+                var isSuitable = true;
+                foreach (var queryHotelsAttraction in query.HotelsAttractions)
+                {
+                    if (!hotel.HotelsAttractions.Any(x => x.Count >= queryHotelsAttraction.Count && x.HotelsAttractionType == queryHotelsAttraction.HotelsAttractionType.ToEntity()))
+                    {
+                        isSuitable = false;
+                        break;
+                    }
+                }
+                if (isSuitable && !filteredByHotelsAttractions.Any(x => x.Id == hotelNumber.Id))
+                {
+                    filteredByHotelsAttractions.Add(hotelNumber);
+                }
+            }
+
+            var result = from q1 in filteredByIncludeItems
+                        join q2 in filteredByWindowViews on q1.Id equals q2.Id
+                        join q3 in filteredByHotelsAttractions on q2 equals q3
+                         select new HotelNumber { Id = q1.Id, HotelId = q1.HotelId, HotelNumberType = q1.HotelNumberType, IncludeItems = q1.IncludeItems, WindowViews = q1.WindowViews };
+            return result.ToList();
         }
 
         public void Dispose()
