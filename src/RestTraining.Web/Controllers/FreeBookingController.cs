@@ -38,7 +38,7 @@ namespace RestTraining.Web.Controllers
             return View(MVC.Shared.Views.BookingFullViewModelList, bookingList);
         }
         
-        public virtual ActionResult Create(int hotelId)
+        public virtual ActionResult Create(int hotelId, int hotelNumberId = 0)
         {
             _viewDataProvider.ControllerActionType = ControllerActionType.Create;
             var hotel = executor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelId));
@@ -48,8 +48,8 @@ namespace RestTraining.Web.Controllers
 
             var hotelNumbers = executor.ExecuteGet<List<HotelNumberDTO>>(BaseUrl, string.Format(HotelNumbersResource, hotelId));
 
-            var freeBooking = new FreeBookingDTO { HotelId = hotelId };
-            var freeBookingViewModel = new FreeBookingViewModel  { FreeBooking = freeBooking,  HotelNumbers = hotelNumbers  };
+            var freeBooking = new FreeBookingDTO { HotelId = hotelId, HotelNumberId = hotelNumberId };
+            var freeBookingViewModel = new FreeBookingViewModel { FreeBooking = freeBooking, HotelNumbers = hotelNumbers };
             return View(MVC.FreeBooking.Views.EditOrCreate, freeBookingViewModel);
         }
 

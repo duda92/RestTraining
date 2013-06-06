@@ -50,6 +50,7 @@ namespace T4MVC
             public partial class _DisplayTemplatesClass
             {
                 public readonly string BookingFullViewModel = "BookingFullViewModel";
+                public readonly string HotelAttractionItemTemplate = "HotelAttractionItemTemplate";
                 public readonly string HotelDTO = "HotelDTO";
             }
             static readonly _EditorTemplatesClass s_EditorTemplates = new _EditorTemplatesClass();

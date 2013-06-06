@@ -9,10 +9,14 @@ namespace RestTraining.Web.Models
         {
             Query = new HotelNumbersSearchQuery();
             Results = new List<HotelNumberDTO>();
+            Hotels = new List<HotelDTO>();
         }
 
         public HotelNumbersSearchQuery Query { get; set; }
 
         public List<HotelNumberDTO> Results { get; set; }
+
+        public List<HotelDTO> Hotels { get; set; }
+
     }
 }

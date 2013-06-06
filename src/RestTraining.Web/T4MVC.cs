@@ -83,6 +83,8 @@ namespace Links
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
         public static readonly string html5shiv_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/html5shiv.min.js") ? Url("html5shiv.min.js") : Url("html5shiv.js");
                       
+        public static readonly string item_templates_render_script_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/item-templates-render-script.min.js") ? Url("item-templates-render-script.min.js") : Url("item-templates-render-script.js");
+                      
         public static readonly string jquery_1_6_2_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.6.2-vsdoc.min.js") ? Url("jquery-1.6.2-vsdoc.min.js") : Url("jquery-1.6.2-vsdoc.js");
                       
         public static readonly string jquery_1_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.6.2.min.js") ? Url("jquery-1.6.2.min.js") : Url("jquery-1.6.2.js");

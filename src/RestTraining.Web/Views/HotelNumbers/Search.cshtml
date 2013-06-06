@@ -1,4 +1,6 @@
-﻿@model RestTraining.Web.Models.HotelNumbersSearchViewModel
+﻿@using RestTraining.Common.DTO
+@using RestTraining.Web
+@model RestTraining.Web.Models.HotelNumbersSearchViewModel
 
 @{
     var searchResults = Model.Results;
@@ -7,7 +9,7 @@
 @using (Html.BeginForm())
 {
     @Html.EditorFor(x => x.Query.IncludeItems, MVC.Shared.Views.EditorTemplates.IncludeItemList)
-    @Html.EditorFor(x => x.Query.WindowViewTypes, MVC.Shared.Views.EditorTemplates.WindowViewTypeList)
+    @Html.EditorFor(x => x.Query.WindowViews, MVC.Shared.Views.EditorTemplates.WindowViewTypeList)
     @Html.EditorFor(x => x.Query.HotelsAttractions, MVC.Shared.Views.EditorTemplates.HotelsAttractionsList)
     <input type="submit" value="Search" />
 }
@@ -33,6 +35,15 @@
                             </div>
                         </div>
                     </div>
+                    @{var hotel = Model.Hotels.Single(x => x.Id == hotelNumber.HotelId);}
+                    @if (hotel.Type == HotelDTO.TypeDescriminator.Free)
+                    {
+                        @Html.ActionLink("Book now", MVC.FreeBooking.Create(hotel.Id, hotelNumber.Id), new { @class = "btn btn-primary btn-large" })
+                    }
+                    @if (hotel.Type == HotelDTO.TypeDescriminator.Bounded)
+                    {
+                        @Html.ActionLink("Book Now", MVC.BoundedBooking.Create(hotel.Id, hotelNumber.Id), new { @class = "btn btn-primary btn-large" })
+                    }
                     <h5>Number includes:</h5>
                 <table class="table table-striped">
                     <thead>

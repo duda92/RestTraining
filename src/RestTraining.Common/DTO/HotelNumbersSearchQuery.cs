@@ -7,13 +7,13 @@ namespace RestTraining.Common.DTO
         public HotelNumbersSearchQuery()
         {
             IncludeItems = new List<IncludedItemDTO>();
-            WindowViewTypes = new List<WindowViewTypeDTO>();
+            WindowViews = new List<WindowViewTypeDTO>();
             HotelsAttractions = new List<HotelsAttractionDTO>();
         }
 
         public List<IncludedItemDTO> IncludeItems { get; set; }
 
-        public List<WindowViewTypeDTO> WindowViewTypes { get; set; }
+        public List<WindowViewTypeDTO> WindowViews { get; set; }
 
         public List<HotelsAttractionDTO> HotelsAttractions { get; set; }
     }

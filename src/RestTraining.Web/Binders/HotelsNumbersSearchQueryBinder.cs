@@ -20,6 +20,13 @@ namespace RestTraining.Web.Binders
                     return;
                 }
             }
+            if (propertyDescriptor.Name == "WindowViews")
+            {
+                if (base.BindWindowViews(controllerContext, bindingContext, propertyDescriptor))
+                {
+                    return;
+                }
+            }
             base.BindProperty(controllerContext, bindingContext, propertyDescriptor);
         }
     }

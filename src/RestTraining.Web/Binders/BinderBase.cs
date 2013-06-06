@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using RestTraining.Common.DTO;
@@ -109,6 +110,33 @@ namespace RestTraining.Web.Binders
            else
            {
                propertyDescriptor.SetValue(bindingContext.Model, imageBytes);
+           }
+       }
+
+       protected bool BindWindowViews(ControllerContext controllerContext, ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor)
+       {
+           try
+           {
+               var paramsPrefixValiants = new List<string> { string.Empty };
+
+               var windowViews = new List<WindowViewTypeDTO>();
+               foreach (var paramsPrefixValiant in paramsPrefixValiants)
+               {
+                   var windowsViewsParams = bindingContext.ValueProvider.GetValue(string.Format("{0}{1}", paramsPrefixValiant, "WindowViews"));
+                   var windowsViewsParamsList = windowsViewsParams != null ? windowsViewsParams.AttemptedValue.Split(',') : new string[0];
+                   foreach (var viewParam in windowsViewsParamsList)
+                   {
+                       var windowViewType = (WindowViewTypeDTO)Enum.Parse(typeof(WindowViewTypeDTO), viewParam);
+                       windowViews.Add(windowViewType);
+                   }
+               }
+               propertyDescriptor.SetValue(bindingContext.Model, windowViews);
+               return true;
+           }
+           catch (Exception e)
+           {
+               bindingContext.ModelState.AddModelError("cannot bind window views", e);
+               return false;
            }
        }
     }

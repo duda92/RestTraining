@@ -115,6 +115,7 @@ namespace RestTraining.Web.Controllers
         public class ActionParamsClass_Create
         {
             public readonly string hotelId = "hotelId";
+            public readonly string hotelNumberId = "hotelNumberId";
             public readonly string freeBooking = "freeBooking";
         }
         static readonly ActionParamsClass_Edit s_params_Edit = new ActionParamsClass_Edit();
@@ -171,13 +172,14 @@ namespace RestTraining.Web.Controllers
             return callInfo;
         }
 
-        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int hotelId);
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int hotelId, int hotelNumberId);
 
-        public override System.Web.Mvc.ActionResult Create(int hotelId)
+        public override System.Web.Mvc.ActionResult Create(int hotelId, int hotelNumberId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "hotelId", hotelId);
-            CreateOverride(callInfo, hotelId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "hotelNumberId", hotelNumberId);
+            CreateOverride(callInfo, hotelId, hotelNumberId);
             return callInfo;
         }
 

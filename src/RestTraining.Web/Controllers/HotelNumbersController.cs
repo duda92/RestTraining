@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using RestTraining.Common.DTO;
@@ -10,6 +11,7 @@ namespace RestTraining.Web.Controllers
     {
         public const string Resource = "/api/Hotels/{0}/HotelNumbers/";
         public const string SearchResource = "/api/HotelNumbers/Search";
+        public const string HotelsResource = "/api/Hotels/";
 
         public virtual ActionResult Index(int hotelId)
         {
@@ -69,6 +71,15 @@ namespace RestTraining.Web.Controllers
             HttpStatusCode responseCode;
             var searchResults = executor.ExecutePost<HotelNumbersSearchQuery, List<HotelNumberDTO>>(viewModel.Query, BaseUrl, string.Format(SearchResource), out responseCode);
             viewModel.Results = searchResults;
+
+            foreach (var hotelNumberDto in searchResults)
+            {
+                if (!viewModel.Hotels.Any(x => x.Id == hotelNumberDto.HotelId))
+                {
+                    var hotelDTO = executor.ExecuteGet<HotelDTO>(BaseUrl, string.Format(HotelsResource + "{0}", hotelNumberDto.HotelId), out responseCode);
+                    viewModel.Hotels.Add(hotelDTO);
+                }
+            }
             return View(viewModel);
         }
 
