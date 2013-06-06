@@ -16,9 +16,3 @@
         </p>
     </fieldset>
 }
-<div class="include-item-source" style="display: none">
-        @{
-            var hidden = new IncludedItemDTO { Count = 1,  IncludeItemType = IncludeItemTypeDTO.AirConditioner };
-        }
-        @Html.EditorFor(x => hidden, MVC.Shared.Views.EditorTemplates.IncludeItem, "IncludeItem")
-</div>

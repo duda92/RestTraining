@@ -24,6 +24,7 @@ namespace RestTraining.Web
             ModelBinders.Binders.Add(typeof(HotelDTO), new HotelDTOBinder());
             ModelBinders.Binders.Add(typeof(BoundedBookingDTO), new BookingDTOBinder());
             ModelBinders.Binders.Add(typeof(FreeBookingDTO), new BookingDTOBinder());
+            ModelBinders.Binders.Add(typeof(HotelNumbersSearchQuery), new HotelsNumbersSearchQueryBinder());
         }
     }
 

@@ -6,7 +6,7 @@
 }
 
 <h5>Include items</h5>
-<a class="btn" onclick=" createItem(); return false;" href="#">Add</a>
+<a class="btn" onclick=" createItem('.include-item-source', '.include-items'); return false;" href="#">Add</a>
 <div class="include-items">
     @foreach (var item in Model)
     {
@@ -15,21 +15,11 @@
             @Html.ValidationMessageFor(x => item)
         </div>
     }
+</div>          
+
+<div class="include-item-source" style="display: none">
+        @{
+            var hidden = new IncludedItemDTO { Count = 1,  IncludeItemType = IncludeItemTypeDTO.AirConditioner };
+        }
+        @Html.EditorFor(x => hidden, MVC.Shared.Views.EditorTemplates.IncludeItem, "IncludeItem", new { isDisabled = true })
 </div>
-
-<script>
-    function removeItem(element) {
-        var nodeToDelete = element.parentNode;
-        var nodeDeleteFrom = element.parentNode.parentNode;
-        nodeDeleteFrom.removeChild(nodeToDelete);
-    }
-</script>
-
-<script type="text/javascript">
-    function createItem() 
-    {
-        var emptyForm = $(".include-item-source").last().clone();
-        emptyForm.css("display", "block");
-        $(".include-items").append(emptyForm);
-    }
-</script>

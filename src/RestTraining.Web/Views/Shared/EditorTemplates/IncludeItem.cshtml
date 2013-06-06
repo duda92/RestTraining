@@ -1,9 +1,12 @@
 ﻿@model RestTraining.Common.DTO.IncludedItemDTO
 @{
     Layout = null;
-}
+    var isDisabled = ViewData["isDisabled"] != null;
+}       
+
 <div class="form-inline" style="margin:10px 10px 10px 0px">
-    @Html.EditorFor(x => x.IncludeItemType, MVC.Shared.Views.EditorTemplates.IncludeItemType)
+    @(isDisabled ? Html.EditorFor(x => x.IncludeItemType, MVC.Shared.Views.EditorTemplates.IncludeItemType)
+        : Html.EditorFor(x => x.IncludeItemType, MVC.Shared.Views.EditorTemplates.IncludeItemType, new { disabled = "disabled"}))
     @Html.EditorFor(x => x.Count)
     <button class="btn" onclick="removeItem(this); return false;">Remove</button>
 </div>

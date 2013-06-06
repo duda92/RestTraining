@@ -6,7 +6,7 @@
 }
 
 <h5>Hotels attractions</h5>
-<a class="btn" onclick=" createItem(); return false;" href="#">Add</a>
+<a class="btn" onclick=" createItem('.hotels-attraction-source', '.hotels-attractions'); return false;" href="#">Add</a>
 <div class="hotels-attractions">
     @foreach (var item in Model)
     {
@@ -17,20 +17,9 @@
     }
 </div>
 
-<script>
-    function removeItem( element )
-    {
-        var nodeToDelete = element.parentNode;
-        var nodeDeleteFrom = element.parentNode.parentNode;
-        nodeDeleteFrom.removeChild( nodeToDelete );
+<div class="hotels-attraction-source" style="display: none">
+    @{
+        var hidden = new HotelsAttractionDTO() { Count = 1, HotelsAttractionType = HotelsAttractionTypeDTO.TennisCourt };
     }
-</script>
-
-<script type="text/javascript">
-    function createItem()
-    {
-        var emptyForm = $( ".hotels-attraction-source" ).last().clone();
-        emptyForm.css( "display", "block" );
-        $( ".hotels-attractions" ).append( emptyForm );
-    }
-</script>
+    @Html.EditorFor(x => hidden, MVC.Shared.Views.EditorTemplates.HotelsAttraction, "HotelsAttraction", new { isDisabled = true })
+</div>

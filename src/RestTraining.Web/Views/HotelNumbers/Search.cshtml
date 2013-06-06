@@ -6,6 +6,9 @@
 
 @using (Html.BeginForm())
 {
+    @Html.EditorFor(x => x.Query.IncludeItems, MVC.Shared.Views.EditorTemplates.IncludeItemList)
+    @Html.EditorFor(x => x.Query.WindowViewTypes, MVC.Shared.Views.EditorTemplates.WindowViewTypeList)
+    @Html.EditorFor(x => x.Query.HotelsAttractions, MVC.Shared.Views.EditorTemplates.HotelsAttractionsList)
     <input type="submit" value="Search" />
 }
 
@@ -50,15 +53,15 @@
                 </table>
                     <h5>Views to: </h5>
                     @{
-                        var viewsString = new System.Text.StringBuilder();
-                        foreach (var windowView in hotelNumber.WindowViews)
+                    var viewsString = new System.Text.StringBuilder();
+                    foreach (var windowView in hotelNumber.WindowViews)
+                    {
+                        viewsString.Append(windowView.ToString());
+                        if (hotelNumber.WindowViews.Last() != windowView)
                         {
-                            viewsString.Append(windowView.ToString());
-                            if (hotelNumber.WindowViews.Last() != windowView)
-                            {
-                                viewsString.Append(", ");
-                            }
+                            viewsString.Append(", ");
                         }
+                    }
                         @Html.Raw(viewsString.ToString())
                     }
                   </div>

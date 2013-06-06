@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using RestTraining.Common.DTO;
+﻿using System.Web.Mvc;
 
 namespace RestTraining.Web.Binders
 {
-    public class HotelNumberDTOBinder : BinderBase
+    public class HotelsNumbersSearchQueryBinder : BinderBase
     {
         protected override void BindProperty(ControllerContext controllerContext, ModelBindingContext bindingContext, System.ComponentModel.PropertyDescriptor propertyDescriptor)
         {
@@ -17,8 +13,14 @@ namespace RestTraining.Web.Binders
                     return;
                 }
             }
+            if (propertyDescriptor.Name == "HotelsAttractions")
+            {
+                if (BindHotelsAttractionsItems(controllerContext, bindingContext, propertyDescriptor))
+                {
+                    return;
+                }
+            }
             base.BindProperty(controllerContext, bindingContext, propertyDescriptor);
         }
-
     }
 }

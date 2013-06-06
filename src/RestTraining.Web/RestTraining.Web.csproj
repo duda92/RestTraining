@@ -147,6 +147,8 @@
     <Compile Include="Binders\DateTimeBinder.cs" />
     <Compile Include="Binders\HotelDTOBinder.cs" />
     <Compile Include="Binders\HotelNumberDTOBinder.cs" />
+    <Compile Include="Binders\BinderBase.cs" />
+    <Compile Include="Binders\HotelsNumbersSearchQueryBinder.cs" />
     <Compile Include="BootstrapSupport\ControlGroupExtensions.cs" />
     <Compile Include="BootstrapSupport\HtmlHelpers\GlyphIcons.cs" />
     <Compile Include="BootstrapSupport\HtmlHelpers\Paging.cs" />
@@ -277,6 +279,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\html5shiv.js" />
+    <Content Include="Scripts\item-templates-render-script.js" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
@@ -358,6 +361,7 @@
     <Content Include="Views\Shared\EditorTemplates\HotelsAttractionType.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\HotelsAttractionsList.cshtml" />
     <Content Include="Views\HotelNumbers\Search.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\HotelAttractionItemTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

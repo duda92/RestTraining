@@ -3,7 +3,9 @@
     Layout = null;
 }
 <div class="form-inline" style="margin:10px 10px 10px 0px">
-    @Html.EditorFor(x => x.HotelsAttractionType, MVC.Shared.Views.EditorTemplates.HotelsAttractionType)
-    @Html.EditorFor(x => x.Count)
+    @{
+        @Html.EditorFor(x => x.HotelsAttractionType, MVC.Shared.Views.EditorTemplates.HotelsAttractionType)
+        @Html.EditorFor(x => x.Count)
+    }
     <button class="btn" onclick="removeItem(this); return false;">Remove</button>
 </div>

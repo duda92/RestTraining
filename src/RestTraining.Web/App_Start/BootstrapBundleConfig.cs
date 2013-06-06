@@ -14,7 +14,8 @@ namespace BootstrapSupport
                 "~/scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js",
                 "~/Scripts/bootstrap-fileupload.min.js",
-                "~/Scripts/bootstrap-datepicker.js"
+                "~/Scripts/bootstrap-datepicker.js",
+                "~/Scripts/item-templates-render-script.js"
                 ));
 
             bundles.Add(new StyleBundle("~/content/css").Include(

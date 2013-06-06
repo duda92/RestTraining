@@ -5,8 +5,8 @@
 
 @{
     Layout = null;
+    var isDisabled = ViewData["isDisabled"] != null;
 }
 
-@Html.EnumDropDownListFor(model => model, Model)
-    
+@Html.EnumDropDownListFor(model => model, Model, null, isDisabled) 
 @Html.ValidationMessageFor(model => model)

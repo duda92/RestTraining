@@ -77,9 +77,3 @@
         }
     </div>
 }
-    <div class="hotels-attraction-source" style="display: none">
-        @{
-            var hidden = new HotelsAttractionDTO() { Count = 1, HotelsAttractionType = HotelsAttractionTypeDTO.TennisCourt };
-        }
-        @Html.EditorFor(x => hidden, MVC.Shared.Views.EditorTemplates.HotelsAttraction, "HotelsAttraction")
-    </div>
