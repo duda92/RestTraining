@@ -149,8 +149,8 @@ namespace RestTraining.Api.Domain.Repositories
 
             var result = from q1 in filteredByIncludeItems
                         join q2 in filteredByWindowViews on q1.Id equals q2.Id
-                        join q3 in filteredByHotelsAttractions on q2 equals q3
-                         select new HotelNumber { Id = q1.Id, HotelId = q1.HotelId, HotelNumberType = q1.HotelNumberType, IncludeItems = q1.IncludeItems, WindowViews = q1.WindowViews };
+                        join q3 in filteredByHotelsAttractions on q2.Id equals q3.Id
+                        select new HotelNumber { Id = q1.Id, HotelId = q1.HotelId, HotelNumberType = q1.HotelNumberType, IncludeItems = q1.IncludeItems, WindowViews = q1.WindowViews };
             return result.ToList();
         }
 
